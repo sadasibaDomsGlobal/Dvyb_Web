@@ -5,14 +5,14 @@
  * Upload functionality will be handled in separate service files.
  */
 
-import { v2 as cloudinary } from 'cloudinary';
-import { envConfig } from './envConfig.js';
+import { v2 as cloudinary } from "cloudinary";
+import { envConfig } from "./envConfig.js";
 
 // Validate required configuration
 const requiredConfig = {
   name: envConfig.cloudinary?.name,
-  apiKey: envConfig.cloudinary?.apiKey, 
-  apiSecret: envConfig.cloudinary?.apiSecret
+  apiKey: envConfig.cloudinary?.apiKey,
+  apiSecret: envConfig.cloudinary?.apiSecret,
 };
 
 Object.entries(requiredConfig).forEach(([key, value]) => {
