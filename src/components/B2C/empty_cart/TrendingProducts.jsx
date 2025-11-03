@@ -4,36 +4,6 @@ import TrendingImage from '../../../assets/B2C/images/empty_cart/trending.png';
 import { trendingProducts } from '../../../static';
 
 const TrendingProducts = () => {
-//   const trendingProducts = [
-//     {
-//       id: 1,
-//       title: "SKETTER, BUSIN.",
-//       description: "Deep Purple St. Duplex Kron Dust Embedded Kern Sell",
-//       price: "17350",
-//       image: TrendingImage // Using trending image as product image
-//     },
-//     {
-//       id: 2,
-//       title: "SKETTER, BUSIN.",
-//       description: "Deep Purple St. Duplex Kron Dust Embedded Kern Sell",
-//       price: "17350",
-//       image: TrendingImage
-//     },
-//     {
-//       id: 3,
-//       title: "SKETTER, BUSIN.",
-//       description: "Deep Purple St. Duplex Kron Dust Embedded Kern Sell",
-//       price: "17350",
-//       image: TrendingImage
-//     },
-//     {
-//       id: 4,
-//       title: "SKETTER, BUSIN.",
-//       description: "Deep Purple St. Duplex Kron Dust Embedded Kern Sell",
-//       price: "17350",
-//       image: TrendingImage
-//     }
-//   ];
 
   return (
     <div className="border-t border-gray-200 pt-12">
