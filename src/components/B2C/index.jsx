@@ -18,3 +18,10 @@ export {
   default as TrendingProducts,
   default as ProductCard,
 } from "./about";
+
+export {
+  default as EmptyWishlist,
+  default as EmptyWishlistState,
+  default as TrendingProducts,
+  default as ProductCard,
+} from "./empty_wishlist";

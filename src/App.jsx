@@ -1,6 +1,8 @@
 // import { AboutPage } from "./pages/B2C";
 // import { Sidebar } from "./components/b2c/sidebar";
 import { EmptyCart } from "./components/b2c/empty_cart";
+// import { EmptyWishlist } from "./components/b2c/empty_wishlist";
+
 
 export default function App() {
   return (

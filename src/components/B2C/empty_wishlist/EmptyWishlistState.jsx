@@ -1,15 +1,14 @@
-import cartImage from "../../../assets/B2C/images/empty_cart/cart.png";
+import wishlistImage from "../../../assets/B2C/images/wishlist/wishlist.png";
 
-const EmptyCartState = () => {
+const EmptyWishlistState = () => {
   return (
     <div className="text-center mb-16">
       <div className="mb-8">
         {/* Cart Image */}
-
         <div className="flex justify-center mb-6">
           <div className="w-52 h-52 bg-gray-100 rounded-full flex items-center justify-center p-4">
             <img
-              src={cartImage}
+              src={wishlistImage}
               alt="Empty Wishlist"
               className="w-40 h-40 object-contain"
             />
@@ -27,4 +26,4 @@ const EmptyCartState = () => {
   );
 };
 
-export default EmptyCartState;
+export default EmptyWishlistState;
