@@ -53,4 +53,10 @@ export const envConfig = {
     b2cUserRole: getEnvVar("VITE_DEFAULT_USER_ROLE_B2C"),
     b2bUserRole: getEnvVar("VITE_DEFAULT_USER_ROLE_B2B"),
   },
+
+  klingApi: {
+    baseUrl: getEnvVar("KLING_API_BASE_URL"),
+    accessKey: getEnvVar("KLING_ACCESS_KEY"),
+    secretKey: getEnvVar("KLING_SECRET_KEY"),
+  },
 };
