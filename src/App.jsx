@@ -1,9 +1,11 @@
-import { AboutPage } from "./pages/B2C";
+import Footer from "./components/common/footer/footer";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white text-gray-900">
-      <AboutPage />
+    <div className=" " >
+  
+    <Footer />
+
     </div>
   );
 }
