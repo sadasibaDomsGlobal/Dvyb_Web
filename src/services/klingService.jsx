@@ -4,34 +4,37 @@ import { Buffer } from "buffer";
 import { envConfig } from "../config";
 
 /**
- * KlingService - Handles all communication with the Kling AI API.
- * --------------------------------------------------------------
- * Implements Singleton pattern to ensure only one instance
- * manages authentication token and API calls.
+ * KlingOperationalService
+ * -----------------------
+ * Handles secure communication with the Kling AI API.
+ * Uses Singleton pattern — only one instance is ever created.
  */
-class KlingOperatonalService {
-  static instance = null;
+class KlingOperationalService {
+  static #instance = null;
 
   constructor() {
-    if (KlingOperatonalService.instance) return KlingOperatonalService.instance;
+    if (KlingOperationalService.#instance) return KlingOperationalService.#instance;
 
-    // Load configurations from envConfig
     this.baseUrl = envConfig.klingApi.baseUrl;
     this.accessKey = envConfig.klingApi.accessKey;
     this.secretKey = envConfig.klingApi.secretKey;
 
-    KlingOperatonalService.instance = this;
+    if (!this.baseUrl || !this.accessKey || !this.secretKey) {
+      throw new Error("❌ Missing Kling API credentials in environment configuration.");
+    }
+
+    KlingOperationalService.#instance = this;
   }
 
   /**
-   * Generate a secure JWT token for Kling API requests
+   * Generates a secure JWT token for Kling API authentication
    */
   generateAuthToken() {
     try {
       const header = { alg: "HS256", typ: "JWT" };
       const payload = {
         iss: this.accessKey,
-        exp: Math.floor(Date.now() / 1000) + 1800,
+        exp: Math.floor(Date.now() / 1000) + 1800, // 30 minutes expiry
         nbf: Math.floor(Date.now() / 1000) - 5,
       };
 
@@ -55,38 +58,58 @@ class KlingOperatonalService {
 
       return `${headerEncoded}.${payloadEncoded}.${signature}`;
     } catch (error) {
-      console.error("❌ Failed to generate Kling token:", error);
-      throw new Error("Failed to generate Kling authentication token");
+      console.error("❌ Kling token generation failed:", error);
+      throw new Error("Failed to generate Kling API token");
     }
   }
 
   /**
-   * Send POST request to Kling API endpoint
-   * @param {string} endpoint - API endpoint path
-   * (e.g. '/videos/image2video')
-   * @param {object} data - Request payload
+   * Centralized request handler for any HTTP method
    */
-  async post(endpoint, data) {
+  async request(method, endpoint, data = null) {
     const token = this.generateAuthToken();
 
     try {
-      const response = await axios.post(`${this.baseUrl}${endpoint}`, data, {
+      const response = await axios({
+        method,
+        url: `${this.baseUrl}${endpoint}`,
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        data,
         timeout: 60000,
       });
 
       return response.data;
     } catch (error) {
-      console.error("❌ Kling API request failed:", error.message);
-      throw new Error(error.response?.data?.message || "Kling API request error");
+      console.error(`❌ Kling API ${method.toUpperCase()} ${endpoint} failed:`, error.message);
+      throw new Error(error.response?.data?.message || error.message || "Kling API request error");
     }
+  }
+
+  /**
+   * Submit a new image-to-video generation task
+   */
+  async createVideoFromImage(imageUrl, options = {}) {
+    const payload = {
+      image_url: imageUrl,
+      ...options,
+    };
+
+    return this.request("POST", "/videos/image2video", payload);
+  }
+
+  /**
+   * Fetch the status of a task using its ID
+   */
+  async getTaskStatus(taskId) {
+    if (!taskId) throw new Error("Task ID is required for status check");
+    return this.request("GET", `/videos/image2video/${taskId}`);
   }
 }
 
 /**
- * Export singleton instance of KlingService
+ * Export a single, shared instance
  */
-export const klingService = new KlingOperatonalService();
+export const klingService = new KlingOperationalService();

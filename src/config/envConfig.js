@@ -59,4 +59,9 @@ export const envConfig = {
     accessKey: getEnvVar("KLING_ACCESS_KEY"),
     secretKey: getEnvVar("KLING_SECRET_KEY"),
   },
+
+  fashnApi: {
+    apiUrl: getEnvVar("VITE_FASHN_API_URL"),
+    authHeader: getEnvVar("VITE_FASHN_AUTH_HEADER"),
+  },
 };
