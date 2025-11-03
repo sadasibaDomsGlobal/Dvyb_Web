@@ -1,1 +1,1 @@
-export { formatPrice } from './formatters';
+export { formatPrice } from "./formatters";

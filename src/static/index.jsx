@@ -1,1 +1,1 @@
-export { default as trendingProducts } from './trendingProducts';
+export { default as trendingProducts } from "./trendingProducts";

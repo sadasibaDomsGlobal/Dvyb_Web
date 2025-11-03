@@ -1,6 +1,5 @@
-
-import EmptyCartState from './EmptyCartState';
-import TrendingProducts from './TrendingProducts';
+import EmptyCartState from "./EmptyCartState";
+import TrendingProducts from "./TrendingProducts";
 
 const EmptyCart = () => {
   return (

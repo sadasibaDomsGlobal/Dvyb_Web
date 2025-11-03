@@ -1,4 +1,4 @@
-import TrendingImage from '../assets/B2C/images/empty_cart/trending.png';
+import TrendingImage from "../assets/B2C/images/empty_cart/trending.png";
 
 export const trendingProducts = [
   {
@@ -8,7 +8,7 @@ export const trendingProducts = [
     price: "17350",
     image: TrendingImage,
     category: "Fashion",
-    rating: 4.5
+    rating: 4.5,
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const trendingProducts = [
     price: "17350",
     image: TrendingImage,
     category: "Fashion",
-    rating: 4.3
+    rating: 4.3,
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const trendingProducts = [
     price: "17350",
     image: TrendingImage,
     category: "Fashion",
-    rating: 4.7
+    rating: 4.7,
   },
   {
     id: 4,
@@ -35,8 +35,8 @@ export const trendingProducts = [
     price: "17350",
     image: TrendingImage,
     category: "Fashion",
-    rating: 4.2
-  }
+    rating: 4.2,
+  },
 ];
 
 export default trendingProducts;

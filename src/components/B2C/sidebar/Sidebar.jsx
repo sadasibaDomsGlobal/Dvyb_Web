@@ -1,7 +1,6 @@
-
-import SidebarHeader from './SidebarHeader';
-import SidebarCategories from './SidebarCategories';
-import SidebarProducts from './SidebarProducts';
+import SidebarHeader from "./SidebarHeader";
+import SidebarCategories from "./SidebarCategories";
+import SidebarProducts from "./SidebarProducts";
 
 const Sidebar = () => {
   return (
