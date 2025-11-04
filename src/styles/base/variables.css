@@ -1,24 +1,30 @@
 @theme {
   /* ===== COLOR PALETTE ===== */
-  --color-primary: #b68b5e;
-  --color-primary-dark: #9a7550;
-  --color-primary-light: #d4b896;
+  
+ 
 
-  --color-white: #ffffff;
-  --color-gray-50: #fafafa;
-  --color-gray-100: #f5f5f5;
-  --color-gray-200: #e5e5e5;
-  --color-gray-600: #666666;
-  --color-gray-800: #333333;
-  --color-gray-900: #1a1a1a;
-
-  --color-background: #ffffff;
-  --color-surface: #fafafa;
-  --color-border: #e5e5e5;
+    --color-primary: "#7A0000",         // Deep Maroon Red – buttons, CTA, borders
+    --color-primaryLight: "#B33A3A",    // Hover or lighter accent
+    --color-secondary: "#F5F1EF",       // Soft beige background tone
+    --color-success: "#2E7D32",         // Green success text
+    --color-error: "#C62828",           // Bright red error text
+    --color-warning: "#E57373",         // Light red for warnings
+    --color-textDark: "#2B2B2B",        // Headings and main text
+    --color-textLight: "#666666",       // Secondary gray text
+    --color-border: "#D9D9D9",          // Light gray for borders
+    --color-white: "#FFFFFF",           // Base white
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #e5e5e5;
+    --color-gray-600: #666666;
+    --color-gray-800: #333333;
+    --color-gray-900: #1a1a1a;
 
   /* ===== TYPOGRAPHY ===== */
   --font-family-sans: "Inter", "Segoe UI", "Roboto", sans-serif;
-  --font-family-serif: "Playfair Display", "Georgia", serif;
+  --font-family-serif: "Outfit", "Georgia", serif;
+  --font-family-outfit: "Outfit", sans-serif;
+  
 
   /* Font Sizes */
   --text-xs: 0.75rem;
