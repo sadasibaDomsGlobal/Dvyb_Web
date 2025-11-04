@@ -3,7 +3,6 @@
 import { EmptyCart } from "./components/b2c/empty_cart";
 // import { EmptyWishlist } from "./components/b2c/empty_wishlist";
 
-
 export default function App() {
   return (
     <div className="font-outfit">

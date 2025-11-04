@@ -1,4 +1,3 @@
-
 import { formatPrice } from "../../../utils";
 
 const ProductCard = ({ product }) => {

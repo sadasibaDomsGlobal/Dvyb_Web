@@ -14,8 +14,8 @@ const FooterLinks = ({ title, links }) => {
                 <Link
                   to={link.to}
                   className=" text-gray-600 hover:text-gray-900 text-xs uppercase transition-colors duration-200"
-                > 
-                  {link.label}  
+                >
+                  {link.label}
                 </Link>
               </li>
             );
