@@ -16,7 +16,7 @@ Please check your .env or .env.example file.`);
 
 export const envConfig = {
   app: {
-    serverPort: getEnvVar("SERVER_PORT"),
+    serverPort: getEnvVar("VITE_SERVER_PORT"),
     name: getEnvVar("VITE_APP_NAME"),
     mode: getEnvVar("VITE_MODE", false),
     developmentBaseUrl: getEnvVar("VITE_BASE_DEVELOPMENT_URL"),
@@ -27,6 +27,7 @@ export const envConfig = {
   firebase: {
     apiKey: getEnvVar("VITE_FIREBASE_API_KEY"),
     authDomain: getEnvVar("VITE_FIREBASE_AUTH_DOMAIN"),
+    databaseURL: getEnvVar("VITE_FIREBASE_DATABASE_URL"),
     projectId: getEnvVar("VITE_FIREBASE_PROJECT_ID"),
     storageBucket: getEnvVar("VITE_FIREBASE_STORAGE_BUCKET"),
     messagingSenderId: getEnvVar("VITE_FIREBASE_MESSAGING_SENDER_ID"),
@@ -55,9 +56,9 @@ export const envConfig = {
   },
 
   klingApi: {
-    baseUrl: getEnvVar("KLING_API_BASE_URL"),
-    accessKey: getEnvVar("KLING_ACCESS_KEY"),
-    secretKey: getEnvVar("KLING_SECRET_KEY"),
+    baseUrl: getEnvVar("VITE_KLING_API_BASE_URL"),
+    accessKey: getEnvVar("VITE_KLING_ACCESS_KEY"),
+    secretKey: getEnvVar("VITE_KLING_SECRET_KEY"),
   },
 
   fashnApi: {
@@ -65,3 +66,5 @@ export const envConfig = {
     authHeader: getEnvVar("VITE_FASHN_AUTH_HEADER"),
   },
 };
+
+export default envConfig;

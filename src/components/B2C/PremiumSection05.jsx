@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Heart, Star } from "lucide-react";
 import Bag_ic from '../../assets/B2C/images/commmon/bag_ic.svg';
 import { useNavigate } from "react-router-dom";
-import { addToCart, subscribeToCart } from "../../services/cartService";
-import { toggleWishlist, isInWishlist } from "../../services/wishlistService";
+
+import { cartService } from "../../services/cartService";
+import { wishlistService } from "../../services/wishlistService";
+// import { addToCart, subscribeToCart } from "../../services/cartService";
+// import { toggleWishlist, isInWishlist } from "../../services/wishlistService";
+
+
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +33,7 @@ function PremiumSection05() {
   useEffect(() => {
     let unsubscribe = null;
     const setup = async () => {
-      unsubscribe = await subscribeToCart((cartItems) => {
+      unsubscribe = await cartService.subscribeToCart((cartItems) => {
         const ids = new Set(cartItems.map(ci => ci.productId || ci.id));
         setCartIds(ids);
       });
@@ -52,7 +57,7 @@ function PremiumSection05() {
     const checkWishlist = async () => {
       if (!user || products.length === 0) return;
       try {
-        const checks = await Promise.all(products.map(p => isInWishlist(p.id)));
+        const checks = await Promise.all(products.map(p => wishlistService.isInWishlist(p.id)));
         const set = new Set();
         products.forEach((p, i) => checks[i] && set.add(p.id));
         setWishlistItems(set);
@@ -63,7 +68,7 @@ function PremiumSection05() {
     checkWishlist();
   }, [user, products]);
 
-  // handleAddToCart (unchanged)
+  
   const handleAddToCart = async (product, e) => {
     e.stopPropagation();
     if (!user) return toast.error("Please log in to add items to cart!");
@@ -74,7 +79,7 @@ function PremiumSection05() {
     setCartIds(prev => new Set(prev).add(product.id));
 
     try {
-      await addToCart(product.id, {
+      await cartService.addToCart(product.id, {
         name: product.name,
         price: product.price,
         imageUrls: product.imageUrls
@@ -109,7 +114,7 @@ function PremiumSection05() {
     };
 
     try {
-      const result = await toggleWishlist(product.id, productData);
+      const result = await wishlistService.toggleWishlist(product.id, productData);
       setWishlistItems(prev => {
         const s = new Set(prev);
         result.inWishlist ? s.add(product.id) : s.delete(product.id);

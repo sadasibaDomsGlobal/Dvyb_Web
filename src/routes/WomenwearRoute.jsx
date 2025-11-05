@@ -1,5 +1,5 @@
 import { useProducts } from '../hooks';
-import PremiumSection05 from '../components/b2c';
+import {PremiumSection05} from '../components/b2c';
 import MainLayout from '../layout';
 
 const WomenwearRoute = () => {

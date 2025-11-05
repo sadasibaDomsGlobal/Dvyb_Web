@@ -17,6 +17,7 @@ import { envConfig } from "./envConfig";
 const firebaseConfig = {
   apiKey: envConfig.firebase.apiKey,
   authDomain: envConfig.firebase.authDomain,
+  databaseURL: envConfig.firebase.databaseURL,
   projectId: envConfig.firebase.projectId,
   storageBucket: envConfig.firebase.storageBucket,
   messagingSenderId: envConfig.firebase.messagingSenderId,
