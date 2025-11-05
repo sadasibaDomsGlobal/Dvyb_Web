@@ -1,32 +1,47 @@
 // src/layout/MainLayout.jsx
-import Sidebar from '../components/b2c/Sidebar';  // ← FIXED: from layout to b2c
+import { useState } from "react";
+import "../styles/MainLayout.css";
 
+/**
+ * MainLayout:
+ * - Fixed Header with responsive nav
+ * - Footer
+ * - Body area for SecondaryLayout
+ */
 const MainLayout = ({ children }) => {
+  const [navOpen, setNavOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-50 font-outfit flex flex-col">
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">DVYB</h1>
-          <nav className="flex gap-4 text-sm">
-            <a href="/" className="text-gray-700 hover:text-gray-900">Home</a>
-            <a href="/womenwear" className="text-gray-700 hover:text-gray-900">Womenwear</a>
+      <header className="main-header">
+        <div className="container header-content">
+          <a href="/" className="logo">DVYB</a>
+          <button
+            className="nav-toggle"
+            onClick={() => setNavOpen(!navOpen)}
+            aria-label="Toggle navigation"
+          >
+            Menu
+          </button>
+          <nav className={`nav ${navOpen ? "open" : ""}`}>
+            <a href="/">Home</a>
+            <a href="/womenwear">Womenwear</a>
           </nav>
         </div>
       </header>
 
       {/* Body */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className="hidden lg:block w-80 bg-white border-r border-gray-200 sticky top-0 h-screen overflow-y-auto">
-          <Sidebar />
-        </aside>
+      <main style={{ flex: 1, paddingTop: "80px" }}>
+        {children}
+      </main>
 
-        {/* Main */}
-        <main className="flex-1 p-6 lg:p-8">
-          {children}
-        </main>
-      </div>
+      {/* Footer */}
+      <footer className="main-footer">
+        <div className="container footer-content">
+          © 2025 DVYB. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 };
