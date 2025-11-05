@@ -33,8 +33,8 @@ const Save = () => {
         {/* Right Section - Offer Content */}
         <div className="w-full md:w-1/2 bg-[#FDF2EA] p-6 md:p-10 flex flex-col items-center justify-center text-center">
           {/* Heading */}
-          <h2 className="text-[40px] sm:text-[64px] font-[cursive] italic text-[#5A2E14] mb-4">
-            Save <span className="font-bold">20%</span>
+          <h2 className="text-[60px] sm:text-[64px] font-normal  mb-4">
+            Save <span className="font-bold bg-red-500">20%</span>
           </h2>
 
           {/* Description */}

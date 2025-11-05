@@ -13,7 +13,7 @@ export default function HeroSection() {
       <div className="absolute bottom-[80px] left-1/2 -translate-x-1/2 z-10">
         <h1
           className="text-[100px] sm:text-[60px] md:text-[100px] lg:text-[120px] 
-          font-serif font-extrabold tracking-[3px]"
+           font-extrabold tracking-[3px]"
           style={{
             color: "white",
             textShadow: "2px 2px 8px rgba(0,0,0,0.4)",

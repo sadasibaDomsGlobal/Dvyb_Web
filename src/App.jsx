@@ -18,7 +18,7 @@ import ShareCart from "./components/common/PopUps/ShareCart";
 import OfferPopup from "./components/common/PopUps/PromoCode";
 import LoginPopUp from "./components/common/PopUps/LoginPopUp";
 import GiftPopup from "./components/common/PopUps/GiftPopup";
-import Cart from "./components/common/Cart/Cart"
+import Cart from "./components/common/Cart/Cart";
 export default function App() {
   return (
     <div className=" ">
@@ -30,19 +30,21 @@ export default function App() {
       {/* <SingleBlog /> */}
       {/* <TermsAndConditions/> */}
 
-      {/* error one */}
       {/* <BlogPage /> */}
 
+      {/* need to add fonts  */}
       {/* <Save /> */}
+
       {/* <GetOff/> */}
 
-      {/* <Example.jsx/> */}
+      
 
       {/* <ShareModal/> */}
 
       {/* <Productsharepopup/> */}
       {/* <FeedbackForm/> */}
 
+      {/* font change  */}
 
       {/* <Login/> */}
 
@@ -51,7 +53,47 @@ export default function App() {
       {/* <LoginPopUp/> */}
 
       {/* <GiftPopup/> */}
-      <Cart/>
+      {/* <Cart/> */}
     </div>
   );
+}
+
+{
+  /* <div className="mt-16 space-y-2 w-[80%] mx-auto">
+ 
+  <div className="flex flex-col md:flex-row gap-2">
+    <div className="h-96 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-1">
+      <img
+        src={galleryImages.image1}
+        alt="Bridal wear close-up"
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <div className="h-76 mt-20 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-[0.5]">
+      <img
+        src={galleryImages.image5}
+        alt="Woman in pink lehenga"
+        className="w-[100%] h-[100%] object-cover"
+      />
+    </div>
+  </div>
+
+
+  <div className="flex flex-col md:flex-row gap-1">
+    <div className="h-76 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-[0.5]">
+      <img
+        src={galleryImages.image3}
+        alt="Woman in maroon lehenga"
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <div className="h-96 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-1">
+      <img
+        src={galleryImages.image4}
+        alt="Embroidered saree detail"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+</div>; */
 }

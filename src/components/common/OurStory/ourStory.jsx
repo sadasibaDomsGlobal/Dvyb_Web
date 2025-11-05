@@ -65,26 +65,26 @@ const ourStory = () => {
       <div className="w-full h-[80px]" />
 
       {/* Our Story */}
-      <section className="max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-14 tracking-tight">Our Story</h1>
+      <section className="max-w-7xl w-full px-4 sm:px-1 lg:px-8 py-10  text-center">
+        <h1 className="font-semibold text-5xl mb-2">Our Story</h1>
 
-        <div className="w-[50%] h-[40%]  flex justify-center mb-12 max-w-4xl mx-auto">
+        <div className="w-[40%] h-[30%]  flex justify-center mb-10 max-w-4xl mx-auto">
           <img
             src={galleryImages.image2}
             alt="Our Story Group"
-            className="rounded-lg w-full h-auto object-cover shadow-xl max-h-[580px]"
+            className="rounded-lg w-full h-auto object-cover shadow-xl max-h-[880px]"
           />
         </div>
 
-        <div className="max-w-4xl mx-auto text-base sm:text-lg leading-relaxed text-gray-700 space-y-7 mb-16">
-          <p>
+        <div className="max-w-4xl mx-auto mb-8 space-y-7 text-center">
+          <p className="text-[24px] leading-[46px] font-[400]  text-gray-600 capitalize">
             DVYB Was Born With A Vision To Make Ethnic Fashion Timeless Yet Effortless. In India,
             Every Weave Tells A Story — From The Grace Of Kanchipuram Silks To The Artistry Of
             Kalamkari And The Elegance Of Banarasi Sarees. But Bringing These Traditions To Modern
             Shoppers, Especially Online, Often Felt Complicated.
           </p>
 
-          <p>
+          <p className="text-[24px] leading-[46px] font-[400] text-gray-600 capitalize">
             That’s Why DVYB Blends Technology With Tradition. Through Our 2D And 3D Virtual Try-On,
             You Don’t Just Shop — You Experience How A Saree, Lehenga, Or Ethnic Outfit Looks On You
             Before Making A Choice. We Bring Together Regional Weaves, Heritage Crafts, And Festive
@@ -93,7 +93,7 @@ const ourStory = () => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 mb-4">
+        <div className="flex justify-center gap-8 mb-3">
           {socialIcons.map((item, i) => (
             <a
               key={i}
@@ -105,15 +105,13 @@ const ourStory = () => {
             </a>
           ))}
         </div>
-        <p className="text-sm text-gray-600">
-          Follow us for more stories, weaves & inspirations ✨
-        </p>
+        <p className="text-sm text-gray-600">Follow us for more stories, weaves & inspirations</p>
       </section>
 
       {/* Mission */}
-      <section className="max-w-4xl w-full text-center px-4 sm:px-6 py-14">
-        <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-        <p className="text-lg leading-relaxed text-gray-700">
+      <section className="max-w-5xl w-full text-center px-4 sm:px-6 py-2">
+        <h2 className="text-4xl font-bold mb-3">Our Mission</h2>
+        <p className=" font-semibold text-[24px] leading-[46px] tracking-[0] text-gray-700 text-center capitalize">
           To Make Ethnic Fashion Accessible, Interactive, And Authentic. We Want Shoppers To
           Discover The Beauty Of Traditional Sarees And Ethnic Wear While Enjoying A Modern,
           Tech-Driven Shopping Experience With Features Like Virtual Try-Ons, Personalized Curation,
@@ -123,9 +121,9 @@ const ourStory = () => {
 
       {/* Vision */}
       <section className="max-w-4xl w-full text-center px-4 sm:px-6 py-14">
-        <h2 className="text-4xl font-bold mb-6">Our Vision</h2>
-        <p className="text-lg leading-relaxed text-gray-700">
-          To Become The Go-To Digital Destination For Ethnic Wear Worldwide — Celebrating India’s
+        <h2 className="text-4xl font-bold mb-2">Our Vision</h2>
+        <p className=" font-semibold text-[24px] leading-[46px] tracking-[0] text-gray-700 text-center capitalize">
+          To Become The Go-To Digital Destination For Ethnic Wear Worldwide Celebrating India’s
           Diverse Handlooms, Crafts, And Designs, While Reimagining The Shopping Journey With
           Technology. We Aim To Connect Generations To Their Roots By Offering Heritage Pieces With
           A Modern Twist And A Shopping Experience That Feels Immersive, Inspiring, And Inclusive.
@@ -133,42 +131,44 @@ const ourStory = () => {
       </section>
 
       {/* Core Values */}
-      <section className="max-w-7xl w-full text-center px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-7xl w-full text-center px-4 sm:px-3 lg:px-8 py-1">
         <h2 className="text-4xl font-bold mb-16">Our Core Values</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 mb-20">
           {coreValues.map((value, index) => (
             <div key={index} className="flex flex-col items-center px-2">
               <FontAwesomeIcon icon={value.icon} className="text-3xl text-gray-500 mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">{value.title}</h3>
-              <p className="text-gray-600 text-sm leading-snug max-w-[200px] mx-auto">
+              <h4 className="font-outfit font-medium text-[22px] leading-[30px] tracking-[0] text-gray-900 text-center mb-1">
+                {value.title}
+              </h4>
+              <p className=" font-normal text-[16px] leading-[20px] tracking-[0] text-gray-600 text-center max-w-[200px] mx-auto">
                 {value.text}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-16 space-y-2 w-[80%] mx-auto">
+        <div className="mt-19  w-[80%] mx-auto">
           {/* First Row */}
-          <div className="flex flex-col md:flex-row gap-2">
-            <div className="h-96 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-1">
+          <div className="flex flex-col md:flex-row gap-1">
+            <div className="rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-1">
               <img
                 src={galleryImages.image1}
                 alt="Bridal wear close-up"
-                className="w-full h-full object-cover"
+                className="w-full object-cover sm:h-[300px] md:h-96"
               />
             </div>
-            <div className="h-76 mt-20 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-[0.5]">
+            <div className="mt-4 md:mt-20 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-[0.5]">
               <img
                 src={galleryImages.image5}
                 alt="Woman in pink lehenga"
-                className="w-[100%] h-[100%] object-cover"
+                className="w-full bg-red-800 object-cover sm:h-[250px] md:h-76"
               />
             </div>
           </div>
 
           {/* Second Row */}
-          <div className="flex flex-col md:flex-row gap-1">
+          <div className="flex flex-col md:flex-row gap-1 p-2">
             <div className="h-76 rounded-lg overflow-hidden shadow-xl transition duration-300 hover:scale-[1.005] flex-[0.5]">
               <img
                 src={galleryImages.image3}
@@ -189,7 +189,6 @@ const ourStory = () => {
 
       {/* Footer space */}
       <div className="w-full h-[80px]" />
-     
     </div>
   );
 };

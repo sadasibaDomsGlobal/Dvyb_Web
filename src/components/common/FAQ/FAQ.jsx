@@ -65,7 +65,7 @@ const FaqPage = () => {
           <img
             src={brdialImage}
             alt="Customer support banner"
-            className="rounded-lg w-full h-auto max-w-md object-cover"
+            className="rounded-lg w-[80%] h-[70%] max-w-md object-cover"
           />
         </div>
 
@@ -73,13 +73,13 @@ const FaqPage = () => {
         <div className="w-full md:w-1/2 flex flex-col items-center text-center">
           {/* Centered Logo */}
           <div className="mb-6 flex flex-col items-center">
-            <img className="w-40 md:w-48 mb-3" src={logoImage} alt="Logo" />
+            <img className="w-40 md:w-20 mb-3" src={logoImage} alt="Logo" />
               
             <img className="mb-2 w-16 md:w-20" src={LogoName} alt="LogoName" />
           </div>
 
           {/* Paragraph */}
-          <p className="text-base leading-relaxed text-gray-800 max-w-md">
+          <p className=" font-medium  leading-relaxed !text-gray-900 max-w-md">
             At DVYB, we're here to assist you with shopping that's both simple
             and budget-friendly, all while ensuring you don't sacrifice style,
             quality, or variety. Whether you're preparing for weddings or family

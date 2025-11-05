@@ -2,7 +2,7 @@ export default function MissionVision() {
   return (
     <section className="w-full bg-[var(--background-light)] py-12 sm:py-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-center mb-8 sm:mb-12 text-[var(--text-primary)]">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl  font-normal text-center mb-8 sm:mb-12 text-[var(--text-primary)]">
           Mission & Vision
         </h2>
 
@@ -12,7 +12,7 @@ export default function MissionVision() {
             <div className="bg-[var(--primary-light)] w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
               <span className="text-xl sm:text-2xl">🎯</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-serif font-normal mb-3 sm:mb-4 text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl  font-normal mb-3 sm:mb-4 text-[var(--text-primary)]">
               Our Mission
             </h3>
             <p className="text-[var(--text-secondary)] leading-relaxed text-sm sm:text-base">
@@ -28,7 +28,7 @@ export default function MissionVision() {
             <div className="bg-[var(--primary-light)] w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
               <span className="text-xl sm:text-2xl">👁️</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-serif font-normal mb-3 sm:mb-4 text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl  font-normal mb-3 sm:mb-4 text-[var(--text-primary)]">
               Our Vision
             </h3>
             <p className="text-[var(--text-secondary)] leading-relaxed text-sm sm:text-base">

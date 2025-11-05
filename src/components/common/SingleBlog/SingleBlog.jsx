@@ -32,7 +32,7 @@ export default function SingleBlog() {
 
         {/* Title Section */}
         <div className="text-center mb-6">
-          <h3 className="text-3xl mb-4">The Ultimate Guide to Choosing the Perfect Diwali Saree</h3>
+          <h3 className="text-4xl font-medium tracking-[2%] mb-4">The Ultimate Guide to Choosing the Perfect Diwali Saree</h3>
           <div className="flex justify-center gap-4 text-sm text-gray-600">
             <span>21 october, 25</span>
             <span>5 Min read</span>
@@ -46,7 +46,7 @@ export default function SingleBlog() {
 
         {/* The Significance of Colour */}
         <section className="mb-8">
-          <h2 className="text-xl font-medium mb-4">The Significance of Colour</h2>
+          <h2 className="text-xl font-normal mb-4">The Significance of Colour</h2>
           <p className="text-gray-700 leading-relaxed">
             When selecting a saree for Diwali, the choice of colour plays a key role in setting the mood and creating a visual impact. Each colour has its own symbolism—red embodies strength and courage, yellow radiates joy and positivity, and white represents purity. For evening events, deeper tones like maroon, emerald, or navy lend a sense of grandeur, while pastels such as blush pink, mint green or sunshine yellow are perfect for daytime festivities. Consider not just the occasion but also what resonates with your personal taste and complements your complexion, allowing your saree to truly reflect your unique style.
           </p>
@@ -54,7 +54,7 @@ export default function SingleBlog() {
 
         {/* The Right Fabric for the Occasion */}
         <section className="mb-8">
-          <h2 className="text-xl font-medium mb-4">The Right Fabric for the Occasion</h2>
+          <h2 className="text-xl font-normal mb-4">The Right Fabric for the Occasion</h2>
           <p className="text-gray-700 leading-relaxed">
             The fabric of your saree is crucial for both comfort and style. Depending on the type of Diwali event—be it a casual gathering or a grand celebration—different fabrics will suit different moods. For intimate family get-togethers, breathable fabrics like cotton or linen offer relaxed elegance. For more festive, elaborate occasions, luxurious fabrics like silk, organza, or tissue add a touch of opulence. Consider the climate too; for warmer weather, lightweight georgette or chiffon sarees offer a flowing, graceful drape, while organza provides a more structured and regal look. The perfect fabric strikes a balance between elegance and ease, ensuring you feel both comfortable and chic.
           </p>
@@ -62,7 +62,7 @@ export default function SingleBlog() {
 
         {/* Designs That Dazzle */}
         <section className="mb-12">
-          <h2 className="text-xl font-medium mb-4">Designs That Dazzle</h2>
+          <h2 className="text-xl font-normal mb-4">Designs That Dazzle</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
             Diwali is the perfect time to showcase your individual style, and sarees offer endless options to express it. From regionally inspired weaves to contemporary designs, there's a saree for every festive occasion. For grand celebrations, opt for a stunning Kanjivaram or a heavily embroidered Banarasi saree to make a bold statement. For smaller, more casual events, a silk-cotton blend or a lightweight georgette saree offers understated charm. Whether you prefer traditional designs or modern silhouettes, choose a saree that resonates with your personal aesthetic and enhances your Diwali look.
           </p>
@@ -74,7 +74,7 @@ export default function SingleBlog() {
         {/* Suggestions Section */}
         <section>
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-medium">SUGGESTIONS</h2>
+            <h2 className="text-xl font-normal">SUGGESTIONS</h2>
             <button className="text-sm underline">VIEW ALL</button>
           </div>
 

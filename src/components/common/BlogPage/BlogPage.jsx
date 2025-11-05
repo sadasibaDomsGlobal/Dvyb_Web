@@ -8,8 +8,8 @@ import Hand from "../../../assets/B2C/images/MainBlog/Hand.svg";
 import women from "../../../assets/B2C/images/MainBlog/Women.svg";
 import Lehanga from "../../../assets/B2C/images/MainBlog/Lehanga.svg";
 import LehangaStyle1 from "../../../assets/B2C/images/MainBlog/Lehangastyle.svg";
-import Anarkali from "../../../assets/B2C/images/MainBlog/Anarkali.svg" 
-import kurta from "../../../assets/B2C/images/MainBlog/kurta.svg"
+import Anarkali from "../../../assets/B2C/images/MainBlog/Anarkali.svg";
+import kurta from "../../../assets/B2C/images/MainBlog/kurta.svg";
 
 // Image constants - Replace these URLs with your actual images
 const IMAGES = {
@@ -29,7 +29,7 @@ const IMAGES = {
   products: {
     lehenga: Lehanga,
     eveningDrapery: LehangaStyle1,
-    floralKurta1:Anarkali ,
+    floralKurta1: Anarkali,
     floralKurta2: kurta,
   },
 
@@ -118,7 +118,7 @@ const BlogPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Blog of the Day */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">BLOG OF THE DAY</h2>
+            <h2 className="text-sm font-medium mb-4">BLOG OF THE DAY</h2>
             <div className="relative">
               <img
                 src={IMAGES.blogOfTheDay}
@@ -143,7 +143,7 @@ const BlogPage = () => {
 
           {/* Recent Blogs */}
           <div>
-            <h2 className="text-xl font-bold mb-4">RECENT BLOGS</h2>
+            <h2 className="text-sm font-medium mb-4">RECENT BLOGS</h2>
             <div className="grid grid-cols-2 gap-4">
               {recentBlogs.map((blog, index) => (
                 <div key={index} className="cursor-pointer">
@@ -152,7 +152,7 @@ const BlogPage = () => {
                     alt={blog.title}
                     className="w-full h-32 object-cover rounded-lg mb-2"
                   />
-                  <h4 className="text-sm font-semibold mb-1">{blog.title}</h4>
+                  <h4 className="text-sm  mb-1">{blog.title}</h4>
                   <p className="text-xs text-gray-500">{blog.date}</p>
                 </div>
               ))}
@@ -171,8 +171,8 @@ const BlogPage = () => {
                   className="w-full h-auto transform transition-transform duration-300 group-hover:scale-105"
                 />
                 {product.subtitle && (
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white">
-                    <h4 className="text-lg font-bold">{product.subtitle}</h4>
+                  <div className="absolute bottom-9 left-1 top-70 right-0 inset-1  bg-opacity-30 flex flex-col items-center justify-center text-white ">
+                    <h4 className="text-lg font-bold ">{product.subtitle}</h4>
                     {product.discount && <p className="text-sm mt-2">{product.discount}</p>}
                   </div>
                 )}
@@ -199,14 +199,14 @@ const BlogPage = () => {
 
         {/* Fashion Baits */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Fashion Baits</h2>
+          <h2 className="text-sm font-medium mb-4">Fashion Baits</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {fashionBaits.map((item, index) => (
               <div key={index} className="cursor-pointer">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-32 object-cover rounded-lg mb-2"
+                  className="w-full h-50 object-cover rounded-lg mb-2"
                 />
                 <h4 className="text-xs font-semibold mb-1">{item.title}</h4>
                 <p className="text-xs text-gray-500">{item.date}</p>
