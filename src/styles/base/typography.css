@@ -72,3 +72,41 @@ p {
   font-weight: 400;
   font-size: 0.75rem;
 }
+
+/* Medium screens (md) */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem; /* text-5xl */
+  }
+  
+  h2 {
+    font-size: 2.25rem; /* text-4xl */
+  }
+  
+  h3 {
+    font-size: 1.5rem; /* text-2xl */
+  }
+  
+  p {
+    font-size: 1rem; /* text-base */
+  }
+}
+
+/* Large screens (lg) */
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3.75rem; /* text-6xl */
+  }
+  
+  h2 {
+    font-size: 2.25rem; /* text-4xl */
+  }
+  
+  h3 {
+    font-size: 1.5rem; /* text-2xl */
+  }
+  
+  p {
+    font-size: 1rem; /* text-base */
+  }
+}

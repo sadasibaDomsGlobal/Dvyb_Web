@@ -1,12 +1,13 @@
 // import { AboutPage } from "./pages/B2C";
 // import { Sidebar } from "./components/b2c/sidebar";
-import { EmptyCart } from "./components/b2c/empty_cart";
+// import { EmptyCart } from "./components/b2c/empty_cart";
 // import { EmptyWishlist } from "./components/b2c/empty_wishlist";
+import { ProductListingPage } from "./pages";
 
 export default function App() {
   return (
     <div className="font-outfit">
-      <EmptyCart />
+      <ProductListingPage />
     </div>
   );
 }

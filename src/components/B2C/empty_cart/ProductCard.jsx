@@ -1,7 +1,7 @@
 import React from "react";
 import { formatPrice } from "../../../utils";
 
-const ProductCard = ({ product }) => {
+const EmptyCardProductCard = ({ product }) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition duration-200">
       {/* Product Image */}
@@ -23,4 +23,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default EmptyCardProductCard;

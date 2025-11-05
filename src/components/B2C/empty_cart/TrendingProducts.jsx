@@ -1,7 +1,7 @@
 import ProductCard from "./ProductCard";
 import { trendingProducts } from "../../../static";
 
-const TrendingProducts = () => {
+const EmptyCartTrendingProducts = () => {
   return (
     <div className="border-t border-gray-200 pt-12">
       {/* Section Header */}
@@ -20,4 +20,4 @@ const TrendingProducts = () => {
   );
 };
 
-export default TrendingProducts;
+export default EmptyCartTrendingProducts;

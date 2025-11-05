@@ -20,7 +20,6 @@ export const envConfig = {
     mode: getEnvVar("VITE_MODE", false),
     developmentBaseUrl: getEnvVar("VITE_BASE_DEVELOPMENT_URL"),
     productionBaseUrl: getEnvVar("VITE_BASE_PRODUCTION_URL"),
-    deepLink: getEnvVar("VITE_DEEP_LINK"),
     timeZone: getEnvVar("VITE_TIMEZONE"),
   },
 

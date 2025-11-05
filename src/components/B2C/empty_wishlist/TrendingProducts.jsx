@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import WishlistProductCard from "./ProductCard";
 import { trendingWishlistProducts } from "../../../static";
 
 const TrendingProducts = () => {
@@ -13,7 +13,7 @@ const TrendingProducts = () => {
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {trendingWishlistProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <WishlistProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
