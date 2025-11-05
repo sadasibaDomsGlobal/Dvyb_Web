@@ -1,4 +1,9 @@
 /* Typography Styles */
+
+*{
+  font-family: var(--font-family-outfit);
+}
+
 h1,
 h2,
 h3,

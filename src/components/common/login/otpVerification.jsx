@@ -24,10 +24,10 @@ const OtpVerification = ({ confirmation, mobile, onSuccess, onError, onResend })
 
   return (
     <div className="bg-white mb-12 py-6 w-full max-w-md mx-auto font-outfit">
-      <img src={otpBanner} alt="otp-banner" className="mb-4 w-full object-cover h-48" />
-      <div className="text-center">
-        <h3 className="text-2xl font-extrabold text-textLight ">OTP Verification</h3>
-        <p className="text-sm">
+      <img src={otpBanner} alt="otp-banner" className="mb-12 w-full object-cover h-62" />
+      <div className="text-center m-4 p-12">
+        <span className="text-2xl font-bold text-textLight">OTP Verification</span>
+        <p className="text-base">
           Enter the OTP sent to <b className="text-textDark font-bold" >+91 {mobile}</b>
         </p>
         <form onSubmit={handleVerify}>
@@ -45,10 +45,11 @@ const OtpVerification = ({ confirmation, mobile, onSuccess, onError, onResend })
             error={error}
             autoFocus
           />
-          {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
-          <p className="text-base mt-2 text-borderLight">
-            Didn’t receive the OTP?{" "}
-            <button type="button" onClick={onResend} className="font-medium">
+        
+          <p className="text-base text-borderLight font-normal p-2">
+           {error && error ?<span className="text-base text-[#FF0000] font-">{error} </span> : ` Didn’t receive the OTP? ${" "}`}
+            Didn’t receive the OTP? {" "}
+            <button type="button" onClick={onResend} className="font-medium underline text-[#000000]">
               Resend OTP
             </button>
           </p>

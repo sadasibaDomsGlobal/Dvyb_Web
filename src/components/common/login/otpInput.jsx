@@ -107,7 +107,7 @@ const OtpInput = ({
   }, [handlePaste]);
 
   return (
-    <div className="flex justify-center gap-3 my-6">
+    <div className="flex justify-center gap-3 my-4 px-6">
       {Array.from({ length }, (_, i) => (
         <input
           key={i}
@@ -122,7 +122,7 @@ const OtpInput = ({
           disabled={disabled}
           aria-label={`Digit ${i + 1} of ${length}`}
           className={`
-            w-12 h-14 md:w-14 md:h-16
+            w-10 h-14 md:w-12 md:h-16
             text-center text-2xl font-medium
             bg-transparent
             border-b border-borderLight
@@ -134,7 +134,7 @@ const OtpInput = ({
           `}
           onFocus={(e) => {
             e.target.style.borderBottomColor = 'var(--color-textDark)';
-            e.target.style.borderBottomWidth = "2px";
+            e.target.style.borderBottomWidth = "1px";
           }}
          
         />
