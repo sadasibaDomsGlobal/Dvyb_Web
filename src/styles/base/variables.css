@@ -1,18 +1,17 @@
 @theme {
   /* ===== COLOR PALETTE ===== */
-  
- 
-
-    --color-primary: "#7A0000",         // Deep Maroon Red – buttons, CTA, borders
-    --color-primaryLight: "#B33A3A",    // Hover or lighter accent
-    --color-secondary: "#F5F1EF",       // Soft beige background tone
-    --color-success: "#2E7D32",         // Green success text
-    --color-error: "#C62828",           // Bright red error text
-    --color-warning: "#E57373",         // Light red for warnings
-    --color-textDark: "#2B2B2B",        // Headings and main text
-    --color-textLight: "#666666",       // Secondary gray text
-    --color-border: "#D9D9D9",          // Light gray for borders
-    --color-white: "#FFFFFF",           // Base white
+    --color-primary: #7A0000;
+    --color-primaryLight: #B33A3A;
+    --color-secondary: #F5F1EF;  
+    --color-success: #2E7D32;
+    --color-iserror: #C62828;
+    --color-warning: #E57373;  
+    --color-textDark: #2B2B2B;  
+    --color-textLight: #666666;
+    --color-border: #D9D9D9; 
+    --color-borderLight: #B9B9B9;
+    --color-blackDark: #3A3A3A;
+    --color-white: #FFFFFF;
     --color-gray-50: #fafafa;
     --color-gray-100: #f5f5f5;
     --color-gray-200: #e5e5e5;
@@ -40,16 +39,6 @@
   --text-7xl: 4.5rem;
   --text-8xl: 6rem;
 
-  /* ===== SPACING ===== */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 0.75rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-  --spacing-4xl: 6rem;
-  --spacing-5xl: 8rem;
 
   /* ===== BORDER RADIUS ===== */
   --radius-sm: 0.375rem;
@@ -64,3 +53,5 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
+
+
