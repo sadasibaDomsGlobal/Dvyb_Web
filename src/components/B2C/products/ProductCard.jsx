@@ -1,3 +1,4 @@
+// src/components/b2c/products/ProductCard.jsx
 import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {

@@ -1,17 +1,18 @@
+// src/components/b2c/products/ProductGrid.jsx
 import ProductCard from './ProductCard';
-import { useProducts } from '../../../hooks/useProducts';
+import { useProducts } from '../../../hooks/useProducts';  // ← FIXED PATH
 
 const ProductGrid = () => {
   const { products, loading, error } = useProducts();
 
   if (loading) return <div className="text-center py-12">Loading...</div>;
   if (error) return <div className="text-center py-12 text-red-600">{error}</div>;
-  if (products.length === 0) return <div className="text-center py-12">No products</div>;
+  if (!products.length) return <div className="text-center py-12">No products</div>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+      {products.map(p => (
+        <ProductCard key={p.id} product={p} />
       ))}
     </div>
   );

@@ -1,9 +1,14 @@
-import AppRoutes from "./routes";
+// src/App.jsx
+import { Routes, Route } from 'react-router-dom';
+import WomenwearPage from './pages/WomenwearPage';
+import ProductDetail from './pages/ProductDetail';
 
 export default function App() {
   return (
-    <div className="font-outfit min-h-screen bg-gray-50">
-      <AppRoutes />
-    </div>
+    <Routes>
+      <Route path="/" element={<WomenwearPage />} />
+      <Route path="/womenwear" element={<WomenwearPage />} />
+      <Route path="/products/:id" element={<ProductDetail />} />
+    </Routes>
   );
 }

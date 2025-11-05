@@ -1,6 +1,6 @@
-
+// src/hooks/useProducts.js
 import { useState, useEffect } from 'react';
-import { productService } from '../services/firebaseServices'; 
+import { productService } from '../services/firebaseServices';
 
 export const useProducts = () => {
   const [products, setProducts] = useState([]);
@@ -12,9 +12,11 @@ export const useProducts = () => {
       try {
         setLoading(true);
         const data = await productService.fetchAllProducts();
-        setProducts(data.slice(0, 8));
+        console.log('******************** All products fetched:', data);
+        // const published = data.filter(p => p.isPublished === true);
+        setProducts(data);
       } catch (err) {
-        setError("Failed to load products");
+        setError('Failed to load products');
         console.error(err);
       } finally {
         setLoading(false);
