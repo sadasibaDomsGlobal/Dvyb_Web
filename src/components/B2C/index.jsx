@@ -47,3 +47,4 @@ export *
  from "./layout";
 
 
+export { default as PremiumSection05 } from "./PremiumSection05";

@@ -16,6 +16,7 @@ Please check your .env or .env.example file.`);
 
 export const envConfig = {
   app: {
+    serverPort: getEnvVar("SERVER_PORT"),
     name: getEnvVar("VITE_APP_NAME"),
     mode: getEnvVar("VITE_MODE", false),
     developmentBaseUrl: getEnvVar("VITE_BASE_DEVELOPMENT_URL"),
