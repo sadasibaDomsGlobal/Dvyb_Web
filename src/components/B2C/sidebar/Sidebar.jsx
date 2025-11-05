@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import SidebarHeader from "./SidebarHeader";
-import { FilterSection, ColorFilter, PriceRange } from "../filters";
-
+import { Menu, X } from 'lucide-react';
+import { FilterSection, ColorFilter, PriceRange, DiscountFilter } from "../filters";
 
 const Sidebar = ({ products = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('SAREES');
 
   // Dynamic data extraction
   const categories = extractUniqueValues(products, ['category', 'productType', 'dressType']);
@@ -14,21 +11,14 @@ const Sidebar = ({ products = [] }) => {
   const colors = extractColors(products);
   const priceRange = getPriceRange(products);
 
-  // Set initial active category
-  useEffect(() => {
-    if (categories.length > 0) {
-      setActiveCategory(categories[0].name);
-    }
-  }, [categories]);
-
   return (
     <>
       {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-3 rounded-lg shadow-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-lg"
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Overlay */}
@@ -41,36 +31,50 @@ const Sidebar = ({ products = [] }) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-80 bg-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          } lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl lg:shadow-none lg:border-r`}
+        className={`fixed lg:sticky lg:top-0 inset-y-0 left-0 z-30 w-64 bg-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-hidden`}
       >
-        <div className="h-full flex flex-col overflow-y-auto">
-          <SidebarHeader />
-
-          {/* Category Tabs */}
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex space-x-1 overflow-x-auto pb-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat.name}
-                  onClick={() => setActiveCategory(cat.name)}
-                  className={`px-4 py-2 text-sm rounded-full transition-colors ${activeCategory === cat.name
-                      ? 'bg-teal-100 text-teal-700'
-                      : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                >
-                  {cat.name} ({cat.count})
-                </button>
-              ))}
+        <div className="h-full flex flex-col">
+          {/* Header Section - Fixed */}
+          <div className="flex-shrink-0 p-4 border-b border-gray-100">
+            {/* Breadcrumb */}
+            <div className="text-xs text-gray-500 mb-3">
+              Home &gt; Womenswear &gt; Bottoms
             </div>
+
+            {/* Main Title */}
+            <h4 className="text-gray-900 text-base font-medium">CATEGORY</h4>
           </div>
 
-          {/* Filters */}
-          <div className="p-4 space-y-4 flex-1">
-            <FilterSection title="Category" items={categories} searchable />
-            <FilterSection title="Size" items={sizes} />
-            <ColorFilter title="Colors" colors={colors} />
-            <PriceRange min={priceRange.min} max={priceRange.max} />
+          {/* Filters Section - Scrollable */}
+          <div className="flex-1 overflow-y-auto p-4">
+            <div className="space-y-6">
+              <FilterSection 
+                title="CATEGORY" 
+                items={categories} 
+                searchable 
+                defaultOpen={true}
+              />
+              <FilterSection 
+                title="SIZE" 
+                items={sizes}
+                defaultOpen={true}
+              />
+              <ColorFilter 
+                title="COLORS" 
+                colors={colors}
+                defaultOpen={true}
+              />
+              <DiscountFilter 
+                title="DISCOUNT"
+                defaultOpen={true}
+              />
+              <PriceRange 
+                min={priceRange.min} 
+                max={priceRange.max}
+                defaultOpen={true}
+              />
+            </div>
           </div>
         </div>
       </aside>
@@ -78,7 +82,7 @@ const Sidebar = ({ products = [] }) => {
   );
 };
 
-// Helpers (same as before)
+// Helpers (keep the same as before)
 function extractUniqueValues(products, fields) {
   const map = new Map();
   products.forEach((p) => {
@@ -124,7 +128,13 @@ function hexToClass(hex) {
     '#9370DB': 'bg-purple-500',
     '#FF0000': 'bg-red-500',
     '#8B0000': 'bg-red-900',
-    // Add more as needed
+    '#FFFFFF': 'bg-white border border-gray-300',
+    '#008000': 'bg-green-600',
+    '#FFC0CB': 'bg-pink-300',
+    '#FFFF00': 'bg-yellow-400',
+    '#800080': 'bg-purple-600',
+    '#000000': 'bg-black',
+    '#0000FF': 'bg-blue-500',
   };
   return map[hex] || 'bg-gray-400';
 }
@@ -137,69 +147,3 @@ function getPriceRange(products) {
 }
 
 export default Sidebar;
-
-
-
-
-
-
-
-
-
-
-
-/**
- * THis code works with static data
- * I have implemented the dynamic version above
- * So I commented this code out
- */
-
-// import { useState } from 'react';
-// import { Menu, X } from 'lucide-react';
-// import SidebarHeader from "./SidebarHeader";
-// import SidebarCategories from "./SidebarCategories";
-// import SidebarProducts from "./SidebarProducts";
-
-// const Sidebar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <>
-//       {/* Mobile Menu Toggle */}
-//       <button
-//         onClick={() => setIsOpen(!isOpen)}
-//         className="lg:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white p-2.5 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-//       >
-//         {isOpen ? <X size={22} /> : <Menu size={22} />}
-//       </button>
-
-//       {/* Mobile Overlay */}
-//       {isOpen && (
-//         <div
-//           className="lg:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-30"
-//           onClick={() => setIsOpen(false)}
-//         />
-//       )}
-
-//       {/* Sidebar Container */}
-//       <aside
-//         className={`fixed lg:static top-0 left-0 h-full lg:h-auto z-40
-//           w-72 sm:w-80 bg-white rounded-r-2xl lg:rounded-none
-//           border-r border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.05)]
-//           transform transition-transform duration-300 ease-in-out
-//           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-//         `}
-//       >
-//         <div className="flex flex-col h-full p-5 space-y-6">
-//           <SidebarHeader />
-//           <SidebarCategories />
-//           <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-//             <SidebarProducts />
-//           </div>
-//         </div>
-//       </aside>
-//     </>
-//   );
-// };
-
-// export default Sidebar;

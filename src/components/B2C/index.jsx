@@ -4,7 +4,7 @@ export * from "./about";
 export * from "./sidebar";
 export * from "./filters";
 export * from "./products";
-export * from "./layout";
+// export * from "./layout";
 
 // Individual exports (components not exported by above index files)
 export { default as PremiumSection05 } from "./PremiumSection05";

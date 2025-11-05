@@ -1,6 +1,7 @@
 import { useProducts } from '../hooks';
-import {PremiumSection05} from '../components/b2c';
+// import { PremiumSection05 } from '../components/b2c';
 import MainLayout from '../layout';
+import {ProductGrid} from '../components/b2c/products';
 
 const WomenwearRoute = () => {
     const { products, loading, error } = useProducts();
@@ -10,7 +11,10 @@ const WomenwearRoute = () => {
 
     return (
         <MainLayout products={products}>
-            <PremiumSection05 />
+            <div className="p-6">
+                <h1 className="text-3xl font-bold text-gray-900 mb-6">All Products</h1>
+                <ProductGrid />
+            </div>
         </MainLayout>
     );
 };

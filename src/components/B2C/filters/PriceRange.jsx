@@ -1,83 +1,70 @@
 import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
-const PriceRange = ({ min: initialMin, max: initialMax }) => {
+const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) => {
     const [min, setMin] = useState(initialMin || 0);
     const [max, setMax] = useState(initialMax || 100000);
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     return (
-        <div className="border border-gray-200 rounded-xl p-4 mb-6 shadow-sm bg-white">
-            <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase">Price</h3>
-            <div className="space-y-3">
-                <div className="flex justify-between text-xs text-gray-500">
-                    <span>Min</span>
-                    <span>Max</span>
+        <div className="pb-4">
+            {/* Header with toggle */}
+            <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center justify-between w-full text-left mb-2"
+            >
+                <h3 className="font-medium text-gray-900 text-sm">PRICE</h3>
+                {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
+
+            {/* Collapsible Content */}
+            {isOpen && (
+                <div className="space-y-3 text-xs">
+                    {/* Min Max Labels */}
+                    <div className="flex justify-between text-gray-600">
+                        <span>Min</span>
+                        <span>Max</span>
+                    </div>
+                    
+                    {/* Price Inputs */}
+                    <div className="flex gap-2">
+                        <input
+                            type="number"
+                            value={min}
+                            onChange={(e) => setMin(Number(e.target.value))}
+                            className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
+                            placeholder="55"
+                        />
+                        <input
+                            type="number"
+                            value={max}
+                            onChange={(e) => setMax(Number(e.target.value))}
+                            className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
+                            placeholder="37967"
+                        />
+                    </div>
+                    
+                    {/* Range Slider */}
+                    <div className="pt-1">
+                        <input
+                            type="range"
+                            min={initialMin || 0}
+                            max={initialMax || 100000}
+                            value={max}
+                            onChange={(e) => setMax(Number(e.target.value))}
+                            className="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-900"
+                        />
+                    </div>
+                    
+                    {/* Scale */}
+                    <div className="flex justify-between text-gray-500 pt-1">
+                        <span>0</span>
+                        <span>5000000</span>
+                    </div>
                 </div>
-                <div className="flex gap-2">
-                    <input
-                        type="number"
-                        value={min}
-                        onChange={(e) => setMin(Number(e.target.value))}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400"
-                        placeholder="₹0"
-                    />
-                    <input
-                        type="number"
-                        value={max}
-                        onChange={(e) => setMax(Number(e.target.value))}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400"
-                        placeholder="₹1,00,000"
-                    />
-                </div>
-                <input
-                    type="range"
-                    min={initialMin || 0}
-                    max={initialMax || 100000}
-                    value={max}
-                    onChange={(e) => setMax(Number(e.target.value))}
-                    className="w-full"
-                />
-            </div>
+            )}
         </div>
     );
 };
 
 export default PriceRange;
-
-
-
-/**
- * THis code works with static data
- * I have implemented the dynamic version above
- * So I commented this code out
- */
-
-
-// const PriceRange = () => {
-//     return (
-//         <div className="border border-gray-200 rounded-xl p-4 mb-6 shadow-sm hover:shadow-md transition-shadow bg-white">
-//             <h3 className="font-semibold text-gray-900 mb-4 text-sm tracking-wide uppercase">
-//                 Price
-//             </h3>
-//             <div className="space-y-3">
-//                 <div className="flex justify-between text-xs text-gray-500">
-//                     <span>Min</span>
-//                     <span>Max</span>
-//                 </div>
-//                 <div className="flex gap-2">
-//                     <input
-//                         type="text"
-//                         placeholder="₹1000"
-//                         className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all"
-//                     />
-//                     <input
-//                         type="text"
-//                         placeholder="₹1,00,000"
-//                         className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all"
-//                     />
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default PriceRange;

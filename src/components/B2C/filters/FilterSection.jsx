@@ -1,116 +1,59 @@
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 
-const FilterSection = ({ title, items, searchable = false }) => {
+const FilterSection = ({ title, items, searchable = false, defaultOpen = false }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const filtered = items
         .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort((a, b) => b.count - a.count);
 
     return (
-        <div className="border border-gray-200 rounded-xl p-4 mb-6 shadow-sm bg-white">
-            <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase">{title}</h3>
+        <div className="pb-4">
+            {/* Header with toggle */}
+            <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex items-center justify-between w-full text-left mb-2"
+            >
+                <h3 className="font-medium text-gray-900 text-sm">{title}</h3>
+                {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </button>
 
-            {searchable && (
-                <div className="relative mb-4">
-                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+            {/* Collapsible Content */}
+            {isOpen && (
+                <div>
+                    {searchable && (
+                        <div className="relative mb-2">
+                            <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" />
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                className="w-full pl-8 pr-2 py-1.5 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-gray-400"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                    )}
+
+                    <div className="space-y-1 max-h-40 overflow-y-auto text-xs">
+                        {filtered.map((item, i) => (
+                            <label key={i} className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50">
+                                <div className="flex items-center gap-2">
+                                    <input 
+                                        type="checkbox" 
+                                        className="rounded border-gray-300 text-gray-900 focus:ring-gray-500 w-3 h-3" 
+                                    />
+                                    <span className="text-gray-800">{item.name}</span>
+                                </div>
+                                <span className="text-gray-500">({item.count})</span>
+                            </label>
+                        ))}
+                    </div>
                 </div>
             )}
-
-            <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin">
-                {filtered.map((item, i) => (
-                    <label key={i} className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50">
-                        <div className="flex items-center">
-                            <input type="checkbox" className="rounded border-gray-300 text-gray-900 focus:ring-gray-500" />
-                            <span className="ml-2 text-sm text-gray-800">{item.name}</span>
-                        </div>
-                        <span className="text-xs text-gray-500">({item.count})</span>
-                    </label>
-                ))}
-            </div>
         </div>
     );
 };
 
 export default FilterSection;
-
-
-
-
-
-
-/**
- * THis code works with static data
- * I have implemented the dynamic version above
- * So I commented this code out
- */
-
-
-// import { useState } from 'react';
-// import { Search } from 'lucide-react';
-
-// const FilterSection = ({ title, items, searchable = false }) => {
-//     const [searchTerm, setSearchTerm] = useState('');
-
-//     const filteredItems = items.filter((item) =>
-//         item.name.toLowerCase().includes(searchTerm.toLowerCase())
-//     );
-
-//     return (
-//         <div className="border border-gray-200 rounded-xl p-4 mb-6 shadow-sm hover:shadow-md transition-shadow bg-white">
-//             <h3 className="font-semibold text-gray-900 mb-4 text-sm tracking-wide uppercase">
-//                 {title}
-//             </h3>
-
-//             {/* Search Bar */}
-//             {searchable && (
-//                 <div className="relative mb-4">
-//                     <Search
-//                         size={16}
-//                         className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-//                     />
-//                     <input
-//                         type="text"
-//                         placeholder="Search..."
-//                         className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-400 focus:border-gray-400 outline-none transition-all"
-//                         value={searchTerm}
-//                         onChange={(e) => setSearchTerm(e.target.value)}
-//                     />
-//                 </div>
-//             )}
-
-//             {/* Checkbox list */}
-//             <div className="space-y-3 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-1">
-//                 {filteredItems.map((item, index) => (
-//                     <label
-//                         key={index}
-//                         className="flex items-center justify-between cursor-pointer group hover:bg-gray-50 p-1 rounded-md transition-colors"
-//                     >
-//                         <div className="flex items-center">
-//                             <input
-//                                 type="checkbox"
-//                                 className="rounded border-gray-300 text-gray-900 focus:ring-gray-500"
-//                             />
-//                             <span className="ml-2 text-sm text-gray-800 group-hover:text-gray-900 transition">
-//                                 {item.name}
-//                             </span>
-//                         </div>
-//                         <span className="text-xs text-gray-500 group-hover:text-gray-700 transition">
-//                             ({item.count})
-//                         </span>
-//                     </label>
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default FilterSection;
