@@ -1,6 +1,7 @@
-/* Typography Styles with Outfit Font */
-.font-outfit {
-  font-family: "Outfit", sans-serif;
+/* Typography Styles */
+
+*{
+  font-family: var(--font-family-outfit);
 }
 
 h1,
@@ -10,9 +11,6 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-outfit);
-  font-weight: 500;
-  line-height: 1.2;
-  color: #111827; /* gray-900 */
 }
 
 h1 {

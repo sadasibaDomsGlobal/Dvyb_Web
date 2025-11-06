@@ -78,6 +78,7 @@ class ProductOperationalService {
       if (fetchedProducts.length === 0) {
         console.log("⚠️ No products found");
       } else {
+        // console.log(fetchedProducts)
         console.log("📦 Sample products:", fetchedProducts.slice(0, 2));
       }
 

@@ -14,7 +14,7 @@ Please check your .env or .env.example file.`);
   return value;
 };
 
-export const envConfig = {
+const envConfig = {
   app: {
     serverPort: getEnvVar("VITE_SERVER_PORT"),
     name: getEnvVar("VITE_APP_NAME"),
@@ -32,7 +32,7 @@ export const envConfig = {
     storageBucket: getEnvVar("VITE_FIREBASE_STORAGE_BUCKET"),
     messagingSenderId: getEnvVar("VITE_FIREBASE_MESSAGING_SENDER_ID"),
     appId: getEnvVar("VITE_FIREBASE_APP_ID"),
-    measurementId: getEnvVar("VITE_FIREBASE_MEASUREMENT_ID"),
+    // measurementId: getEnvVar("VITE_FIREBASE_MEASUREMENT_ID"),
   },
 
   cloudinary: {

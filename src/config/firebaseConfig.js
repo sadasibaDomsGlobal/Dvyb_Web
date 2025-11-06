@@ -31,13 +31,15 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
  * Optional: Analytics initialization
  * Only initialize analytics if running in a browser environment
  */
-let analytics;
-if (typeof window !== "undefined") {
-  analytics = getAnalytics(app);
-}
+// let analytics;
+// if (typeof window !== "undefined") {
+//   analytics = getAnalytics(app);
+// }
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-export { analytics };
+// export { analytics };
+export  {app};
 export default app;
+
