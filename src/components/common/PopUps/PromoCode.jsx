@@ -7,12 +7,12 @@ export default function OfferPopup() {
       <div className="relative bg-white w-[90%] max-w-sm text-center p-8 shadow-lg border border-gray-200 rounded-md">
         
         {/* Close Button */}
-        <button className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl font-light">
+        <button className="absolute top-3 right-3 text-gray-500 hover:text-black text-3xl font-light">
           ×
         </button>
 
         {/* Main Text */}
-        <h2 className="text-gray-900 text-lg md:text-xl font-semibold mb-2 tracking-wide">
+        <h2 className="text-gray-900 text-lg md:text-xl font-medium mb-2 tracking-wide">
           CHECKOUT NOW
         </h2>
         <p className="text-gray-900 text-base md:text-lg font-medium mb-5">

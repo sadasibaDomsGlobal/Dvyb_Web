@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Banner from "../../../assets/B2C/images/MainBlog/Banner.svg";
+import Banner from "../../../assets/B2C/images/MainBlog/Banner.jpg";
 import red from "../../../assets/B2C/images/MainBlog/Red.svg";
 import bride from "../../../assets/B2C/images/MainBlog/Bride.svg";
 import saree from "../../../assets/B2C/images/MainBlog/saree.svg";

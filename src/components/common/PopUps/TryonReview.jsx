@@ -49,21 +49,21 @@ export default function FeedbackForm() {
   };
 
   return (
-<div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4 pt-16 pb-16">
+<div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-2 pt-6 pb-6">
 <div className="relative bg-white w-[90%] max-w-lg p-6 shadow-xl my-12 rounded-xl">
     {/* Close Button */}
     <button
       onClick={handleClose}
-     className="absolute right-4 top-4 text-gray-500 hover:text-black transition-colors"
+     className="absolute right-3 top-3 text-gray-500 hover:text-black transition-colors"
       aria-label="Close"
     >
       <X size={20} />
     </button>
 
     {/* Header */}
-    <div className="text-center mb-8">
-      <h4 className="text-xl font-semibold tracking-wide">
-        SHARE YOUR EXPERIENCE — IT MEANS A LOT!
+    <div className="text-center  mb-6">
+      <h4 className="text-xl font-base ">
+        SHARE YOUR EXPERIENCE - IT MEANS A LOT!
       </h4>
     </div>
 
@@ -128,7 +128,7 @@ export default function FeedbackForm() {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="bg-red-900 text-white px-16 py-3 rounded hover:bg-red-800 transition-colors font-medium"
+          className="bg-red-900 text-white px-13 py-2 rounded hover:bg-red-800 transition-colors font-medium"
         >
           Submit
         </button>
