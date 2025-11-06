@@ -8,21 +8,21 @@ export const useProducts = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchProducts = async () => {
       try {
         setLoading(true);
         const data = await productService.fetchAllProducts();
-        console.log('******************** All products fetched:', data);
-        // const published = data.filter(p => p.isPublished === true);
+        console.log('📦 All products fetched:', data.length);
         setProducts(data);
       } catch (err) {
         setError('Failed to load products');
-        console.error(err);
+        console.error('❌ Error fetching products:', err);
       } finally {
         setLoading(false);
       }
     };
-    fetch();
+    
+    fetchProducts();
   }, []);
 
   return { products, loading, error };

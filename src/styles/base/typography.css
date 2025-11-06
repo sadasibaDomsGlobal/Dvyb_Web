@@ -1,6 +1,6 @@
 /* Typography Styles */
 
-*{
+/* *{
   font-family: var(--font-family-outfit);
 }
 
@@ -11,100 +11,4 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-outfit);
-}
-
-h1 {
-  font-size: 3.75rem; /* text-6xl */
-  font-weight: 800;
-}
-
-h2 {
-  font-size: 2.25rem; /* text-4xl */
-  font-weight: 400;
-}
-
-h3 {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 500;
-}
-
-p {
-  font-family: "Outfit", sans-serif;
-  font-size: 1rem; /* text-base */
-  line-height: 1.7;
-  color: #4b5563; /* gray-600 */
-}
-
-/* Sidebar specific styles */
-.sidebar-container {
-  font-family: "Outfit", sans-serif;
-}
-
-.sidebar-header-title {
-  font-family: "Outfit", sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
-  letter-spacing: 0.05em;
-}
-
-.sidebar-header-subtitle {
-  font-family: "Outfit", sans-serif;
-  font-weight: 700;
-  font-size: 1.125rem;
-}
-
-.sidebar-header-discount {
-  font-family: "Outfit", sans-serif;
-  font-weight: 900;
-  font-size: 1.5rem;
-}
-
-.sidebar-header-offer {
-  font-family: "Outfit", sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.sidebar-header-website {
-  font-family: "Outfit", sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-}
-
-/* Medium screens (md) */
-@media (min-width: 768px) {
-  h1 {
-    font-size: 3rem; /* text-5xl */
-  }
-  
-  h2 {
-    font-size: 2.25rem; /* text-4xl */
-  }
-  
-  h3 {
-    font-size: 1.5rem; /* text-2xl */
-  }
-  
-  p {
-    font-size: 1rem; /* text-base */
-  }
-}
-
-/* Large screens (lg) */
-@media (min-width: 1024px) {
-  h1 {
-    font-size: 3.75rem; /* text-6xl */
-  }
-  
-  h2 {
-    font-size: 2.25rem; /* text-4xl */
-  }
-  
-  h3 {
-    font-size: 1.5rem; /* text-2xl */
-  }
-  
-  p {
-    font-size: 1rem; /* text-base */
-  }
-}
+} */

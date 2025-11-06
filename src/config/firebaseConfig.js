@@ -12,7 +12,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { envConfig } from "./envConfig";
+import envConfig from "./envConfig";
 
 const firebaseConfig = {
   apiKey: envConfig.firebase.apiKey,

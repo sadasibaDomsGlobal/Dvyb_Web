@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
       {/* Product Info */}
       <div className="p-4">
         <h4 className="font-semibold text-gray-900 mb-1">
-          {product.brand || "Unknown Brand"}
+          {product.category}
         </h4>
         <p className="text-sm text-gray-600 mb-2 line-clamp-2">
           {product.name}

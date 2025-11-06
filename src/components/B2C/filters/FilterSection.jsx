@@ -1,18 +1,29 @@
+// src/components/b2c/filters/FilterSection.jsx
 import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
+import { useFilter } from '../../../context/FilterContext';
 
-const FilterSection = ({ title, items, searchable = false, defaultOpen = false }) => {
+const FilterSection = ({ title, items, searchable = false, defaultOpen = false, filterType }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(defaultOpen);
+    const { selectedFilters, updateFilter } = useFilter();
 
     const filtered = items
         .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort((a, b) => b.count - a.count);
 
+    const handleCheckboxChange = (itemName) => {
+        updateFilter(filterType, itemName);
+    };
+
+    const isChecked = (itemName) => {
+        return selectedFilters[filterType].includes(itemName);
+    };
+
     return (
         <div className="pb-4">
             {/* Header with toggle */}
-            <button 
+            <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full text-left mb-2"
             >
@@ -40,9 +51,11 @@ const FilterSection = ({ title, items, searchable = false, defaultOpen = false }
                         {filtered.map((item, i) => (
                             <label key={i} className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50">
                                 <div className="flex items-center gap-2">
-                                    <input 
-                                        type="checkbox" 
-                                        className="rounded border-gray-300 text-gray-900 focus:ring-gray-500 w-3 h-3" 
+                                    <input
+                                        type="checkbox"
+                                        checked={isChecked(item.name)}
+                                        onChange={() => handleCheckboxChange(item.name)}
+                                        className="rounded border-gray-300 text-gray-900 focus:ring-gray-500 w-3 h-3"
                                     />
                                     <span className="text-gray-800">{item.name}</span>
                                 </div>

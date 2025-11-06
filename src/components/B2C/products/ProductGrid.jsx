@@ -1,19 +1,35 @@
 // src/components/b2c/products/ProductGrid.jsx
+import { useProductFilter } from '../../../hooks/useProductFilter';
 import ProductCard from './ProductCard';
-import { useProducts } from '../../../hooks/useProducts';  // ← FIXED PATH
 
-const ProductGrid = () => {
-  const { products, loading, error } = useProducts();
-
-  if (loading) return <div className="text-center py-12">Loading...</div>;
-  if (error) return <div className="text-center py-12 text-red-600">{error}</div>;
-  if (!products.length) return <div className="text-center py-12">No products</div>;
+const ProductGrid = ({ products }) => {
+  const filteredProducts = useProductFilter(products);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map(p => (
-        <ProductCard key={p.id} product={p} />
-      ))}
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <p className="text-gray-600">
+          Showing {filteredProducts.length} of {products.length} products
+        </p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {filteredProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+      
+      {filteredProducts.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-500 text-lg">No products found matching your filters.</p>
+          <button 
+            onClick={() => {/* Clear filters logic */}}
+            className="mt-4 text-blue-600 hover:text-blue-800"
+          >
+            Clear all filters
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -26,40 +42,57 @@ export default ProductGrid;
 
 
 
+// import { useProducts } from "../../../hooks/useProducts";
+// import ProductCard from "./ProductCard";
 
-
-
-// import ProductCard from './ProductCard';
-// import img1 from '../../../assets/B2C/images/product_details/aranya.png';
-// import img2 from '../../../assets/B2C/images/product_details/kanchiva.png';
-// import img3 from '../../../assets/B2C/images/product_details/Product_Image_2.png';
-// import img4 from '../../../assets/B2C/images/product_details/Product_Image_3.png';
-// import img5 from '../../../assets/B2C/images/product_details/Product_Image_4.png';
-// import img6 from '../../../assets/B2C/images/product_details/Product_Image.png';
-// import img7 from '../../../assets/B2C/images/product_details/rangrag.png';
-// import img8 from '../../../assets/B2C/images/product_details/suhino.png';
-
+// /**
+//  * ProductGrid displays a grid of ProductCard components with proper spacing.
+//  */
 // const ProductGrid = () => {
-//     const products = [
-//         { id: 1, images: img1, brand: 'SUNNO', name: 'Ivory Tissue Mirror & Zart Embroidened Lehenge Set', price: '1,94,900' },
-//         { id: 2, images: img2, brand: 'FABINDA', name: 'Chandadi Silk Cotton Kurta with Pelazzo', price: '18,999' },
-//         { id: 3, images: img3, brand: 'ZARA', name: 'Soinie Effect Mall Dress', price: '13,999' },
-//         { id: 4, images: img4, brand: 'KANCHIVARAM', name: 'Silk Some with Gold Zart Work', price: '1,35,000' },
-//         { id: 5, images: img5, brand: 'W', name: 'Printed Geogertje Dress with Belt', price: '13,499' },
-//         { id: 6, images: img6, brand: 'HEM', name: 'Dimitri Jocket with Four Fur Lines', price: '13,999' },
-//         { id: 7, images: img7, brand: 'ARANYA', name: 'Handcrafted Black Printed Kurta Set', price: '1,12,500' },
-//         { id: 8, images: img8, brand: 'BIBA', name: 'Embroidened Sinogiri Cat Kurta', price: '12,199' },
-//         { id: 9, images: img1, brand: 'AND', name: 'Flood Mead Dress with Buffled Sievers', price: '14,499' },
-//         { id: 10, images: img2, brand: 'LEVIS', name: 'Classic Fit Jeans', price: '12,299' }
-//     ];
+//   const { products, loading, error } = useProducts();
 
+//   if (loading) {
 //     return (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-//             {products.map(product => (
-//                 <ProductCard key={product.id} product={product} />
-//             ))}
+//       <div className="flex justify-center items-center py-20">
+//         <div className="flex flex-col items-center gap-3">
+//           <div className="w-12 h-12 border-4 border-gray-200 border-t-gray-800 rounded-full animate-spin"></div>
+//           <div className="text-base text-gray-600">Loading products...</div>
 //         </div>
+//       </div>
 //     );
+//   }
+
+//   if (error) {
+//     return (
+//       <div className="flex justify-center items-center py-20">
+//         <div className="text-center">
+//           <div className="text-red-500 text-lg font-medium">{error}</div>
+//           <p className="text-gray-500 text-sm mt-2">Please try again later</p>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   if (!products || products.length === 0) {
+//     return (
+//       <div className="flex justify-center items-center py-20">
+//         <div className="text-center">
+//           <div className="text-lg text-gray-700 font-medium">No products found</div>
+//           <p className="text-gray-500 text-sm mt-2">Check back soon for new arrivals</p>
+//         </div>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-x-8 gap-y-12 p-6 place-items-center">
+//       {products.map((product) => (
+//         <div key={product.id} className="flex justify-center">
+//           <ProductCard product={product} />
+//         </div>
+//       ))}
+//     </div>
+//  );
 // };
 
 // export default ProductGrid;

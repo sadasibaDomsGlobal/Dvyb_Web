@@ -1,10 +1,37 @@
-import { useState } from 'react';
+// src/components/b2c/filters/PriceRange.jsx
+import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useFilter } from '../../../context/FilterContext';
 
 const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) => {
-    const [min, setMin] = useState(initialMin || 0);
-    const [max, setMax] = useState(initialMax || 100000);
     const [isOpen, setIsOpen] = useState(defaultOpen);
+    const [localMin, setLocalMin] = useState(initialMin || 0);
+    const [localMax, setLocalMax] = useState(initialMax || 100000);
+    const { updateFilter } = useFilter();
+
+    // Update global filter when local values change (with debounce)
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            updateFilter('priceMin', localMin);
+            updateFilter('priceMax', localMax);
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+    }, [localMin, localMax, updateFilter]);
+
+    const handleMinChange = (value) => {
+        const numValue = Number(value);
+        if (!isNaN(numValue) && numValue >= 0) {
+            setLocalMin(numValue);
+        }
+    };
+
+    const handleMaxChange = (value) => {
+        const numValue = Number(value);
+        if (!isNaN(numValue) && numValue >= localMin) {
+            setLocalMax(numValue);
+        }
+    };
 
     return (
         <div className="pb-4">
@@ -30,15 +57,15 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
                     <div className="flex gap-2">
                         <input
                             type="number"
-                            value={min}
-                            onChange={(e) => setMin(Number(e.target.value))}
+                            value={localMin}
+                            onChange={(e) => handleMinChange(e.target.value)}
                             className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
                             placeholder="55"
                         />
                         <input
                             type="number"
-                            value={max}
-                            onChange={(e) => setMax(Number(e.target.value))}
+                            value={localMax}
+                            onChange={(e) => handleMaxChange(e.target.value)}
                             className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
                             placeholder="37967"
                         />
@@ -50,8 +77,8 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
                             type="range"
                             min={initialMin || 0}
                             max={initialMax || 100000}
-                            value={max}
-                            onChange={(e) => setMax(Number(e.target.value))}
+                            value={localMax}
+                            onChange={(e) => handleMaxChange(e.target.value)}
                             className="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-900"
                         />
                     </div>
