@@ -11,9 +11,6 @@ h4,
 h5,
 h6 {
   font-family: var(--font-family-outfit);
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--color-gray-900);
 }
 
 h1 {

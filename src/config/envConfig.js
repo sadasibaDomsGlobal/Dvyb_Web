@@ -14,7 +14,7 @@ Please check your .env or .env.example file.`);
   return value;
 };
 
-export const envConfig = {
+const envConfig = {
   app: {
     name: getEnvVar("VITE_APP_NAME"),
     mode: getEnvVar("VITE_MODE", false),
@@ -53,3 +53,6 @@ export const envConfig = {
     b2bUserRole: getEnvVar("VITE_DEFAULT_USER_ROLE_B2B"),
   },
 };
+
+export { envConfig };
+export default envConfig;
