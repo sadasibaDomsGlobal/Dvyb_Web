@@ -19,6 +19,9 @@ import OfferPopup from "./components/common/PopUps/PromoCode";
 import LoginPopUp from "./components/common/PopUps/LoginPopUp";
 import GiftPopup from "./components/common/PopUps/GiftPopup";
 import Cart from "./components/common/Cart/Cart";
+import MainBlog from "./components/common/BlogPage/MainBlog";
+import SingleMainBlog from "./components/common/BlogPage/singleBlogMain";
+
 export default function App() {
   return (
     <div className=" ">
@@ -53,6 +56,9 @@ export default function App() {
 
       {/* <GiftPopup/> */}
       {/* <Cart/> */}
+      {/* <MainBlog/> */}
+      {/* <SingleMainBlog/> */}
+     
     </div>
   );
 }
