@@ -4,6 +4,7 @@ import ProductGrid from "./components/b2c/products/ProductGrid";
 import Sidebar from "./components/b2c/sidebar/Sidebar";
 import { FilterProvider } from "./context/FilterContext";
 import { useProducts } from "./hooks/useProducts";
+import AdsCarousel from "./components/common/AdSection/AdsCarousel";
 
 function AppContent() {
   const { products, loading, error } = useProducts();
@@ -25,6 +26,7 @@ function AppContent() {
             </aside>
             
             <section className="lg:w-3/4">
+              <AdsCarousel />
               <ProductGrid products={products} />
             </section>
           </div>
