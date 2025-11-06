@@ -44,12 +44,7 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO */}
-      {/* <HeroBanner
-        discount={15}
-        code="NEWYEAR"
-        imageUrl={hero?.images[0] || "/hero.jpg"}
-      /> */}
+    
       <section className="w-[90vw] h-[500px] md:h-[600px] m-3 mx-auto overflow-hidden flex justify-center items-center shadow-lg">
         <img
           src={homeBanner}
