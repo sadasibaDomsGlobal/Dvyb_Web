@@ -1,5 +1,5 @@
 // src/App.jsx
-import Footer from "./components/"
+// import Footer from "./components/"
 import ProductGrid from "./components/b2c/products/ProductGrid";
 import Sidebar from "./components/b2c/sidebar/Sidebar";
 import { FilterProvider } from "./context/FilterContext";

@@ -1,1 +1,1 @@
-export { default as FaqPage } from "./common";
+// export { default as FaqPage } from "./common";
