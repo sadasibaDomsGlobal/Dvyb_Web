@@ -5,6 +5,15 @@ import ProductCard from './ProductCard';
 const ProductGrid = ({ products }) => {
   const filteredProducts = useProductFilter(products);
 
+  // ✅ Safety check for undefined or empty products
+  if (!products || products.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500 text-lg">Loading or no products found.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
@@ -12,18 +21,18 @@ const ProductGrid = ({ products }) => {
           Showing {filteredProducts.length} of {products.length} products
         </p> */}
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      
+
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">No products found matching your filters.</p>
-          <button 
-            onClick={() => {/* Clear filters logic */}}
+          <button
+            onClick={() => {/* Clear filters logic */ }}
             className="mt-4 text-blue-600 hover:text-blue-800"
           >
             Clear all filters

@@ -1,0 +1,38 @@
+import React from "react";
+import { Clock, Truck } from "lucide-react";
+
+const ProductStockAndShipping = ({ stock = 1, shippingDate = "18th of November" }) => {
+  const isLowStock = stock <= 3; // customize threshold
+
+  return (
+    <div className="space-y-3 mt-4">
+      {/* Stock Info */}
+      <div className="flex items-center gap-2 text-gray-800 text-sm">
+        <Clock size={16} className="text-gray-600" />
+        <span>
+          Limited Stock :{" "}
+          <span className="font-medium text-gray-900">{stock} quantity left</span>
+        </span>
+
+        {isLowStock && (
+          <span className="ml-2 bg-red-600 text-white text-[10px] font-semibold px-2 py-[2px] rounded-sm uppercase tracking-wide">
+            Hurry
+          </span>
+        )}
+      </div>
+
+      {/* Shipping Info */}
+      <div className="flex items-start gap-2 text-gray-700 text-sm leading-relaxed">
+        <Truck size={16} className="text-gray-600 mt-[2px]" />
+        <p>
+          <span className="font-semibold text-gray-900">Standard Shipping : </span>
+          The estimated shipping date for this product is by{" "}
+          <span className="font-medium text-gray-900">{shippingDate}</span>. Please note
+          that this is the shipping date and not the delivery date.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ProductStockAndShipping;
