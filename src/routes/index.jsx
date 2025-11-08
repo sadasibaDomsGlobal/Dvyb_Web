@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import WomenwearRoute from "./WomenwearRoute";
-import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
+// import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
 import ProductLayout from "../layout/ProductLayout";
 import MainLayout from "../layout/mainLayout";
 import { useProducts } from "../hooks/useProducts";
@@ -45,7 +45,7 @@ export default function AppRoutes() {
 
 </MainLayout> */}
 
- <Route
+      <Route
         path="/cart"
         element={
           <MainLayout>
@@ -114,27 +114,27 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-       <Route
+      <Route
         path="/Returns"
         element={
           <MainLayout>
-           <ReturnExchangePolicy/>
+            <ReturnExchangePolicy />
           </MainLayout>
         }
       />
-   <Route
+      <Route
         path="/SingleBlog"
         element={
           <MainLayout>
-           <SingleBlog/>
+            <SingleBlog />
           </MainLayout>
         }
       />
-       <Route
+      <Route
         path="/terms"
         element={
           <MainLayout>
-           <TermsAndConditions/>
+            <TermsAndConditions />
           </MainLayout>
         }
       />

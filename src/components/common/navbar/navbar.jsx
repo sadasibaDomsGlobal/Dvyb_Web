@@ -6,6 +6,7 @@ import NavIcons from "./NavIcons";
 import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
+import { LoginModal } from "../../../pages/B2C/login/loginModel";
 
 
 export default function Navbar() {
