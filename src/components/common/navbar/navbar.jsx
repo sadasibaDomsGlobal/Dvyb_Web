@@ -6,22 +6,26 @@ import MobileMenu from "./MobileMenu";
 import NavIcons from "./NavIcons";
 import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
+import LoginModal from "../../../pages/B2C/login/loginModel";
 
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const wishlistCount = 3;
   const cartCount = 5;
 
   const navigate = (path) => console.log("Go to", path);
+
   const handleProtected = (path) => {
     if (!isLoggedIn) {
-      alert("Please login!");
-      navigate("/login");
+      setShowLogin(true);
+      // alert("Please login!");
+      // navigate("/login");
     } else {
       navigate(path);
     }
@@ -55,7 +59,8 @@ export default function Navbar() {
               onSearch={() => setSearchOpen(true)}
               onWishlist={() => handleProtected("/wishlist")}
               onCart={() => handleProtected("/cart")}
-              onProfile={() => handleProtected("/profile")}
+              // onProfile={() => handleProtected("/profile")}
+              onProfile={() => handleProtected(true)}
             />
           </div>
 
@@ -81,6 +86,9 @@ export default function Navbar() {
         onNavClick={navigate}
         onProtectedClick={handleProtected}
       />
+      
+      {/* Login model used here */}
+      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </header>
   );
 }
