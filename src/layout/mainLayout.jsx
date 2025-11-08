@@ -1,13 +1,14 @@
-// import Header from "../components/common/header/Header";
-// import Footer from "../components/common/footer/Footer";
+
+import Navbar from "../components/common/navbar/navbar";
+import Footer from "../components/common/footer/footer";
 
 export default function MainLayout({ children }) {
   return (
     <div className="flex flex-col min-h-screen scrollbar-hide">
       {/* Fixed Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
-        {/* <Header /> */}
-        <h1 className="text-center py-4">Header Is Currently not there</h1>
+        <Navbar />
+        {/* <h1 className="text-center py-4">Header Is Currently not there</h1> */}
       </header>
 
       {/* Scrollable Content */}
@@ -21,9 +22,9 @@ export default function MainLayout({ children }) {
       </main>
 
       {/* Footer (not fixed, scrolls naturally) */}
-      <footer className="bg-gray-100 text-center py-4 border-t">
-        {/* <Footer /> */}
-        <h1>Footer Is Currently not there</h1>
+      <footer className="footer">
+        <Footer />
+        {/* <h1>Footer Is Currently not there</h1> */}
       </footer>
     </div>
   );

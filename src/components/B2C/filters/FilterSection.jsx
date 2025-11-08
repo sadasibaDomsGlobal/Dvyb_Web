@@ -21,7 +21,7 @@ const FilterSection = ({ title, items, searchable = false, defaultOpen = false, 
     };
 
     return (
-        <div className="pb-4">
+        <div className="pb-4 ">
             {/* Header with toggle */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -47,7 +47,7 @@ const FilterSection = ({ title, items, searchable = false, defaultOpen = false, 
                         </div>
                     )}
 
-                    <div className="space-y-1 max-h-40 overflow-y-auto text-xs">
+                    <div className="space-y-1 max-h-40 overflow-y-auto hide-scrollbar text-xs">
                         {filtered.map((item, i) => (
                             <label key={i} className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50">
                                 <div className="flex items-center gap-2">

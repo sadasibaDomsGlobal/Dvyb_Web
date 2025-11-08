@@ -8,7 +8,7 @@ const ProductGrid = ({ products }) => {
 
   // ✅ Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; 
+  const itemsPerPage = 16; 
 
   // ✅ Safety check
   if (!products || products.length === 0) {
