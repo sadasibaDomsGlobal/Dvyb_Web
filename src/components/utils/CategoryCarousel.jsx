@@ -1,32 +1,58 @@
 // CategoryCarousel.jsx
-import Button from "../ui/Button";
-
-const categories = [
-  { name: "Lehenga", image: "/cat/lehenga.jpg", slug: "lehenga" },
-  // …add the rest from your screenshot
-];
+import { useRef } from "react";
+import categories from "../../static/landing/catCarousel";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { scrollLeft, scrollRight } from "../utils/scroll";
 
 export default function CategoryCarousel() {
+  const scrollRef = useRef(null);
+
   return (
-    <section className="py-8 overflow-x-auto scrollbar-hide">
-      <div className="flex gap-4 md:gap-8 px-4 md:px-12">
-        {categories.map((c) => (
-          <a
-            key={c.slug}
-            href={`/category/${c.slug}`}
-            className="flex-shrink-0 w-32 md:w-40 text-center group"
-          >
-            <img
-              src={c.image}
-              alt={c.name}
-              className="w-full h-40 object-cover rounded-lg mb-2 group-hover:scale-105 transition"
-            />
-            <p className="text-sm font-medium">{c.name}</p>
-            <Button size="sm" className="mt-1 opacity-0 group-hover:opacity-100 transition">
-              SHOP NOW
-            </Button>
-          </a>
-        ))}
+    <section className="relative">
+      <div className="flex items-center gap-2  sm:px-1 md:px-8 lg:px-18">
+
+        {/* LEFT ARROW */}
+        <button
+          onClick={() => scrollLeft("luxuryScroll")}
+          className="hidden md:flex"
+        >
+          <IoIosArrowBack size={22} />
+        </button>
+
+        {/* SCROLLABLE CAROUSEL */}
+        <div
+          id="luxuryScroll"
+          ref={scrollRef}
+          className="flex gap-2 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth"
+        >
+          {categories.map((c) => (
+            <a
+              key={c.slug}
+              href={`/category/${c.slug}`}
+              className="flex-shrink-0 w-64 md:w-47 relative text-center group"
+            >
+              <img
+                src={c.image}
+                alt={c.name}
+                className="w-full h-48 object-cover transition"
+              />
+
+              {/* Text Overlay */}
+              <div className="absolute bottom-10 w-full text-center text-white px-4">
+                <p className="text-base font-semibold tracking-wide uppercase">{c.name}</p>
+                <p className="text-xs">SHOP NOW</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* RIGHT ARROW */}
+        <button
+          onClick={() => scrollRight("luxuryScroll")}
+          className=" rounded-full hidden md:flex"
+        >
+          <IoIosArrowForward size={22} />
+        </button>
       </div>
     </section>
   );
