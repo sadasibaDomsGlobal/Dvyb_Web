@@ -23,8 +23,9 @@
 
   /* ===== TYPOGRAPHY ===== */
   --font-family-sans: "Inter", "Segoe UI", "Roboto", sans-serif;
-  --font-family-serif: "Outfit", "Georgia", serif;
+  /* --font-family-serif: "Outfit", "Georgia", serif; */
   --font-family-outfit: "Outfit", sans-serif;
+  
   
 
   /* Font Sizes */

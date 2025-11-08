@@ -5,7 +5,7 @@ export default function BrandStory() {
   return (
     <section className="w-full bg-gray-50 py-16 px-4">
       <div className="w-full max-w-7xl mx-auto bg-white rounded-3xl shadow-lg p-8 sm:p-12 lg:p-16">
-        <h2 className="text-4xl sm:text-5xl font-serif text-center mb-12 text-gray-900">
+        <h2 className="text-4xl sm:text-5xl text-center mb-12 text-gray-900">
           Brand Story
         </h2>
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">

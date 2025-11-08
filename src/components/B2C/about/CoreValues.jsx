@@ -30,7 +30,7 @@ export default function CoreValues() {
   return (
     <section className="w-full bg-white py-12 sm:py-16 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-center mb-8 sm:mb-12 text-[var(--text-primary)]">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl serif font-normal text-center mb-8 sm:mb-12 text-[var(--text-primary)]">
           Core Values
         </h2>
 
@@ -43,7 +43,7 @@ export default function CoreValues() {
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 text-center group-hover:scale-110 transition-transform duration-300">
                 {value.icon}
               </div>
-              <h3 className="text-lg sm:text-xl font-serif font-normal text-center mb-3 sm:mb-4 text-[var(--text-primary)]">
+              <h3 className="text-lg sm:text-xl  font-normal text-center mb-3 sm:mb-4 text-[var(--text-primary)]">
                 {value.title}
               </h3>
               <p className="text-[var(--text-secondary)] text-center leading-relaxed text-sm sm:text-base">

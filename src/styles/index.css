@@ -16,6 +16,7 @@
 
 /* Tailwind CSS */
 @import "tailwindcss";
+@import "tailwindcss" important;
 
 /* Base Styles */
 
