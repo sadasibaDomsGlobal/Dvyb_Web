@@ -17,6 +17,15 @@ export default function AppRoutes() {
     <Routes>
       {/* 🧷 Product listing page (with sidebar + ads inside main layout) */}
       <Route
+        path="/"
+        element={
+          <MainLayout>
+            <Home />
+          </MainLayout>
+        }
+      />
+
+      <Route
         path="/womenwear"
         element={
           <MainLayout>
@@ -49,14 +58,8 @@ export default function AppRoutes() {
         }
       />
 
-      <Route
-        path="/"
-        element={
-          <MainLayout>
-            <Home />
-          </MainLayout>
-        }
-      />
+      
+
     </Routes>
   );
 }
