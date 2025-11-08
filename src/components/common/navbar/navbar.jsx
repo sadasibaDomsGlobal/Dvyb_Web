@@ -1,4 +1,3 @@
-// components/navbar/Navbar.jsx
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import SearchDropdown from "./SearchDropdown";
@@ -94,6 +93,42 @@ export default function Navbar() {
     </header>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React, { useState, useEffect, useRef } from "react";
