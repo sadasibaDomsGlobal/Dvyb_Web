@@ -3,9 +3,11 @@ import WomenwearRoute from "./WomenwearRoute";
 import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
 import ProductLayout from "../layout/ProductLayout";
 import MainLayout from "../layout/mainLayout";
+import { AuthProvider } from "../context/AuthContext";
 import { useProducts } from "../hooks/useProducts";
 import ProductDetailsPageIndividual from "../pages/B2C/ProductDetailsPageIndividual";
 import Home from "../pages/b2c/homePage/homePage";
+import ProfilePage from "../pages/B2C/Profilepage/ProfilePage";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -14,6 +16,10 @@ export default function AppRoutes() {
   if (error) return <div>Error: {error}</div>;
 
   return (
+    <>
+    
+    <AuthProvider>
+
     <Routes>
       {/* 🧷 Product listing page (with sidebar + ads inside main layout) */}
       <Route
@@ -58,9 +64,23 @@ export default function AppRoutes() {
         }
       />
 
+
+
+      {/* Profile Page Components */}
+
+     <Route
+        path="/your-profile"
+        element={
+        
+            <ProfilePage />
+
+        }
+      />
       
 
     </Routes>
+    </AuthProvider>
+    </>
   );
 }
 

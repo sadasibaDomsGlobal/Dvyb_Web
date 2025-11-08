@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useProducts } from "../../../hooks/useProducts";
-
+import { useState } from "react";
 /**
  * Import child components here
  */
@@ -18,6 +18,8 @@ import HelpAndTryonSection from "./individual_product_components/HelpAndTryonSec
 import ProductReviewsSection from "./individual_product_components/ProductReviewsSection";
 import ProductStockAndShipping from "./individual_product_components/ProductStockAndShipping";
 
+import UploadSelfieModal from "../TryOn/UploadSelfieModal";
+import TryOnPreviewModal from "../TryOn/TryOnPreviewModal";
 
 // Main product details page
 const IndividualProductDetailsPage = () => {
@@ -27,6 +29,11 @@ const IndividualProductDetailsPage = () => {
    */
   const { id } = useParams();
   const { products, loading, error } = useProducts();
+
+
+   const [showUploadSelfieModal, setShowUploadSelfieModal] = useState(false);
+  const [showTryOnPreviewModal, setShowTryOnPreviewModal] = useState(false);
+  const [tryOnData, setTryOnData] = useState({});
 
   /**
    * Handle loading and error states
@@ -47,6 +54,47 @@ const IndividualProductDetailsPage = () => {
    * Get the main image URL or a placeholder if none exists
    */
   const imageUrls = product.imageUrls?.length ? product.imageUrls : ["/placeholder.jpg"];
+
+
+
+const handleTryOnClick = () => {
+  const garmentImage = product.imageUrls?.[0];
+  if (!garmentImage) {
+    toast.error("No image available for try-on");
+    return;
+  }
+
+  setTryOnData({
+    garmentImage,
+    garmentName: product.title || product.name,
+    productId: product.id,
+    selectedColors: product.selectedColors || [],
+    selectedSizes: product.selectedSizes || [],
+    fabric: product.fabric || "",
+    price: parseFloat(product.price) || 0,
+    discount: product.discount || 0,
+    imageUrls: product.imageUrls || [garmentImage],
+  });
+
+  setShowUploadSelfieModal(true); // ✅ This opens first step modal
+};
+
+
+
+const handleUploadSelfieNext = (data) => {
+  setShowUploadSelfieModal(false);
+  setTryOnData(prev => ({ ...prev, ...data }));
+  setShowTryOnPreviewModal(true);
+};
+
+
+const handleModalClose = () => {
+  setShowUploadSelfieModal(false);
+  setShowTryOnPreviewModal(false);
+  setTryOnData({});
+};
+
+
 
   return (
     <div className="container mx-auto px-4 py-8 mt-22">
@@ -74,7 +122,7 @@ const IndividualProductDetailsPage = () => {
           <ProductActionButtons
             onAddToBag={() => console.log("Add to bag")}
             onBuyNow={() => console.log("Buy now")}
-            onVirtualTryOn={() => console.log("Try on")}
+            onVirtualTryOn={handleTryOnClick}
           />
           <OfferAndShippingInfo />
           <ProductDescriptionSection product={product} />
@@ -84,6 +132,36 @@ const IndividualProductDetailsPage = () => {
           <ProductReviewsSection reviews={product?.reviews} />
         </div>
       </div>
+
+      {/* {showTryYourOutfitModal && (
+  <TryYourOutfitModal
+    isOpen={showTryYourOutfitModal}
+    onClose={handleModalClose}
+    onNext={handleTryYourOutfitNext}
+    garmentImage={tryOnData.garmentImage}
+  />
+)} */}
+
+
+      {showUploadSelfieModal && (
+        <UploadSelfieModal
+          isOpen={showUploadSelfieModal}
+          onClose={handleModalClose}
+          onNext={handleUploadSelfieNext}
+          garmentImage={tryOnData.garmentImage}
+          garmentName={tryOnData.garmentName}
+        />
+      )}
+
+      {showTryOnPreviewModal && (
+        <TryOnPreviewModal
+          isOpen={showTryOnPreviewModal}
+          onClose={handleModalClose}
+          tryOnData={tryOnData}
+        />
+      )}
+
+
     </div>
   );
 }
