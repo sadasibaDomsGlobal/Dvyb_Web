@@ -6,6 +6,16 @@ import MainLayout from "../layout/mainLayout";
 import { useProducts } from "../hooks/useProducts";
 import ProductDetailsPageIndividual from "../pages/B2C/ProductDetailsPageIndividual";
 import Home from "../pages/b2c/homePage/homePage";
+import BlogPage from "../components/common/BlogPage/BlogPage";
+import MainBlog from "../components/common/BlogPage/MainBlog";
+import SingleMainBlog from "../components/common/BlogPage/singleBlogMain";
+// import CheckoutPage from "../components/common/Cart/Cart";
+import FaqPage from "../components/common/FAQ/FAQ";
+import PrivacyPolicy from "../components/common/PrivacyPolicy/PrivacyPolicy";
+import ReturnExchangePolicy from "../components/common/Returnpolicy/ReturnPolicy";
+import SingleBlog from "../components/common/SingleBlog/SingleBlog";
+import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
+import CartPage from "../pages/b2c/cartPage/cartPage";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -24,6 +34,112 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
+
+      {/* <MainLayout>
+  <BlogPage/>
+</MainLayout>
+<MainLayout>
+  <MainBlog/>
+</MainLayout>
+<MainLayout>
+
+</MainLayout> */}
+
+ <Route
+        path="/cart"
+        element={
+          <MainLayout>
+            <CartPage />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/mainblog"
+        element={
+          <MainLayout>
+            <MainBlog />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/blog"
+        element={
+          <MainLayout>
+            <BlogPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/singleBlogMain"
+        element={
+          <MainLayout>
+            <SingleMainBlog />
+          </MainLayout>
+        }
+      />
+
+      {/* <Route
+        path="/Cart"
+        element={
+          <MainLayout>
+            <CheckoutPage />
+          </MainLayout>
+        }
+      /> */}
+
+      <Route
+        path="/faq"
+        element={
+          <MainLayout>
+            <FaqPage />
+          </MainLayout>
+        }
+      />
+
+      {/* <Route
+        path="/ourStory"
+        element={
+          <MainLayout>
+          < ourStory />
+          </MainLayout>
+        }
+      /> */}
+
+      <Route
+        path="/privacy"
+        element={
+          <MainLayout>
+            <PrivacyPolicy />
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/Returns"
+        element={
+          <MainLayout>
+           <ReturnExchangePolicy/>
+          </MainLayout>
+        }
+      />
+   <Route
+        path="/SingleBlog"
+        element={
+          <MainLayout>
+           <SingleBlog/>
+          </MainLayout>
+        }
+      />
+       <Route
+        path="/terms"
+        element={
+          <MainLayout>
+           <TermsAndConditions/>
+          </MainLayout>
+        }
+      />
+
+
 
       <Route
         path="/womenwear"
@@ -58,7 +174,7 @@ export default function AppRoutes() {
         }
       />
 
-      
+
 
     </Routes>
   );

@@ -56,8 +56,8 @@ class CartOperationalService {
   /** Add items to cart */
   async addToCart(productId, productData = {}, quantity = 1) {
     try {
-      const user = this.auth.currentUser;
-      if (!user) throw new Error("User must be authenticated");
+      // const user = this.auth.currentUser;
+      // if (!user) throw new Error("User must be authenticated");
 
       const userCollection = await this.getUserCollection(user.uid);
       const cartItemRef = doc(this.db, userCollection, user.uid, "cart", productId);
@@ -90,7 +90,8 @@ class CartOperationalService {
   /** Remove item from cart */
   async removeFromCart(productId) {
     try {
-      const user = this.auth.currentUser;
+      // const user = this.auth.currentUser;
+       const user = true;
       if (!user) throw new Error("User must be authenticated");
 
       const userCollection = await this.getUserCollection(user.uid);

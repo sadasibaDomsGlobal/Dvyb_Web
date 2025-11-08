@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Phone, MessageCircle, ChevronDown } from "lucide-react";
-import Footer from "../Footer/Footer.jsx";
+
 import brdialImage from "../../../assets/B2C/images/FAQ/birdal.svg";
 import logoImage from "../../../assets/B2C/images/FAQ/logo.svg";
 import LogoName from "../../../assets/B2C/images/FAQ/LogoName.svg";
@@ -54,7 +54,7 @@ const FaqPage = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-white text-gray-900 font-sans">
+    <div className="w-full flex flex-col items-center bg-white text-gray-900 font-sans mt-8">
       {/* Top Spacer */}
       <div className="w-full h-16 bg-transparent" />
 
@@ -74,7 +74,7 @@ const FaqPage = () => {
           {/* Centered Logo */}
           <div className="mb-6 flex flex-col items-center">
             <img className="w-40 md:w-20 mb-3" src={logoImage} alt="Logo" />
-              
+
             <img className="mb-2 w-16 md:w-20" src={LogoName} alt="LogoName" />
           </div>
 
@@ -105,17 +105,15 @@ const FaqPage = () => {
               >
                 <span className="pr-4">{faq.question}</span>
                 <ChevronDown
-                  className={`flex-shrink-0 w-5 h-5 text-gray-900 transition-transform duration-300 ${
-                    openFAQIndex === index ? "rotate-180" : ""
-                  }`}
+                  className={`flex-shrink-0 w-5 h-5 text-gray-900 transition-transform duration-300 ${openFAQIndex === index ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  openFAQIndex === index
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${openFAQIndex === index
                     ? "max-h-96 opacity-100"
                     : "max-h-0 opacity-0"
-                }`}
+                  }`}
               >
                 {openFAQIndex === index && (
                   <div className="px-6 pb-4 pt-2 border-t border-gray-100">
@@ -168,10 +166,6 @@ const FaqPage = () => {
           </div>
         </div>
       </div>
-
-      {/* Bottom Spacer */}
-      <div className="w-full h-16 bg-transparent" />
-      <Footer />
     </div>
   );
 };

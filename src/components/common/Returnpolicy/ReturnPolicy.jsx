@@ -4,9 +4,9 @@ import logoName from '../../../assets/B2C/images/FAQ/LogoName.svg';
 
 export default function ReturnExchangePolicy() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 bg-white">
+    <div className=" mx-16 px-4 py-8 bg-white ">
       {/* Logo */}
-      <div className="flex justify-center pt-4 pb-">
+      <div className="flex justify-center pt-4">
              <div className="flex items-center justify-center w-17 cursor-pointer mb-10">
                <img src={logo} alt="LOGO" />
                <img src={logoName} alt="LOGOName" />

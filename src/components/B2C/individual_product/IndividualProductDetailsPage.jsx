@@ -17,6 +17,8 @@ import DisclaimerSection from "./individual_product_components/DisclaimerSection
 import HelpAndTryonSection from "./individual_product_components/HelpAndTryonSection";
 import ProductReviewsSection from "./individual_product_components/ProductReviewsSection";
 import ProductStockAndShipping from "./individual_product_components/ProductStockAndShipping";
+import { useState } from "react";
+import { cartService } from '../../../services/cartService';
 
 
 // Main product details page
@@ -27,6 +29,9 @@ const IndividualProductDetailsPage = () => {
    */
   const { id } = useParams();
   const { products, loading, error } = useProducts();
+   const [addingToCart, setAddingToCart] = useState(false);
+   const user = true
+   
 
   /**
    * Handle loading and error states
@@ -47,6 +52,46 @@ const IndividualProductDetailsPage = () => {
    * Get the main image URL or a placeholder if none exists
    */
   const imageUrls = product.imageUrls?.length ? product.imageUrls : ["/placeholder.jpg"];
+
+  
+  const handleonBuyNow = async (event) => {
+    event.stopPropagation();
+    
+    // if (!user) {
+    //   toast.error("Please log in to add items to cart!");
+    //   return;
+    // }
+
+    if (addingToCart) return;
+
+    try {
+      setAddingToCart(true);
+
+      const productData = {
+        name: product.name || product.title,
+        title: product.title || product.name,
+        price: parseFloat(product.price) || 0,
+        imageUrls: product.imageUrls || [],
+        selectedColors: product.selectedColors || [],
+        selectedSizes: product.selectedSizes || [],
+        fabric: product.fabric || '',
+        craft: product.craft || '',
+        description: product.description || ''
+      };
+
+      await cartService.addToCart(product.id, productData, 1);
+      // toast.success(`${productData.name} added to cart!`);
+      showPopup("cart", {
+  title: productData.name || productData.title,
+  image: productData.imageUrls?.[0],
+});
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      // toast.error("Failed to add item to cart. Please try again.");
+    } finally {
+      setAddingToCart(false);
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 mt-22">
@@ -72,8 +117,8 @@ const IndividualProductDetailsPage = () => {
           />
           <ProductStockAndShipping />
           <ProductActionButtons
-            onAddToBag={() => console.log("Add to bag")}
-            onBuyNow={() => console.log("Buy now")}
+            onAddToBag={(e) => handleonBuyNow(e) }
+            onBuyNow={() => console.log("Add to bag")}
             onVirtualTryOn={() => console.log("Try on")}
           />
           <OfferAndShippingInfo />

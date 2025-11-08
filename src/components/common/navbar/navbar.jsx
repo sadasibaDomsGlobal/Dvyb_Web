@@ -6,21 +6,20 @@ import MobileMenu from "./MobileMenu";
 import NavIcons from "./NavIcons";
 import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
-import LoginModal from "../../../pages/B2C/login/loginModel";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate()
 
   const isLoggedIn = false;
   const wishlistCount = 3;
   const cartCount = 5;
 
-  const navigate = (path) => console.log("Go to", path);
-
+  // const navigate = (path) => console.log("Go to", path);
   const handleProtected = (path) => {
     if (!isLoggedIn) {
       setShowLogin(true);
@@ -49,7 +48,9 @@ export default function Navbar() {
               <FaBars className="text-2xl" />
             </button>
 
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 flex justify-center"
+            onClick={()=> navigate("/") }
+            >
               <img src={mainlogo} alt="Logo"  className="h-14 md:h-18 lg:h-20 cursor-pointer transition-all duration-200" onClick={() => navigate("/")} />
             </div>
 
@@ -69,7 +70,8 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => navigate(item.path)}
+                // onClick={() => navigate(item.path)}
+                 onClick={() => navigate("/womenwear")}
                 className={item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"}
               >
                 {item.label}
