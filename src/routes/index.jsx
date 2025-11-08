@@ -2,9 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import WomenwearRoute from "./WomenwearRoute";
 import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
 import ProductLayout from "../layout/ProductLayout";
-import MainLayout from "../layout/MainLayout";
+import MainLayout from "../layout/mainLayout";
 import { useProducts } from "../hooks/useProducts";
 import ProductDetailsPageIndividual from "../pages/B2C/ProductDetailsPageIndividual";
+import Home from "../pages/b2c/homePage/homePage";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -38,12 +39,21 @@ export default function AppRoutes() {
 
       {/* 🧷 Root → redirect to womenwear */}
       <Route
-        path="/"
+        path="/womenwear"
         element={
           <MainLayout>
             <ProductLayout products={products}>
               <WomenwearRoute products={products} />
             </ProductLayout>
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <Home />
           </MainLayout>
         }
       />

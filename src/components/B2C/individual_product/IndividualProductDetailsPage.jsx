@@ -49,7 +49,7 @@ const IndividualProductDetailsPage = () => {
   const imageUrls = product.imageUrls?.length ? product.imageUrls : ["/placeholder.jpg"];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 mt-22">
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Left: Product Image Gallery */}
         <div className="lg:w-1/2 sticky top-0 self-start">

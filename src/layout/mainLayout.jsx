@@ -6,7 +6,7 @@ export default function MainLayout({ children }) {
   return (
     <div className="flex flex-col min-h-screen scrollbar-hide">
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
+      <header className="fixed top-0 left-0 right-0 z-50">
         <Navbar />
         {/* <h1 className="text-center py-4">Header Is Currently not there</h1> */}
       </header>

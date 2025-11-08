@@ -3,7 +3,7 @@ import AdsCarousel from "../components/common/AdSection/AdsCarousel";
 
 export default function ProductLayout({ children, products }) {
   return (
-    <div className="container mx-auto px-4 py-8  scrollbar-hide">
+    <div className="container mx-auto px-4 py-8 mt-10  scrollbar-hide">
       <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
         Discover Our Collection
       </h1>
