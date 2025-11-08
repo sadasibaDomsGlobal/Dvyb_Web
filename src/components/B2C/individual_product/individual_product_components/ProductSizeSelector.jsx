@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
   const [selectedSize, setSelectedSize] = useState(null);
+
+  // ✅ Debug logs to verify backend data
+  useEffect(() => {
+    console.group("🧩 ProductSizeSelector Backend Data");
+    console.log("👉 Selected Sizes (from backend):", selectedSizes);
+    console.log("👉 Units Object (from backend):", units);
+    console.log("👉 Total sizes received:", selectedSizes.length);
+    console.log("👉 Total units received:", Object.keys(units).length);
+    console.groupEnd();
+  }, [selectedSizes, units]);
 
   // Static fallback list
   const staticSizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
@@ -57,10 +67,9 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
                 onClick={() => handleSizeSelect(size)}
                 disabled={!available}
                 className={`relative w-12 h-12 flex items-center justify-center rounded-md border text-sm font-medium transition 
-                  ${
-                    !available
-                      ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
-                      : selectedSize === size
+                  ${!available
+                    ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : selectedSize === size
                       ? "border-gray-900 bg-gray-900 text-white"
                       : "border-gray-300 hover:border-gray-900"
                   }`}
