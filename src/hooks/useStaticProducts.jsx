@@ -1,31 +1,28 @@
 // src/hooks/useProducts.js
-import { useEffect, useState, useCallback } from "react";
-import { productService } from "../services/firebaseServices";
-import { Product } from "../models/B2CProductModel"; 
-import staticProducts from "../static/landing/wedding"
+import { useEffect, useState } from "react";
+import staticProducts from "../static/landing/staticProducts"; // 
 
-export function usestaticProducts() {
+export function useStaticProducts() {
   const [state, setState] = useState({
     staticProducts: [],
     loading: true,
     error: null,
   });
 
-  const fetch = useCallback(async () => {
+  useEffect(() => {
     try {
-      setState((s) => ({ ...s, loading: true, error: null }));
-      const data = await productService;
-      setState({ staticProducts: data, loading: false, error: null });
+      // simulate data load
+      setTimeout(() => {
+        setState({
+          staticProducts, // ✅ load directly from static file
+          loading: false,
+          error: null,
+        });
+      }, 300); // small delay for realism
     } catch (err) {
-      console.error(err);
       setState({ staticProducts: [], loading: false, error: err.message });
     }
   }, []);
 
-  useEffect(() => {
-    fetch();
-    // optional: real-time listener with onSnapshot
-  }, [fetch]);
-
-  return { ...state, refetch: fetch };
+  return state;
 }
