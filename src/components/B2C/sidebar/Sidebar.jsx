@@ -81,7 +81,9 @@ const Sidebar = ({ products = [] }) => {
           </div>
 
           {/* Filters Section - Scrollable */}
-          <div className="flex-1 overflow-y-auto p-4">
+          {/* <div className="flex-1 overflow-y-auto p-4"> */}
+          <div className="flex-1 overflow-y-auto p-4 no-scrollbar">
+
             <div className="space-y-6">
               {/* CATEGORY FILTER */}
               <FilterSection 
