@@ -3,20 +3,20 @@ import logo from '../../../assets/B2C/images/FAQ/Logo.svg';
 import logoName from '../../../assets/B2C/images/FAQ/LogoName.svg';
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-white ">
+    <div className="min-h-screen bg-white mx-14 mt-32">
       {/* Header */}
-      <div className="mt-1 p-4 flex items-center justify-center space-x-2">
+      {/* <div className="mt-1 p-4 flex items-center justify-center space-x-2">
         <div className="flex items-center justify-center w-17 cursor-pointer">
           <img src={logo} alt="LOGO" />
             <img src={logoName} alt="LOGOName" />
         </div>
-      </div>
+      </div> */}
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto px-1 py-8">
-        <h2 className="mb-1 font-medium ">Privacy Policy</h2>
+      <div className=" mx-auto px-1 py-8">
+        <h2 className=" text-2xl mb-1 font-medium ">Privacy Policy</h2>
         
-        <p className=" font-light text-gray-700 mb-6">
+        <p className="font-light text-gray-700 mb-6">
           JOYR values your trust and is committed to protecting your privacy. This Privacy Policy explains how we collect, 
           use, store, and protect your personal information when you use our mobile application and services related to 
           bulk clothing purchases.

@@ -112,7 +112,7 @@ const BlogPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white lg:mx-14 sm:mx-4 md:mt-16">
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -123,7 +123,7 @@ const BlogPage = () => {
               <img
                 src={IMAGES.blogOfTheDay}
                 alt="Karwa Chauth Blog"
-                className="w-[100%] h-[100%] rounded-lg"
+                className="w-[100%] h-[100%] "
               />
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">
@@ -150,7 +150,7 @@ const BlogPage = () => {
                   <img
                     src={blog.image}
                     alt={blog.title}
-                    className="w-full h-32 object-cover rounded-lg mb-2"
+                    className="w-full h-32 object-cover  mb-2"
                   />
                   <h4 className="text-sm  mb-1">{blog.title}</h4>
                   <p className="text-xs text-gray-500">{blog.date}</p>
@@ -164,7 +164,7 @@ const BlogPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
           {products1.map((product, index) => (
             <div key={index} className="relative group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg">
+              <div className="relative overflow-hidden">
                 <img
                   src={product.image}
                   alt={product.title}
@@ -206,7 +206,7 @@ const BlogPage = () => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-50 object-cover rounded-lg mb-2"
+                  className="w-full h-50 object-cover  mb-2"
                 />
                 <h4 className="text-xs font-semibold mb-1">{item.title}</h4>
                 <p className="text-xs text-gray-500">{item.date}</p>

@@ -15,7 +15,7 @@ export const footerSections = [
     title: "Our Company",
     key: "company",
     links: [
-      { label: "Contact Us", to: "/contact" },
+      { label: "Contact Us", to: "/faq" },
       { label: "FAQ", to: "/faq" },
       { label: "Terms & Conditions", to: "/terms" },
       { label: "Privacy Policy", to: "/privacy" },
@@ -26,19 +26,19 @@ export const footerSections = [
     key: "policies",
     links: [
       { label: "Store", to: "/store" },
-      { label: "Shipping Info", to: "/shipping" },
+      // { label: "Shipping Info", to: "/shipping" },
       { label: "Return Policy", to: "/returns" },
-      { label: "Warranty", to: "/warranty" },
+      { label: "Warranty", to: "/returns" },
     ],
   },
   {
     title: "Our Services",
     key: "services",
     links: [
-      { label: "Support", to: "/support" },
+      { label: "Support", to: "/faq" },
       { label: "Blog", to: "/blog" },
-      { label: "Careers", to: "/careers" },
-      { label: "Feedback", to: "/feedback" },
+      // { label: "Careers", to: "/careers" },
+      // { label: "Feedback", to: "/feedback" },
     ],
   },
 ];
