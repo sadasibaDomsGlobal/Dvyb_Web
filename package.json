@@ -24,6 +24,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "firebase": "^12.5.0",
+    "libphonenumber-js": "^1.12.26",
     "lucide-react": "^0.552.0",
     "multer": "^2.0.2",
     "react": "^19.1.1",
