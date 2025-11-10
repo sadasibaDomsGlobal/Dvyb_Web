@@ -1,11 +1,11 @@
 // ClosetIconsSection.jsx
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ProductCard from "../../product/productCard";
+import ProductCard from "../products/ProductCard";
 import ProductGrid from "../../product/productGrid";
 import { scrollLeft, scrollRight } from "../../utils/scroll";
 import SectionTitle from "../../utils/SectionTitle";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
+ 
 export default function ClosetIconsSection({ products }) {
   return (
     <section className="container mx-auto sm:px-2 md:px-9 lg:px-20">

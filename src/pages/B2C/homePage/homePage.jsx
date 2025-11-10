@@ -17,7 +17,7 @@ export default function Home() {
   const { staticProducts, loading, error } = useStaticProducts();
   console.log(staticProducts)
 
-  if (loading) return <div className="text-center py-20">Loading…</div>;
+  if (loading) return <div className="text-center py-20 sm:py-2">Loading…</div>;
   if (error) return <div className="text-center text-iserror py-20">{error}</div>;
 
   // ----- Split data for sections -----
@@ -47,7 +47,7 @@ export default function Home() {
 
 
   return (
-    <div className="mt-38">
+    <div className="mt-44">
 
 
       <section
@@ -61,27 +61,27 @@ export default function Home() {
       </section>
 
       {/* 2. WEDDING TALES */}
-      <section className="container mx-auto py-12 px-4">
+      <section className="container mx-auto py-12 px-0">
         <SectionTitle viewAll>Wedding Tales</SectionTitle>
         <ProductGrid products={wedding} columns={3} />
       </section>
 
       {/* 3. SHOP BY CATEGORY */}
       <section className="py-4">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <SectionTitle viewAll>Shop by Category</SectionTitle>
           <CategoryCarousel />
         </div>
       </section>
 
       {/* 4. DISCOUNT COLLECTION */}
-      <section className="container mx-auto py-12 px-4">
+      <section className="container mx-auto py-12 ">
         <SectionTitle viewAll>Discount Collection</SectionTitle>
         <ProductGrid products={discount} columns={4} />
       </section>
 
       {/* Luxurious Picks of the Day (from image) */}
-      <section className="container mx-auto py-12 px-4">
+      <section className="container mx-auto py-12">
         <SectionTitle>Luxurious Picks of the Day</SectionTitle>
         {/* <ProductGrid products={luxuryPicks} columns={4} /> */}
         <LuxuryPicks products={luxuryPicks} columns={4} />
@@ -89,7 +89,7 @@ export default function Home() {
 
       {/* 5. SPOTLIGHT OF THE DAY */}
       {spotlight && (
-        <section className="container mx-auto py-12 px-4">
+        <section className="container mx-auto py-12">
           <SectionTitle>Spotlight of the Day</SectionTitle>
 
           <SpotlightCollections />
@@ -97,14 +97,14 @@ export default function Home() {
       )}
 
       {/* 6. BESTSELLING */}
-      <section className="container mx-auto py-12 px-4">
+      <section className="container mx-auto py-12 ">
         <SectionTitle viewAll>Bestselling</SectionTitle>
         <BestProducts products={bestsellers} columns={2} />
         <ProductGrid products={wedding} columns={3} />
       </section>
 
       {/* 7. CLOSET ICONS (New Section) */}
-      <section className="container mx-auto py-12 px-4">
+      <section className="container mx-auto py-12">
         {closetIcons.length > 0 && (
           <section>
             <SectionTitle viewAll>Closet icons</SectionTitle>

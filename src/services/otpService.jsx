@@ -10,27 +10,44 @@ const auth = getAuth(app); // ← Always initialize auth here
 let recaptchaVerifier = null;
 
 export const setupRecaptcha = (containerId = "recaptcha-container") => {
-  if (recaptchaVerifier) {
-    recaptchaVerifier.clear(); // Clean up previous widget
-  }
+  if (recaptchaVerifier) recaptchaVerifier.clear();
 
   recaptchaVerifier = new RecaptchaVerifier(
-    auth, // ← 1st: auth instance
-    containerId, // ← 2nd: container ID or element
+    auth,
+    containerId,
     {
       size: "invisible",
       callback: () => console.log("reCAPTCHA solved"),
-      "expired-callback": () => {
-        console.warn("reCAPTCHA expired");
-        recaptchaVerifier?.render().then((widgetId) => {
-          grecaptcha.reset(widgetId);
-        });
-      },
+      "expired-callback": () => console.warn("reCAPTCHA expired"),
     }
   );
 
   return recaptchaVerifier;
 };
+
+
+// export const setupRecaptcha = (containerId = "recaptcha-container") => {
+//   if (recaptchaVerifier) {
+//     recaptchaVerifier.clear(); // Clean up previous widget
+//   }
+
+//   recaptchaVerifier = new RecaptchaVerifier(
+//     auth, // ← 1st: auth instance
+//     containerId, // ← 2nd: container ID or element
+//     {
+//       size: "invisible",
+//       callback: () => console.log("reCAPTCHA solved"),
+//       "expired-callback": () => {
+//         console.warn("reCAPTCHA expired");
+//         recaptchaVerifier?.render().then((widgetId) => {
+//           grecaptcha.reset(widgetId);
+//         });
+//       },
+//     }
+//   );
+
+//   return recaptchaVerifier;
+// };
 
 export const sendOtp = async (phoneNumber) => {
   if (!recaptchaVerifier) {

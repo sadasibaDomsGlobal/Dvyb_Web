@@ -1,7 +1,7 @@
 // src/context/AuthContext.js
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { auth, db } from "../config/firebaseConfig";
-import { onAuthStateChanged, onIdTokenChanged, signOut as fbSignOut } from "firebase/auth";
+import { onAuthStateChanged, onIdTokenChanged, signOut  } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
@@ -75,16 +75,17 @@ export const AuthProvider = ({ children }) => {
 
   const signOutUser = async () => {
     try {
-      await fbSignOut(auth);
+      await signOut(auth);
     } finally {
       sessionStorage.removeItem("authToken");
+      alert("lggedout")
       setToken(null);
       setUserRole(null);
     }
   };
 
   const value = useMemo(
-    () => ({ user, userRole, token, loading,  signOutUser: signOut }),
+    () => ({ user, userRole, token, loading,  signOutUser }),
     [user, userRole, token, loading]
   );
 
