@@ -9,14 +9,13 @@ import Home from "../pages/b2c/homePage/homePage";
 import BlogPage from "../components/common/BlogPage/BlogPage";
 import MainBlog from "../components/common/BlogPage/MainBlog";
 import SingleMainBlog from "../components/common/BlogPage/singleBlogMain";
-// import CheckoutPage from "../components/common/Cart/Cart";
 import FaqPage from "../components/common/FAQ/FAQ";
 import PrivacyPolicy from "../components/common/PrivacyPolicy/PrivacyPolicy";
 import ReturnExchangePolicy from "../components/common/Returnpolicy/ReturnPolicy";
 import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
-import CartPage from "../pages/b2c/cartPage/cartPage";
-
+import CartPage from "../pages/B2C/cartPage/cartPage";
+import CheckoutPage from "../pages/B2C/cartPage/CheckoutPage";
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
 
@@ -35,17 +34,7 @@ export default function AppRoutes() {
         }
       />
 
-      {/* <MainLayout>
-  <BlogPage/>
-</MainLayout>
-<MainLayout>
-  <MainBlog/>
-</MainLayout>
-<MainLayout>
-
-</MainLayout> */}
-
- <Route
+      <Route
         path="/cart"
         element={
           <MainLayout>
@@ -79,20 +68,19 @@ export default function AppRoutes() {
         }
       />
 
-      {/* <Route
-        path="/Cart"
-        element={
-          <MainLayout>
-            <CheckoutPage />
-          </MainLayout>
-        }
-      /> */}
-
       <Route
         path="/faq"
         element={
           <MainLayout>
             <FaqPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <MainLayout>
+            <CheckoutPage />
           </MainLayout>
         }
       />
@@ -114,32 +102,30 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-       <Route
+      <Route
         path="/Returns"
         element={
           <MainLayout>
-           <ReturnExchangePolicy/>
+            <ReturnExchangePolicy />
           </MainLayout>
         }
       />
-   <Route
+      <Route
         path="/SingleBlog"
         element={
           <MainLayout>
-           <SingleBlog/>
+            <SingleBlog />
           </MainLayout>
         }
       />
-       <Route
+      <Route
         path="/terms"
         element={
           <MainLayout>
-           <TermsAndConditions/>
+            <TermsAndConditions />
           </MainLayout>
         }
       />
-
-
 
       <Route
         path="/womenwear"
@@ -173,19 +159,9 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-
-
-
     </Routes>
   );
 }
-
-
-
-
-
-
-
 
 // import { Routes, Route } from "react-router-dom";
 // import WomenwearRoute from "./WomenwearRoute";

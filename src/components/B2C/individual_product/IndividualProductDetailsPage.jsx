@@ -1,9 +1,99 @@
-import { useParams } from "react-router-dom";
-import { useProducts } from "../../../hooks/useProducts";
+// // inside IndividualProductDetailsPage.jsx
+// import { useNavigate, useParams } from "react-router-dom";
+// import { useProducts } from "../../../hooks/useProducts";
+// import { useState } from "react";
 
-/**
- * Import child components here
- */
+// import ProductImageGallery from "./individual_product_components/ProductImageGallery";
+// import ProductTitleSection from "./individual_product_components/ProductTitleSection";
+// import ProductColorSelector from "./individual_product_components/ProductColorSelector";
+// import ProductPriceSection from "./individual_product_components/ProductPriceSection";
+// import ProductSizeSelector from "./individual_product_components/ProductSizeSelector";
+// import ProductActionButtons from "./individual_product_components/ProductActionButtons";
+// import OfferAndShippingInfo from "./individual_product_components/OfferAndShippingInfo";
+// import ProductDescriptionSection from "./individual_product_components/ProductDescriptionSection";
+// import ProductDetailsSection from "./individual_product_components/ProductDetailsSection";
+// import DisclaimerSection from "./individual_product_components/DisclaimerSection";
+// import HelpAndTryonSection from "./individual_product_components/HelpAndTryonSection";
+// import ProductReviewsSection from "./individual_product_components/ProductReviewsSection";
+// import ProductStockAndShipping from "./individual_product_components/ProductStockAndShipping";
+
+// const IndividualProductDetailsPage = () => {
+//   const { id } = useParams();
+//   const { products, loading, error } = useProducts();
+//   const [addingToCart, setAddingToCart] = useState(false);
+//   const navigate = useNavigate();
+
+//   if (loading) return <div className="text-center py-10">Loading...</div>;
+//   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
+
+//   const product = products.find((p) => String(p.id) === String(id));
+//   if (!product) return <div className="text-center py-10 text-gray-500">Product not found.</div>;
+
+//   const imageUrls = product.imageUrls?.length ? product.imageUrls : ["/placeholder.jpg"];
+
+//   const handleonBuyNow = (event) => {
+//     event.stopPropagation();
+//     setAddingToCart(true);
+
+//     // ✅ Pass product data dynamically to Cart page
+//     navigate("/cart", {
+//       state: {
+//         product: {
+//           id: product.id,
+//           name: product.name,
+//           price: product.price,
+//           image: imageUrls[0],
+//           color: product.selectedColors?.[0] || "Default",
+//           size: product.selectedSizes?.[0] || "M",
+//           quantity: 1,
+//         },
+//       },
+//     });
+
+//     setAddingToCart(false);
+//   };
+
+//   return (
+//     <div className="container mx-auto px-4 py-8 mt-22">
+//       <div className="flex flex-col lg:flex-row gap-4">
+//         <div className="lg:w-1/2 sticky top-0 self-start">
+//           <ProductImageGallery images={imageUrls} />
+//         </div>
+
+//         <div
+//           className="lg:w-1/2 space-y-6 overflow-y-scroll scrollbar-hide"
+//           style={{ maxHeight: "calc(100vh - 4rem)" }}
+//         >
+//           <ProductTitleSection product={product} />
+//           <ProductPriceSection product={product} />
+//           <ProductColorSelector colors={product?.selectedColors} />
+//           <ProductSizeSelector selectedSizes={product?.selectedSizes} units={product?.units} />
+//           <ProductStockAndShipping />
+
+//           <ProductActionButtons
+//             onBuyNow={(e) => handleonBuyNow(e)}
+//             onAddToBag={(e) => handleonBuyNow(e)}
+//             // onAddToBag={() => console.log("Add to bag")}
+//             onVirtualTryOn={() => console.log("Try on")}
+//           />
+
+//           <OfferAndShippingInfo />
+//           <ProductDescriptionSection product={product} />
+//           <ProductDetailsSection product={product} />
+//           <DisclaimerSection />
+//           <HelpAndTryonSection />
+//           <ProductReviewsSection reviews={product?.reviews} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default IndividualProductDetailsPage;
+import { useNavigate, useParams } from "react-router-dom";
+import { useProducts } from "../../../hooks/useProducts";
+import { useState } from "react";
+
 import ProductImageGallery from "./individual_product_components/ProductImageGallery";
 import ProductTitleSection from "./individual_product_components/ProductTitleSection";
 import ProductColorSelector from "./individual_product_components/ProductColorSelector";
@@ -17,110 +107,94 @@ import DisclaimerSection from "./individual_product_components/DisclaimerSection
 import HelpAndTryonSection from "./individual_product_components/HelpAndTryonSection";
 import ProductReviewsSection from "./individual_product_components/ProductReviewsSection";
 import ProductStockAndShipping from "./individual_product_components/ProductStockAndShipping";
-import { useState } from "react";
-import { cartService } from '../../../services/cartService';
 
-
-// Main product details page
 const IndividualProductDetailsPage = () => {
-
-  /**
-   * Fetch product ID from URL params and get product data
-   */
   const { id } = useParams();
   const { products, loading, error } = useProducts();
-   const [addingToCart, setAddingToCart] = useState(false);
-   const user = true
-   
+  const [addingToCart, setAddingToCart] = useState(false);
+  const navigate = useNavigate();
 
-  /**
-   * Handle loading and error states
-   */
   if (loading) return <div className="text-center py-10">Loading...</div>;
   if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
 
-  /**
-   * Find the product based on the ID from params
-   */
   const product = products.find((p) => String(p.id) === String(id));
+  if (!product) return <div className="text-center py-10 text-gray-500">Product not found.</div>;
 
-  if (!product) {
-    return <div className="text-center py-10 text-gray-500">Product not found.</div>;
-  }
-
-  /**
-   * Get the main image URL or a placeholder if none exists
-   */
   const imageUrls = product.imageUrls?.length ? product.imageUrls : ["/placeholder.jpg"];
 
-  
-  const handleonBuyNow = async (event) => {
+  // ✅ Go to checkout directly with single product
+  const handleBuyNow = (event) => {
     event.stopPropagation();
-    
-    // if (!user) {
-    //   toast.error("Please log in to add items to cart!");
-    //   return;
-    // }
+    setAddingToCart(true);
 
-    if (addingToCart) return;
+    navigate("/checkout", {
+      state: {
+        cartItems: [
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: imageUrls[0],
+            color: product.selectedColors?.[0] || "Default",
+            size: product.selectedSizes?.[0] || "M",
+            quantity: 1,
+          },
+        ],
+      },
+    });
 
-    try {
-      setAddingToCart(true);
+    setAddingToCart(false);
+  };
 
-      const productData = {
-        name: product.name || product.title,
-        title: product.title || product.name,
-        price: parseFloat(product.price) || 0,
-        imageUrls: product.imageUrls || [],
-        selectedColors: product.selectedColors || [],
-        selectedSizes: product.selectedSizes || [],
-        fabric: product.fabric || '',
-        craft: product.craft || '',
-        description: product.description || ''
-      };
+  // ✅ Go to cart page with product data
+  const handleAddToBag = (event) => {
+    event.stopPropagation();
+    setAddingToCart(true);
 
-      await cartService.addToCart(product.id, productData, 1);
-      // toast.success(`${productData.name} added to cart!`);
-      showPopup("cart", {
-  title: productData.name || productData.title,
-  image: productData.imageUrls?.[0],
-});
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      // toast.error("Failed to add item to cart. Please try again.");
-    } finally {
-      setAddingToCart(false);
-    }
+    navigate("/cart", {
+      state: {
+        cartItems: [
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: imageUrls[0],
+            color: product.selectedColors?.[0] || "Default",
+            size: product.selectedSizes?.[0] || "M",
+            quantity: 1,
+          },
+        ],
+      },
+    });
+
+    setAddingToCart(false);
   };
 
   return (
     <div className="container mx-auto px-4 py-8 mt-22">
       <div className="flex flex-col lg:flex-row gap-4">
-        {/* Left: Product Image Gallery */}
+        {/* LEFT - Product Images */}
         <div className="lg:w-1/2 sticky top-0 self-start">
           <ProductImageGallery images={imageUrls} />
         </div>
 
-        {/* Right: Product Info (scrollable section) */}
+        {/* RIGHT - Product Details */}
         <div
           className="lg:w-1/2 space-y-6 overflow-y-scroll scrollbar-hide"
-          style={{
-            maxHeight: "calc(100vh - 4rem)", // Prevents overflowing page
-          }}
+          style={{ maxHeight: "calc(100vh - 4rem)" }}
         >
           <ProductTitleSection product={product} />
           <ProductPriceSection product={product} />
           <ProductColorSelector colors={product?.selectedColors} />
-          <ProductSizeSelector
-            selectedSizes={product?.selectedSizes}
-            units={product?.units}
-          />
+          <ProductSizeSelector selectedSizes={product?.selectedSizes} units={product?.units} />
           <ProductStockAndShipping />
+
           <ProductActionButtons
-            onAddToBag={(e) => handleonBuyNow(e) }
-            onBuyNow={() => console.log("Add to bag")}
+            onBuyNow={(e) => handleBuyNow(e)} // 💳 Buy Now → Checkout
+            onAddToBag={(e) => handleAddToBag(e)} // 🛒 Add to Bag → Cart
             onVirtualTryOn={() => console.log("Try on")}
           />
+
           <OfferAndShippingInfo />
           <ProductDescriptionSection product={product} />
           <ProductDetailsSection product={product} />
@@ -131,6 +205,6 @@ const IndividualProductDetailsPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default IndividualProductDetailsPage;
