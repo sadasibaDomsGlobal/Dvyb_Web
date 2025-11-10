@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import WomenwearRoute from "./WomenwearRoute";
-import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
+// import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
 import ProductLayout from "../layout/ProductLayout";
 import MainLayout from "../layout/mainLayout";
 import { useProducts } from "../hooks/useProducts";

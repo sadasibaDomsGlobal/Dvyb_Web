@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../../../assets/B2C/images/FAQ/Logo.svg';
 import logoName from '../../../assets/B2C/images/FAQ/LogoName.svg';
+
+
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-white mx-14 mt-32">

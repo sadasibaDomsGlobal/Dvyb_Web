@@ -1,4 +1,3 @@
-// components/navbar/Navbar.jsx
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import SearchDropdown from "./SearchDropdown";
@@ -7,6 +6,7 @@ import NavIcons from "./NavIcons";
 import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
+import { LoginModal } from "../../../pages/B2C/login/loginModel";
 
 
 export default function Navbar() {
@@ -15,15 +15,16 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate()
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const wishlistCount = 3;
   const cartCount = 5;
 
   // const navigate = (path) => console.log("Go to", path);
   const handleProtected = (path) => {
     if (!isLoggedIn) {
-      alert("Please login!");
-      navigate("/login");
+      setShowLogin(true);
+      // alert("Please login!");
+      // navigate("/login");
     } else {
       navigate(path);
     }
@@ -59,7 +60,8 @@ export default function Navbar() {
               onSearch={() => setSearchOpen(true)}
               onWishlist={() => handleProtected("/wishlist")}
               onCart={() => handleProtected("/cart")}
-              onProfile={() => handleProtected("/profile")}
+              // onProfile={() => handleProtected("/profile")}
+              onProfile={() => handleProtected(true)}
             />
           </div>
 
@@ -86,9 +88,48 @@ export default function Navbar() {
         onNavClick={navigate}
         onProtectedClick={handleProtected}
       />
+      
+      {/* Login model used here */}
+      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </header>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import React, { useState, useEffect, useRef } from "react";
