@@ -1,8 +1,12 @@
 // components/navbar/MobileMenu.jsx
+import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function MobileMenu({ isOpen, onClose, navItems, onNavClick, onProtectedClick }) {
   if (!isOpen) return null;
+  const [showLogin, setShowLogin] = useState(false);
+    const { signOutUser } = useAuth();
 
   return (
     <div className="fixed inset-0 z-[9999] lg:hidden" onClick={onClose}>
@@ -45,8 +49,18 @@ export default function MobileMenu({ isOpen, onClose, navItems, onNavClick, onPr
           <button onClick={() => onProtectedClick("/profile")} className="flex items-center gap-3 text-gray-700">
             Profile
           </button>
+          <button onClick={() => signOut()}>
+  Logout
+</button>
+
         </div>
       </div>
+      {showLogin && (
+        <LoginModal
+          isOpen={true}
+          onClose={() => setShowLogin(false)}
+        />
+      )}
     </div>
   );
 }

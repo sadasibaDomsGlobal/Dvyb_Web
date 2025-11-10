@@ -3,7 +3,10 @@ import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth
 import app from "../config/firebaseConfig";
 
 const auth = getAuth(app); // ← Always initialize auth here
-auth.settings.appVerificationDisabledForTesting = true;
+// In otpService.js
+// if (process.env.NODE_ENV === 'development') {
+  auth.settings.appVerificationDisabledForTesting = true;
+// }
 let recaptchaVerifier = null;
 
 export const setupRecaptcha = (containerId = "recaptcha-container") => {

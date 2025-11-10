@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OtpInput from "./OtpInput";
+import OtpInput from "./otpInput";
 import { verifyOtp } from "../../../services/otpService";
 import otpBanner from "../../../assets/common/login/loginBanner.svg";
 
@@ -8,20 +8,46 @@ const OtpVerification = ({ confirmation, mobile, onSuccess, onError, onResend })
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const [attempts, setAttempts] = useState(0);  // Track failures
+  const [maxAttempts] = useState(3);  // Configurable max
+  const [locked, setLocked] = useState(false);  // Lock after max attempts
+
+
+  const [resendCooldown, setResendCooldown] = useState(0);
+
   const handleVerify = async (e) => {
     e.preventDefault();
+    if (locked) return;  // Early exit if locked
     setLoading(true);
+    setError("");  // Clear previous error
     try {
       const user = await verifyOtp(confirmation, otp);
+      // Reset attempts on success
+      setAttempts(0);
       onSuccess(user);
-    } catch {
-      setError("The OTP you entered is incorrect.");
-      onError();
+    } catch (err) {
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      let msg = "The OTP you entered is incorrect.";
+      if (err.code) {  // Firebase error mapping (as suggested earlier)
+        if (err.code === 'auth/invalid-verification-code') msg = "Invalid OTP. Please try again.";
+        else if (err.code === 'auth/code-expired') msg = "OTP expired. Please resend.";
+      }
+      setError(msg);
+      onError(err);
+      if (newAttempts >= maxAttempts) {
+        setLocked(true);
+        setTimeout(() => {
+          onResend();  // Force resend after lock
+          setLocked(false);
+          setAttempts(0);  // Reset after resend
+        }, 5000);  // 5s delay before forcing resend
+      }
     } finally {
       setLoading(false);
+      if (!locked) setOtp("");  // Clear input on fail (unless locked)
     }
   };
-
   return (
     <div className="bg-white mb-12 py-6 w-full max-w-md mx-auto font-outfit">
       <img src={otpBanner} alt="otp-banner" className="mb-12 w-full object-cover h-62" />
@@ -38,27 +64,43 @@ const OtpVerification = ({ confirmation, mobile, onSuccess, onError, onResend })
             length={6}
             onComplete={(value) => {
               console.log("OTP Complete:", value);
-              // Validate or submit
-              if (value !== "123456") setError(true);
-              else setError(false);
             }}
             error={error}
             autoFocus
+            disabled={locked || loading}
           />
-        
+
+          {/* In the error/resend paragraph */}
           <p className="text-base text-borderLight font-normal p-2">
-           {error && error ?<span className="text-base text-[#FF0000] font-">{error} </span> : ` Didn’t receive the OTP? ${" "}`}
-            Didn’t receive the OTP? {" "}
-            <button type="button" onClick={onResend} className="font-medium underline text-[#000000]">
-              Resend OTP
-            </button>
+            {error ? (
+              <span className="text-base text-[#FF0000] font-normal">{error}</span>
+            ) : null}
+            {attempts > 0 && !locked && (
+              <span className="text-sm text-[#FF0000]">
+                Attempts left: {maxAttempts - attempts}
+              </span>
+            )}
+            {locked && (
+              <span className="text-base text-[#FF0000] font-normal">
+                Too many attempts. Resending OTP in a moment...
+              </span>
+            )}
+            {!locked && (
+              <>
+                Didn’t receive the OTP?{" "}
+                <button type="button" onClick={onResend} disabled={resendCooldown > 0} className="font-medium underline text-[#000000]">{0 ? `Resend in ${resendCooldown}s` : 'Resend OTP'}
+                </button>
+
+              </>
+            )}
           </p>
+
           <button
             type="submit"
-            disabled={loading}
-            className="w-full bg-primary text-white py-2 mt-4"
+            disabled={loading || locked || otp.length < 6}
+            className={`w-full py-2 mt-4 ${locked ? 'bg-gray-300 cursor-not-allowed' : 'bg-primary'} text-white`}
           >
-            {loading ? "Verifying..." : "VERIFY OTP"}
+            {loading ? "Verifying..." : locked ? "Locked - Resending..." : "VERIFY OTP"}
           </button>
         </form>
       </div>
