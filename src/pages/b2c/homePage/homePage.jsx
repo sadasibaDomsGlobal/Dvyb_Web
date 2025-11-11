@@ -47,9 +47,7 @@ export default function Home() {
 
 
   return (
-    <div className="mt-38">
-
-
+    <div className="mt-40">
       <section
         className="w-full max-w-[95vw] md:h-[90vh] aspect-3/2 sm:aspect-16/7 md:aspect-16/7 lg:aspect-16/5 m-2 md:m-4 lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
       >
@@ -65,6 +63,7 @@ export default function Home() {
         <SectionTitle viewAll>Wedding Tales</SectionTitle>
         <ProductGrid products={wedding} columns={3} />
       </section>
+      
 
       {/* 3. SHOP BY CATEGORY */}
       <section className="py-4">

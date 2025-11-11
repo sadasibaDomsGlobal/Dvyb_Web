@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function SectionTitle({ children, viewAll }) {
   const navigate = useNavigate()
   return (
-    <div className="flex items-center justify-between mb-6  sm:px-2 md:px-12 lg:px-22">
+    <div className="flex items-center justify-between mb-4  sm:px-2 md:px-12 lg:px-22">
       <h2 className="sm:text-[12px] sm:px-2 md:text-xl lg:text-2xl text-textDark uppercase font-medium">{children}</h2>
       {viewAll && (
         <button

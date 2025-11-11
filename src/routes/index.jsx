@@ -22,6 +22,7 @@ import PrivacyPolicy from "../components/common/PrivacyPolicy/PrivacyPolicy";
 import ReturnExchangePolicy from "../components/common/Returnpolicy/ReturnPolicy";
 import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
+import EmptyWishlist from "../components/b2c/empty_wishlist/EmptyWishlist";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -157,18 +158,18 @@ export default function AppRoutes() {
       />
 
       {/* 🔒 Example protected routes (commented for now) */}
-      {/*
+      
       <Route
         path="/wishlist"
         element={
           <ProtectedRoute>
             <MainLayout>
-              <WishlistPage />
+              <EmptyWishlist />
             </MainLayout>
           </ProtectedRoute>
         }
       />
-      <Route
+      {/* <Route
         path="/profile"
         element={
           <ProtectedRoute>
@@ -177,8 +178,8 @@ export default function AppRoutes() {
             </MainLayout>
           </ProtectedRoute>
         }
-      />
-      */}
+      /> */}
+     
     </Routes>
   );
 }
