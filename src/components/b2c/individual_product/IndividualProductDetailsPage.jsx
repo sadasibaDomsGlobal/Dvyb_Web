@@ -128,65 +128,12 @@ const IndividualProductDetailsPage = () => {
     }
   };
 
-  /** ✅ ADD TO BAG (Fully dynamic — no static data) */
-  // const handleAddToBag = async (event) => {
-  //   if (!user) {
-  //     alert("login karoo");
-  //   }
-  //   event.stopPropagation();
-  //   setAddingToCart(true);
-
-  //   try {
-  //     const user = auth.currentUser;
-  //     const newItem = {
-  //       id: product.id,
-  //       name: product.name,
-  //       price: product.price,
-  //       image: imageUrls[0],
-  //       color: product.selectedColors?.[0] || "Default",
-  //       size: product.selectedSizes?.[0] || "M",
-  //       quantity: 1,
-  //       addedAt: new Date().toISOString(),
-  //     };
-
-  //     // 🔐 Logged-in user → Firestore cart
-  //     if (user) {
-  //       await cartService.addToCart(product.id, newItem);
-  //       navigate("/cart");
-  //       return;
-  //     }
-
-  //     // 👤 Guest user → sessionStorage cart
-  //     const guestCart = JSON.parse(sessionStorage.getItem("guest_cart")) || [];
-  //     const exists = guestCart.some((item) => item.id === product.id);
-  //     if (!exists) {
-  //       guestCart.push(newItem);
-  //       sessionStorage.setItem("guest_cart", JSON.stringify(guestCart));
-  //     }
-
-  //     navigate("/cart");
-  //   } catch (error) {
-  //     console.error("Error adding to bag:", error);
-  //   } finally {
-  //     setAddingToCart(false);
-  //   }
-  // };
+  /** ✅ ADD TO BAG (Works for both logged-in and guest users) */
   const handleAddToBag = async (event) => {
     event.stopPropagation();
     setAddingToCart(true);
 
     try {
-      const user = auth.currentUser; // ✅ Define user before checking
-
-      // 🔒 Check if user is logged in
-      if (!user) {
-        alert("Please log in to add items to your bag.");
-        setAddingToCart(false);
-        navigate("/login"); // optional: redirect to login
-        return;
-      }
-
-      // ✅ Item structure
       const newItem = {
         id: product.id,
         name: product.name,
@@ -198,9 +145,49 @@ const IndividualProductDetailsPage = () => {
         addedAt: new Date().toISOString(),
       };
 
-      // 🔐 Logged-in user → Firestore cart
-      await cartService.addToCart(product.id, newItem);
-      alert("Item added to your bag!");
+      const user = auth.currentUser;
+
+      // 🔐 Logged-in user → Try Firestore, fallback to sessionStorage
+      if (user) {
+        try {
+          // Try to add to Firestore cart
+          await cartService.addToCart(product.id, newItem);
+          alert("Item added to your bag!");
+          navigate("/cart");
+          return;
+        } catch (error) {
+          // If user not found in Firestore collections, use sessionStorage (expected behavior)
+
+          const guestCart = JSON.parse(sessionStorage.getItem("guest_cart")) || [];
+          const existingItemIndex = guestCart.findIndex((item) => item.id === product.id);
+
+          if (existingItemIndex !== -1) {
+            guestCart[existingItemIndex].quantity += 1;
+            alert("Item quantity updated in your bag!");
+          } else {
+            guestCart.push(newItem);
+            alert("Item added to your bag!");
+          }
+
+          sessionStorage.setItem("guest_cart", JSON.stringify(guestCart));
+          navigate("/cart");
+          return;
+        }
+      }
+
+      // 👤 Guest user (not logged in) → sessionStorage cart
+      const guestCart = JSON.parse(sessionStorage.getItem("guest_cart")) || [];
+      const existingItemIndex = guestCart.findIndex((item) => item.id === product.id);
+
+      if (existingItemIndex !== -1) {
+        guestCart[existingItemIndex].quantity += 1;
+        alert("Item quantity updated in your bag!");
+      } else {
+        guestCart.push(newItem);
+        alert("Item added to your bag!");
+      }
+
+      sessionStorage.setItem("guest_cart", JSON.stringify(guestCart));
       navigate("/cart");
     } catch (error) {
       console.error("Error adding to bag:", error);
