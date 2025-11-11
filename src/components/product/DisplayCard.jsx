@@ -5,7 +5,7 @@ export default function DisplayCard({ product, className }) {
   return (
     <article
       className={cn(
-        "group relative overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300",
+        "cursor-pointer group relative overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300",
         className
       )}
     >

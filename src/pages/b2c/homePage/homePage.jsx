@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <div className="mt-40">
       <section
-        className="w-full max-w-[95vw] md:h-[90vh] aspect-3/2 sm:aspect-16/7 md:aspect-16/7 lg:aspect-16/5 m-2 md:m-4 lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
+        className="cursor-pointer w-full max-w-[95vw] md:h-[90vh] aspect-3/2 sm:aspect-16/7 md:aspect-16/7 lg:aspect-16/5 m-2 md:m-4 lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
       >
         <img
           src={homeBanner}
@@ -66,8 +66,8 @@ export default function Home() {
       
 
       {/* 3. SHOP BY CATEGORY */}
-      <section className="py-4">
-        <div className="container mx-auto px-4">
+      <section className="py-4 hide-scrollbar">
+        <div className="container mx-auto px-4 hide-scrollbar">
           <SectionTitle viewAll>Shop by Category</SectionTitle>
           <CategoryCarousel />
         </div>
@@ -83,7 +83,7 @@ export default function Home() {
       <section className="container mx-auto py-12 px-4">
         <SectionTitle>Luxurious Picks of the Day</SectionTitle>
         {/* <ProductGrid products={luxuryPicks} columns={4} /> */}
-        <LuxuryPicks products={luxuryPicks} columns={4} />
+        <LuxuryPicks products={luxuryPicks} columns={5} />
       </section>
 
       {/* 5. SPOTLIGHT OF THE DAY */}

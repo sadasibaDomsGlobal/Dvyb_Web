@@ -8,8 +8,8 @@ export default function CategoryCarousel() {
   const scrollRef = useRef(null);
 
   return (
-    <section className="relative">
-      <div className="flex items-center gap-2  sm:px-1 md:px-8 lg:px-18">
+    <section className="relative hide-scrollbar">
+      <div className="cursor-pointer hide-scrollbar flex items-center gap-2  sm:px-1 md:px-8 lg:px-18">
 
         {/* LEFT ARROW */}
         <button
