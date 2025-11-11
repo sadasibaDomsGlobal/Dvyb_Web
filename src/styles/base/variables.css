@@ -1,0 +1,60 @@
+@theme {
+  /* ===== COLOR PALETTE ===== */
+    --color-primary: #7A0000;
+    --color-yellowprimary: #FEC601;
+    --color-primaryLight: #B33A3A;
+    --color-secondary: #F5F1EF;  
+    --color-success: #2E7D32;
+    --color-iserror: #C62828;
+    --color-warning: #E57373;  
+    --color-textDark: #2B2B2B;  
+    --color-textLight: #666666;
+    --color-border: #D9D9D9; 
+    --color-borderLight: #B9B9B9;
+    --color-blackDark: #3A3A3A;
+    --color-white: #FFFFFF;
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #e5e5e5;
+    --color-gray-600: #666666;
+    --color-gray-800: #333333;
+    --color-gray-900: #1a1a1a;
+    --color-lighted-bg: #F7F0F0;
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-family-sans: "Inter", "Segoe UI", "Roboto", sans-serif;
+  /* --font-family-serif: "Outfit", "Georgia", serif; */
+  --font-family-outfit: "Outfit", sans-serif;
+  
+  
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+
