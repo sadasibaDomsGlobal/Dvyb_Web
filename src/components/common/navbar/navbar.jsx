@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import { useFilter } from "../../../context/FilterContext";
 
 
 export default function Navbar() {
@@ -18,7 +19,10 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const { user, loading } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  // Add filter context
+  const { setCategoryFromNavbar } = useFilter();
 
   
   const guard = (path) => {
@@ -28,6 +32,31 @@ export default function Navbar() {
       navigate(path);
     }
   };
+
+  // Handle navbar item click
+  const handleNavItemClick = (itemLabel) => {
+    // Map navbar labels to filter categories
+    const categoryMap = {
+      'LEHANGA': 'Lehenga',
+      'SAREE': 'Saree',
+      'KURTA SETS': 'Kurta Sets',
+      'ANARKALIS': 'Anarkali',
+      'SHARARAS': 'Sharara',
+      'PRET': 'Pret',
+      'FUSION': 'Fusion',
+      'WEDDING': 'Wedding',
+      'SALE': 'Sale',
+      'VIRTUAL TRYON': 'Virtual Try On'
+    };
+    const category = categoryMap[itemLabel] || itemLabel;
+    
+    // Set the category in filter context
+    setCategoryFromNavbar(category);
+    
+    // Navigate to products page
+    navigate("/womenwear");
+  }
+
 
   const isLoggedIn = true;
   const wishlistCount = 0;
@@ -86,14 +115,15 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                // onClick={() => navigate(item.path)}
-                onClick={() => navigate("/womenwear")}
+                onClick={() => handleNavItemClick(item.label)}
                 className={`${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"} transition-colors duration-200`}
               >
                 {item.label}
               </button>
             ))}
           </nav>
+
+
           {showLogin && (
         <LoginModal
           isOpen={true}
