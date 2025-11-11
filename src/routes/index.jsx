@@ -1,6 +1,6 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "../components/protectedRoute";
 import MainLayout from "../layout/mainLayout";
 import ProductLayout from "../layout/ProductLayout";
 import WomenwearRoute from "./WomenwearRoute";
