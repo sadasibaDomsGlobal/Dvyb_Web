@@ -230,10 +230,10 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
 
         {/* Download Invoice CTA centered under list (optional duplicate) */}
         <div className="flex justify-center">
-          <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md font-medium flex items-center">
+          {/* <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md font-medium flex items-center">
             <Download className="h-4 w-4 mr-2" />
             Download Invoice
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

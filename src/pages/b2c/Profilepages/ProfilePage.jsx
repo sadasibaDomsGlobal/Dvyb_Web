@@ -1,5 +1,5 @@
-// // AccountPage.js
-import React, { useState, useEffect, act } from "react";
+// ProfilePage.js
+import React, { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Sidebar from '../../../components/B2C/ProfilePage/Sidebar';
 import MyInfo from "../../../components/B2C/ProfilePage/MyInfo";
@@ -10,8 +10,6 @@ import TryOnGallery from "../../../components/B2C/ProfilePage/TryOnGallery";
 // import RewardsRedemption from "../../B2C/B2CComponents/RewardsRedemption";
 // import ReferEarn from "../../B2C/B2CComponents/ReferEarn";
 // import SubscriptionFlow from "../../B2C/B2CComponents/SubscriptionFlow";
-
-
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("my-info");
@@ -25,7 +23,6 @@ const ProfilePage = () => {
       const validTabs = [
         "my-info",
         "my-orders",
-        // "my-model",  
         "wishlist",
         "my-tryon-gallery",
         "rewards",
@@ -40,29 +37,23 @@ const ProfilePage = () => {
     }
   }, [location.search, searchParams]);
 
-  
-  // React.useEffect(() => {
-  //   if (activeTab === "my-model") {
-  //     // document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "auto";
-  //   }
-  // }, [activeTab]);
-
   return (
-    <div className="relative flex   ">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className={`absolute ${activeTab === "my-tryon-gallery" ? 'w-250' : 'w-250'} left-64 w-250 flex-1 p-6 `}>
-        {activeTab === "my-info" && <MyInfo userId={userId} />}
-        {activeTab === "my-orders" && <MyOrders  />}
-        {/* {activeTab === "my-model" && <ProfileImage />} */}
-        {activeTab === "wishlist" && <WishlistPage />}
-        {activeTab === "my-tryon-gallery" && <TryOnGallery/>}
-        {activeTab === "rewards" && <RewardsRedemption />}
-        {activeTab === "refer-earn" && <ReferEarn />}
-        {activeTab === "subscriptions" && <SubscriptionFlow />}
-        
-     
+    <div className="flex min-h-screen mt-32 bg-gray-50">
+      {/* Fixed Sidebar - handles its own positioning */}
+      <Sidebar  activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      {/* Main Content Area - offset by sidebar width */}
+      <div className="flex-1 ml-64 p-6 min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          {activeTab === "my-info" && <MyInfo userId={userId} />}
+          {activeTab === "my-orders" && <MyOrders />}
+          {activeTab === "wishlist" && <WishlistPage />}
+          {activeTab === "my-tryon-gallery" && <TryOnGallery />}
+          {/* Uncomment when components are ready */}
+          {/* {activeTab === "rewards" && <RewardsRedemption />}
+          {activeTab === "refer-earn" && <ReferEarn />}
+          {activeTab === "subscriptions" && <SubscriptionFlow />} */}
+        </div>
       </div>
     </div>
   );

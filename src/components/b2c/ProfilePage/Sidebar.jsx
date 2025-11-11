@@ -78,44 +78,52 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
   return (
     <>
-      {/* Sidebar */}
-      <div className="w-64 h-screen bg-gray-50 p-4 fixed left-0 top-0">
-           {/* <img src={b2clogo} 
-           alt="logo" 
-           className="h-5 sm:h-6 md:h-6 mb-2 object-contain cursor-pointer" 
+      {/* Sidebar - Fixed position below navbar */}
+      <div className="w-64 h-[calc(100vh-40px)] mt-24 bg-gray-50 p-4 fixed left-0 top-[40px] overflow-y-auto z-40">
+        {/* Optional Logo */}
+        {/* <img 
+          src={b2clogo} 
+          alt="logo" 
+          className="h-5 sm:h-6 md:h-6 mb-4 object-contain cursor-pointer" 
           onClick={() => navigate("/")}
-           /> */}
-        {/* <h2 className="text-lg font-bold mb-6">
-          Hello {data?.name || "User"}
-        </h2> */}
-        <ul>
+        /> */}
+        
+        {/* Welcome Message */}
+        <div className="mb-6 pb-4 border-b border-gray-200">
+          <h2 className="text-lg font-bold text-gray-800">
+            Hello {data?.name || "User"}
+          </h2>
+        </div>
+
+        {/* Menu Items */}
+        <ul className="space-y-1">
           {menu.map((item) => (
             <li
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`cursor-pointer flex items-center gap-3 p-2 rounded-md mb-2 transition ${
+              className={`cursor-pointer flex items-center gap-3 p-3 rounded-md transition-all duration-200 ${
                 activeTab === item.id
-                  ? "text-primary font-semibold"
-                  : "hover:bg-gray-100"
+                  ? " text-primary font-semibold "
+                  : "text-gray-700"
               }`}
             >
-              {/* {item.icon} */}
-              {item.label}
+              {/* <span className="text-lg">{item.icon}</span> */}
+              <span>{item.label}</span>
             </li>
           ))}
 
-          {/* Logout */}
+          {/* Logout Button */}
           <li
             onClick={() => setShowLogoutModal(true)}
-            className="cursor-pointer flex items-center gap-3  rounded-md mt-2 p-2 text-red-600 hover:bg-red-50"
+            className="cursor-pointer flex items-center gap-3 p-3 rounded-md mt-4 text-red-600 hover:bg-red-50 transition-all duration-200 border-t border-gray-200 pt-4"
           >
-            {/* <FaSignOutAlt /> */}
-            Logout
+            <FaSignOutAlt className="text-lg" />
+            <span>Logout</span>
           </li>
         </ul>
       </div>
 
-      {/* ✅ Logout Confirmation Modal - Moved outside and with higher z-index */}
+      {/* ✅ Logout Confirmation Modal */}
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[9999]">
           <div className="bg-white rounded-lg shadow-2xl p-6 w-80 text-center mx-4">
