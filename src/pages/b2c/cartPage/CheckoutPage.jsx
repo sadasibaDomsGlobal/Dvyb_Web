@@ -726,9 +726,8 @@ export default function CheckoutPage() {
 
     try {
       if (paymentMethod === "cod") {
-        alert(`✅ Order placed successfully! Total: ₹${totalPayable.toLocaleString()}`);
-        sessionStorage.removeItem("guest_cart"); // clear guest cart
-        navigate("/");
+        // sessionStorage.removeItem("guest_cart");
+        navigate("/order-success");
       } else {
         alert("Online payment integration pending. Please use COD for now.");
       }
@@ -767,7 +766,7 @@ export default function CheckoutPage() {
     );
 
   return (
-    <div className="min-h-screen bg-white mt-20 font-[Outfit]">
+    <div className="min-h-screen  bg-white mt-30 font-[Outfit]">
       <div className="max-w-7xl mx-auto px-2 md:px-10 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 p-2">
           {/* LEFT SIDE - Steps */}
@@ -775,7 +774,7 @@ export default function CheckoutPage() {
             {/* STEP 1: USER DETAILS */}
             <div className="border border-gray-200 rounded-sm">
               <div
-                className="bg-gray-100 px-4 py-3 flex justify-between items-center border-l-4 cursor-pointer"
+                className="bg-gray-100 px-5 py-3 flex justify-between items-center border-l-4 cursor-pointer"
                 style={{ borderColor: openStep === 1 ? MAROON : "transparent" }}
                 onClick={() => openRequestedStep(1)}
               >
@@ -783,25 +782,27 @@ export default function CheckoutPage() {
                 {email && openStep !== 1 && <div className="text-sm text-gray-600">{email}</div>}
               </div>
               {openStep === 1 && (
-                <div className="p-6 space-y-6">
+                <div className="p-3 space-y-5">
                   <p className="text-[14px] text-gray-700">
                     Enter your email for order details and updates.
                   </p>
-                  <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border border-gray-300 rounded-sm px-4 py-2 text-[14px]
+                  <div className="gap-20 space-x-4">
+                    <input
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="border border-gray-300 rounded-sm px-4 py-2 text-[14px]
                      focus:outline-none focus:ring-1 focus:ring-[#800000] w-[349px]"
-                  />
-                  <button
-                    onClick={handleCheckoutAsGuest}
-                    className="bg-[#800000] text-white px-6 py-2 text-[14px] uppercase
+                    />
+                    <button
+                      onClick={handleCheckoutAsGuest}
+                      className="bg-[#800000] text-white px-6 py-2 text-[14px] uppercase
                      rounded-sm hover:bg-[#660000] transition w-[349px]"
-                  >
-                    Continue
-                  </button>
+                    >
+                      Continue
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
