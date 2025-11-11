@@ -15,6 +15,7 @@ import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
 import CartPage from "../pages/b2c/cartPage/cartPage";
 import CheckoutPage from "../pages/b2c/cartPage/CheckoutPage";
+import UploadSelfieModalMobile from "../pages/b2c/TryOnMobilePages/UploadselfieMobie";
 
 
 export default function AppRoutes() {
@@ -167,6 +168,16 @@ export default function AppRoutes() {
         element={
           <MainLayout>
             <ProductDetailsPageIndividual />
+          </MainLayout>
+        }
+      />
+
+
+        <Route
+        path="/upload-mobile:"
+        element={
+          <MainLayout>
+            <UploadSelfieModalMobile/>
           </MainLayout>
         }
       />
