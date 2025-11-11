@@ -3,6 +3,48 @@
   import    orderService from '../../../services/OrderService'; 
 import InvoiceView from './InvoiceView.JSX'; 
 
+
+const mockOrders = [
+  {
+    id: "ORD-101",
+    orderId: "ORD-101",
+    status: "Active",
+    date: new Date(),
+    estimatedDelivery: "Feb 18, 2025",
+    paymentMethod: "UPI",
+    products: [
+      {
+        name: "Red Silk Saree",
+        price: 1899,
+        quantity: 1,
+        size: "Free Size",
+        color: "Red",
+        image: "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+      }
+    ]
+  },
+  {
+    id: "ORD-102",
+    orderId: "ORD-102",
+    status: "Delivered",
+    date: new Date(),
+    paymentMethod: "Card Payment",
+    products: [
+      {
+        name: "Blue Kurta Set",
+        price: 1299,
+        quantity: 1,
+        size: "M",
+        color: "Blue",
+        image: "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+      }
+    ]
+  }
+];
+
+
+
+
   const MyOrders = () => {
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +62,7 @@ import InvoiceView from './InvoiceView.JSX';
           unsubscribe = await orderService.subscribeToOrders((fetchedOrders) => {
             console.log("Orders received:", fetchedOrders);
             setOrders(fetchedOrders);
+            setOrders(fetchedOrders.length > 0 ? fetchedOrders : mockOrders);
             setIsLoading(false);
           });
         } catch (error) {
