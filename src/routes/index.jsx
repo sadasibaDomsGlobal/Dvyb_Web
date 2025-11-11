@@ -1,10 +1,18 @@
+// src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
-import WomenwearRoute from "./WomenwearRoute";
-import ProductLayout from "../layout/ProductLayout";
+import ProtectedRoute from "../components/ProtectedRoute";
 import MainLayout from "../layout/mainLayout";
+import ProductLayout from "../layout/ProductLayout";
+import WomenwearRoute from "./WomenwearRoute";
 import { useProducts } from "../hooks/useProducts";
-import ProductDetailsPageIndividual from "../pages/b2c/ProductDetailsPageIndividual";
+
+// 🧱 Pages
 import Home from "../pages/b2c/homePage/homePage";
+import CartPage from "../pages/b2c/cartPage/cartPage";
+import CheckoutPage from "../pages/b2c/cartPage/CheckoutPage";
+import ProductDetailsPageIndividual from "../pages/b2c/ProductDetailsPageIndividual";
+
+// 📰 Common Pages
 import BlogPage from "../components/common/BlogPage/BlogPage";
 import MainBlog from "../components/common/BlogPage/MainBlog";
 import SingleMainBlog from "../components/common/BlogPage/singleBlogMain";
@@ -13,19 +21,15 @@ import PrivacyPolicy from "../components/common/PrivacyPolicy/PrivacyPolicy";
 import ReturnExchangePolicy from "../components/common/Returnpolicy/ReturnPolicy";
 import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
-import CartPage from "../pages/b2c/cartPage/cartPage";
-import CheckoutPage from "../pages/b2c/cartPage/CheckoutPage";
-
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <Routes>
-      {/* 🧷 Product listing page (with sidebar + ads inside main layout) */}
+      {/* 🏠 Home */}
       <Route
         path="/"
         element={
@@ -35,16 +39,29 @@ export default function AppRoutes() {
         }
       />
 
-      {/* <MainLayout>
-  <BlogPage/>
-</MainLayout>
-<MainLayout>
-  <MainBlog/>
-</MainLayout>
-<MainLayout>
+      {/* 🧷 Product listing page */}
+      <Route
+        path="/womenwear"
+        element={
+          <MainLayout>
+            <ProductLayout products={products}>
+              <WomenwearRoute products={products} />
+            </ProductLayout>
+          </MainLayout>
+        }
+      />
 
-</MainLayout> */}
+      {/* 🧷 Product details page */}
+      <Route
+        path="/products/:id"
+        element={
+          <MainLayout>
+            <ProductDetailsPageIndividual />
+          </MainLayout>
+        }
+      />
 
+      {/* 🛒 Cart & Checkout (Protected if needed later) */}
       <Route
         path="/cart"
         element={
@@ -53,7 +70,6 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-
       <Route
         path="/checkout"
         element={
@@ -63,19 +79,20 @@ export default function AppRoutes() {
         }
       />
 
-      <Route
-        path="/mainblog"
-        element={
-          <MainLayout>
-            <MainBlog />
-          </MainLayout>
-        }
-      />
+      {/* 📰 Blog pages */}
       <Route
         path="/blog"
         element={
           <MainLayout>
             <BlogPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/mainblog"
+        element={
+          <MainLayout>
+            <MainBlog />
           </MainLayout>
         }
       />
@@ -87,16 +104,16 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-
-      {/* <Route
-        path="/Cart"
+      <Route
+        path="/SingleBlog"
         element={
           <MainLayout>
-            <CheckoutPage />
+            <SingleBlog />
           </MainLayout>
         }
-      /> */}
+      />
 
+      {/* 📄 Static pages */}
       <Route
         path="/faq"
         element={
@@ -105,16 +122,6 @@ export default function AppRoutes() {
           </MainLayout>
         }
       />
-
-      {/* <Route
-        path="/ourStory"
-        element={
-          <MainLayout>
-          < ourStory />
-          </MainLayout>
-        }
-      /> */}
-
       <Route
         path="/privacy"
         element={
@@ -132,14 +139,6 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/SingleBlog"
-        element={
-          <MainLayout>
-            <SingleBlog />
-          </MainLayout>
-        }
-      />
-      <Route
         path="/terms"
         element={
           <MainLayout>
@@ -148,65 +147,29 @@ export default function AppRoutes() {
         }
       />
 
-
-
+      {/* 🔒 Example protected routes (commented for now) */}
+      {/*
       <Route
-        path="/womenwear"
+        path="/wishlist"
         element={
-          <MainLayout>
-            <ProductLayout products={products}>
-              <WomenwearRoute products={products} />
-            </ProductLayout>
-          </MainLayout>
+          <ProtectedRoute>
+            <MainLayout>
+              <WishlistPage />
+            </MainLayout>
+          </ProtectedRoute>
         }
       />
-
-      {/* 🧷 Product details page (no sidebar, only header/footer) */}
       <Route
-        path="/products/:id"
+        path="/profile"
         element={
-          <MainLayout>
-            <ProductDetailsPageIndividual />
-          </MainLayout>
+          <ProtectedRoute>
+            <MainLayout>
+              <ProfilePage />
+            </MainLayout>
+          </ProtectedRoute>
         }
       />
-
-      {/* 🧷 Root → redirect to womenwear */}
-      <Route
-        path="/womenwear"
-        element={
-          <MainLayout>
-            <ProductLayout products={products}>
-              <WomenwearRoute products={products} />
-            </ProductLayout>
-          </MainLayout>
-        }
-      />
-
-
-
+      */}
     </Routes>
   );
 }
-
-
-
-
-
-
-
-
-// import { Routes, Route } from "react-router-dom";
-// import WomenwearRoute from "./WomenwearRoute";
-// import IndividualProductDetailsPage from "../components/b2c/individual_product/IndividualProductDetailsPage";
-
-// export default function AppRoutes() {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<WomenwearRoute />} />
-//       <Route path="/womenwear" element={<WomenwearRoute />} />
-//       <Route path="/products/:id" element={<IndividualProductDetailsPage />} />
-//       {/* Add more routes here */}
-//     </Routes>
-//   );
-// }
