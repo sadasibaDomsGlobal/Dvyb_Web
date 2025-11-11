@@ -530,6 +530,7 @@ import { Minus, Plus, Heart, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cartService } from "../../../services/cartService";
 import { auth } from "../../../config";
+import emptyCart from "../../../assets/b2c/images/empty_cart/Vector.svg";
 
 function CartPage() {
   const navigate = useNavigate();
@@ -671,7 +672,7 @@ function CartPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* LEFT SECTION - CART ITEMS */}
-        <div className="lg:col-span-2 space-y-6">
+        {/* <div className="lg:col-span-2 space-y-6">
           {cartItems.length === 0 ? (
             <p className="text-gray-600 text-center py-10">Your cart is empty.</p>
           ) : (
@@ -731,8 +732,37 @@ function CartPage() {
               </div>
             ))
           )}
+        </div> */}
+        <div className="lg:col-span-2 space-y-6">
+          {cartItems.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center space-y-6">
+              <div className="bg-gray-100 rounded-full p-6">
+                <img
+                  src={emptyCart} // Replace with your preferred icon
+                  alt="Empty Cart"
+                  className="w-[90%] h-[90%]"
+                />
+              </div>
+              <h2 className="text-[32px] font-medium text-gray-800">Your shopping bag is empty</h2>
+              <p className="text-[14px] text-gray-600">Start adding your favorites</p>
+              <button
+                onClick={() => navigate("/")}
+                className="bg-[#D8D8D8] text-black border-black-100 px-6 py-3 text-[16px] font-[Outfit] font-medium uppercase tracking-[0.27px] rounded-sm "
+              >
+                Continue Shopping
+              </button>
+            </div>
+          ) : (
+            cartItems.map((item, i) => (
+              <div
+                key={i}
+                className="border border-gray-200 rounded-lg p-5 flex flex-col md:flex-row gap-6"
+              >
+                {/* existing cart item layout */}
+              </div>
+            ))
+          )}
         </div>
-
         {/* RIGHT SECTION - CART SUMMARY */}
         <div className="p-6 rounded-md shadow-sm h-fit border border-transparent">
           <h2 className="font-[Outfit] text-[18px] font-medium uppercase tracking-[0.27px] text-[#000] mb-5">
