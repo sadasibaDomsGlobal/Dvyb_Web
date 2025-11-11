@@ -12,7 +12,7 @@ const Sidebar = ({ products = [] }) => {
   });
 
   // Get filter context
-  const { selectedFilters, navbarCategory } = useFilter();
+  const { selectedFilters, navbarCategory, clearAllFilters } = useFilter();
 
   // Check if current category is Saree
   const isSareeCategory = selectedFilters.categories.includes('SAREE') ||
@@ -22,6 +22,15 @@ const Sidebar = ({ products = [] }) => {
   // Get the current selected category for display
   const currentCategory = navbarCategory ||
     (selectedFilters.categories.length > 0 ? selectedFilters.categories[0] : 'All Products');
+
+  // Check if any filters are active
+  const hasActiveFilters =
+    selectedFilters.categories.length > 0 ||
+    selectedFilters.sizes.length > 0 ||
+    selectedFilters.colors.length > 0 ||
+    selectedFilters.discounts.length > 0 ||
+    selectedFilters.priceMin !== null ||
+    selectedFilters.priceMax !== null;
 
   // Navbar items as categories
   const navbarCategories = [
@@ -57,14 +66,14 @@ const Sidebar = ({ products = [] }) => {
 
   // Default colors (fallback if no colors from API)
   const defaultColors = [
-    { name: "Red", hex: "#FF0000", bgClass: "bg-red-500", count: 12500 },
-    { name: "Blue", hex: "#0000FF", bgClass: "bg-blue-500", count: 9800 },
-    { name: "Green", hex: "#008000", bgClass: "bg-green-600", count: 7500 },
-    { name: "Black", hex: "#000000", bgClass: "bg-black", count: 11200 },
-    { name: "White", hex: "#FFFFFF", bgClass: "bg-white border border-gray-300", count: 8900 },
-    { name: "Pink", hex: "#FFC0CB", bgClass: "bg-pink-300", count: 6700 },
-    { name: "Purple", hex: "#800080", bgClass: "bg-purple-600", count: 4500 },
-    { name: "Yellow", hex: "#FFFF00", bgClass: "bg-yellow-400", count: 3200 }
+    { name: "red", hex: "#FF0000", count: 12500 },
+    { name: "blue", hex: "#0000FF", count: 9800 },
+    { name: "green", hex: "#008000", count: 7500 },
+    { name: "black", hex: "#000000", count: 11200 },
+    { name: "white", hex: "#FFFFFF", count: 8900 },
+    { name: "pink", hex: "#FFC0CB", count: 6700 },
+    { name: "purple", hex: "#800080", count: 4500 },
+    { name: "yellow", hex: "#FFFF00", count: 3200 }
   ];
 
   useEffect(() => {
@@ -73,6 +82,10 @@ const Sidebar = ({ products = [] }) => {
       setFilterData(dynamicData);
     }
   }, [products]);
+
+  const handleClearFilters = () => {
+    clearAllFilters();
+  };
 
   return (
     <>
@@ -94,14 +107,17 @@ const Sidebar = ({ products = [] }) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky lg:top-0 inset-y-0 left-0 z-30 w-64 bg-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          } lg:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-hidden`}
+        className={`fixed lg:sticky lg:top-0 inset-y-0 left-0 z-30 w-64 bg-white transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-hidden`}
       >
         <div className="h-full flex flex-col">
           {/* Header Section - Fixed */}
           <div className="flex-shrink-0 p-4 border-b border-gray-100">
-            <div className="text-xs text-gray-500 mb-3">
-              Home &gt; Womenswear &gt; {currentCategory}
+            <div className="flex justify-between items-center mb-3">
+              <div className="text-xs text-gray-500">
+                Home &gt; Womenswear &gt; {currentCategory}
+              </div>
             </div>
             <h4 className="text-gray-900 text-base font-medium">FILTERS</h4>
           </div>
@@ -128,7 +144,7 @@ const Sidebar = ({ products = [] }) => {
                 />
               )}
 
-              {/* COLORS FILTER - Use default colors if no colors from API */}
+              {/* COLORS FILTER - Use extracted colors or default colors */}
               <ColorFilter
                 title="COLORS"
                 colors={filterData.colors.length > 0 ? filterData.colors : defaultColors}
@@ -152,8 +168,32 @@ const Sidebar = ({ products = [] }) => {
                   defaultOpen={true}
                 />
               )}
+
+              {/* Clear Filters Button at Bottom (Mobile Friendly) */}
+              {hasActiveFilters && (
+                <div className="pt-4 border-t border-gray-200 lg:hidden">
+                  <button
+                    onClick={handleClearFilters}
+                    className="w-full py-2.5 text-sm font-medium text-primary border border-primary rounded hover:bg-gray-50 transition-colors"
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Sticky Clear Filters Button at Bottom (Desktop) */}
+          {hasActiveFilters && (
+            <div className="flex-shrink-0 p-4 border-t border-gray-200 hidden lg:block">
+              <button
+                onClick={handleClearFilters}
+                className="w-full py-2.5 text-sm font-medium text-primary border border-primary rounded hover:bg-gray-50 transition-colors"
+              >
+                Clear All Filters
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </>
@@ -198,93 +238,29 @@ function extractColors(products) {
     if (Array.isArray(product.selectedColors)) {
       product.selectedColors.forEach((color) => {
         if (color && typeof color === 'string') {
-          // Handle different color formats
-          let colorName, hex;
-
+          // Handle format: "green_#50C89F"
           if (color.includes('_')) {
-            // Format: "Red_#FF0000"
-            [colorName, hex] = color.split('_');
-          } else if (color.startsWith('#')) {
-            // Format: "#FF0000"
-            hex = color;
-            colorName = getColorNameFromHex(color);
-          } else {
-            // Format: "Red"
-            colorName = color;
-            hex = getHexFromColorName(color);
-          }
-
-          if (colorName && hex) {
-            const trimmedName = colorName.trim();
-            const existing = map.get(trimmedName);
-            map.set(trimmedName, {
-              name: trimmedName,
-              hex: hex,
-              bgClass: hexToClass(hex),
-              count: (existing?.count || 0) + 1,
-            });
+            const [colorName, hex] = color.split('_');
+            
+            if (colorName && hex) {
+              const trimmedName = colorName.trim().toLowerCase();
+              const existing = map.get(trimmedName);
+              
+              map.set(trimmedName, {
+                name: trimmedName,
+                hex: hex,
+                count: (existing?.count || 0) + 1,
+              });
+            }
           }
         }
       });
     }
   });
 
-  return Array.from(map.values()).sort((a, b) => b.count - a.count);
-}
-
-// Helper function to get color name from hex
-function getColorNameFromHex(hex) {
-  const colorMap = {
-    '#FF0000': 'Red',
-    '#0000FF': 'Blue',
-    '#008000': 'Green',
-    '#000000': 'Black',
-    '#FFFFFF': 'White',
-    '#FFC0CB': 'Pink',
-    '#800080': 'Purple',
-    '#FFFF00': 'Yellow',
-    '#B22222': 'Firebrick',
-    '#9370DB': 'Medium Purple',
-    '#8B0000': 'Dark Red',
-    '#FFB6C1': 'Light Pink',
-    '#32CD32': 'Lime Green'
-  };
-  return colorMap[hex] || 'Unknown';
-}
-
-// Helper function to get hex from color name
-function getHexFromColorName(colorName) {
-  const colorMap = {
-    'red': '#FF0000',
-    'blue': '#0000FF',
-    'green': '#008000',
-    'black': '#000000',
-    'white': '#FFFFFF',
-    'pink': '#FFC0CB',
-    'purple': '#800080',
-    'yellow': '#FFFF00'
-  };
-  return colorMap[colorName.toLowerCase()] || '#CCCCCC';
-}
-
-function hexToClass(hex) {
-  const colorMap = {
-    '#FF0000': 'bg-red-500',
-    '#0000FF': 'bg-blue-500',
-    '#008000': 'bg-green-600',
-    '#000000': 'bg-black',
-    '#FFFFFF': 'bg-white border border-gray-300',
-    '#FFC0CB': 'bg-pink-300',
-    '#800080': 'bg-purple-600',
-    '#FFFF00': 'bg-yellow-400',
-    '#B22222': 'bg-red-600',
-    '#9370DB': 'bg-purple-500',
-    '#8B0000': 'bg-red-900',
-    '#FFB6C1': 'bg-pink-300',
-    '#32CD32': 'bg-green-400',
-  };
-
-  return colorMap[hex] || `bg-[${hex}]`;
+  const extractedColors = Array.from(map.values()).sort((a, b) => b.count - a.count);
+  console.log('Extracted colors:', extractedColors); // Debug log
+  return extractedColors;
 }
 
 function getPriceRange(products) {
@@ -303,8 +279,6 @@ function getPriceRange(products) {
 }
 
 export default Sidebar;
-
-
 
 
 

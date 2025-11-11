@@ -9,6 +9,11 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
     const [localMax, setLocalMax] = useState(initialMax || 100000);
     const { updateFilter } = useFilter();
 
+    // Format price with commas
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-IN').format(price);
+    };
+
     // Update global filter when local values change (with debounce)
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -21,7 +26,7 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
 
     const handleMinChange = (value) => {
         const numValue = Number(value);
-        if (!isNaN(numValue) && numValue >= 0) {
+        if (!isNaN(numValue) && numValue >= 0 && numValue <= localMax) {
             setLocalMin(numValue);
         }
     };
@@ -33,8 +38,15 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
         }
     };
 
+    const handleRangeChange = (value) => {
+        const numValue = Number(value);
+        if (!isNaN(numValue)) {
+            setLocalMax(numValue);
+        }
+    };
+
     return (
-        <div className="pb-4">
+        <div className="pb-3">
             {/* Header with toggle */}
             <button 
                 onClick={() => setIsOpen(!isOpen)}
@@ -47,46 +59,61 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
             {/* Collapsible Content */}
             {isOpen && (
                 <div className="space-y-3 text-xs">
-                    {/* Min Max Labels */}
-                    <div className="flex justify-between text-gray-600">
-                        <span>Min</span>
-                        <span>Max</span>
+                    {/* Price Display */}
+                    <div className="text-center text-gray-700 font-medium py-1">
+                        ₹{formatPrice(localMin)} - ₹{formatPrice(localMax)}
                     </div>
                     
-                    {/* Price Inputs */}
-                    <div className="flex gap-2">
-                        <input
-                            type="number"
-                            value={localMin}
-                            onChange={(e) => handleMinChange(e.target.value)}
-                            className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
-                            placeholder="55"
-                        />
-                        <input
-                            type="number"
-                            value={localMax}
-                            onChange={(e) => handleMaxChange(e.target.value)}
-                            className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
-                            placeholder="37967"
-                        />
-                    </div>
-                    
-                    {/* Range Slider */}
-                    <div className="pt-1">
+                    {/* Range Slider - Compact */}
+                    <div className="px-1">
                         <input
                             type="range"
                             min={initialMin || 0}
                             max={initialMax || 100000}
                             value={localMax}
-                            onChange={(e) => handleMaxChange(e.target.value)}
-                            className="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-900"
+                            onChange={(e) => handleRangeChange(e.target.value)}
+                            className="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-900 [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow-sm"
                         />
                     </div>
                     
-                    {/* Scale */}
-                    <div className="flex justify-between text-gray-500 pt-1">
-                        <span>0</span>
-                        <span>5000000</span>
+                    {/* Quick Price Buttons */}
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                        <button
+                            onClick={() => {
+                                setLocalMin(0);
+                                setLocalMax(1000);
+                            }}
+                            className="px-2 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                        >
+                            Under ₹1k
+                        </button>
+                        <button
+                            onClick={() => {
+                                setLocalMin(1000);
+                                setLocalMax(5000);
+                            }}
+                            className="px-2 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                        >
+                            ₹1k - ₹5k
+                        </button>
+                        <button
+                            onClick={() => {
+                                setLocalMin(5000);
+                                setLocalMax(10000);
+                            }}
+                            className="px-2 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                        >
+                            ₹5k - ₹10k
+                        </button>
+                        <button
+                            onClick={() => {
+                                setLocalMin(10000);
+                                setLocalMax(50000);
+                            }}
+                            className="px-2 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                        >
+                            ₹10k+
+                        </button>
                     </div>
                 </div>
             )}
@@ -95,3 +122,107 @@ const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) =
 };
 
 export default PriceRange;
+
+
+
+
+
+
+
+// // src/components/b2c/filters/PriceRange.jsx
+// import { useState, useEffect } from 'react';
+// import { ChevronDown, ChevronUp } from 'lucide-react';
+// import { useFilter } from '../../../context/FilterContext';
+
+// const PriceRange = ({ min: initialMin, max: initialMax, defaultOpen = false }) => {
+//     const [isOpen, setIsOpen] = useState(defaultOpen);
+//     const [localMin, setLocalMin] = useState(initialMin || 0);
+//     const [localMax, setLocalMax] = useState(initialMax || 100000);
+//     const { updateFilter } = useFilter();
+
+//     // Update global filter when local values change (with debounce)
+//     useEffect(() => {
+//         const timeoutId = setTimeout(() => {
+//             updateFilter('priceMin', localMin);
+//             updateFilter('priceMax', localMax);
+//         }, 500);
+
+//         return () => clearTimeout(timeoutId);
+//     }, [localMin, localMax, updateFilter]);
+
+//     const handleMinChange = (value) => {
+//         const numValue = Number(value);
+//         if (!isNaN(numValue) && numValue >= 0) {
+//             setLocalMin(numValue);
+//         }
+//     };
+
+//     const handleMaxChange = (value) => {
+//         const numValue = Number(value);
+//         if (!isNaN(numValue) && numValue >= localMin) {
+//             setLocalMax(numValue);
+//         }
+//     };
+
+//     return (
+//         <div className="pb-4">
+//             {/* Header with toggle */}
+//             <button 
+//                 onClick={() => setIsOpen(!isOpen)}
+//                 className="flex items-center justify-between w-full text-left mb-2"
+//             >
+//                 <h3 className="font-medium text-gray-900 text-sm">PRICE</h3>
+//                 {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+//             </button>
+
+//             {/* Collapsible Content */}
+//             {isOpen && (
+//                 <div className="space-y-3 text-xs">
+//                     {/* Min Max Labels */}
+//                     <div className="flex justify-between text-gray-600">
+//                         <span>Min</span>
+//                         <span>Max</span>
+//                     </div>
+                    
+//                     {/* Price Inputs */}
+//                     <div className="flex gap-2">
+//                         <input
+//                             type="number"
+//                             value={localMin}
+//                             onChange={(e) => handleMinChange(e.target.value)}
+//                             className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
+//                             placeholder="55"
+//                         />
+//                         <input
+//                             type="number"
+//                             value={localMax}
+//                             onChange={(e) => handleMaxChange(e.target.value)}
+//                             className="flex-1 px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-gray-400"
+//                             placeholder="37967"
+//                         />
+//                     </div>
+                    
+//                     {/* Range Slider */}
+//                     <div className="pt-1">
+//                         <input
+//                             type="range"
+//                             min={initialMin || 0}
+//                             max={initialMax || 100000}
+//                             value={localMax}
+//                             onChange={(e) => handleMaxChange(e.target.value)}
+//                             className="w-full h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gray-900"
+//                         />
+//                     </div>
+                    
+//                     {/* Scale */}
+//                     <div className="flex justify-between text-gray-500 pt-1">
+//                         <span>0</span>
+//                         <span>5000000</span>
+//                     </div>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default PriceRange;

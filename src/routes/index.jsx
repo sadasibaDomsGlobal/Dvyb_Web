@@ -138,7 +138,7 @@ export default function AppRoutes() {
         path="/privacy"
         element={
           // <MainLayout>
-            <PrivacyPolicy />
+          <PrivacyPolicy />
           // </MainLayout>
         }
       />
@@ -163,26 +163,26 @@ export default function AppRoutes() {
         path="/upload-mobile"
         element={
           <MainLayout>
-            
-            <UploadSelfieModalMobile/>
+
+            <UploadSelfieModalMobile />
           </MainLayout>
         }
       />
 
 
-     <Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <Navbar/>
-      <ProfilePage />
-    </ProtectedRoute>
-  }
-/>
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
 
       {/* 🔒 Example protected routes (commented for now) */}
-      
-      <Route
+
+      {/* <Route
         path="/wishlist"
         element={
           <ProtectedRoute>
@@ -191,9 +191,8 @@ export default function AppRoutes() {
             </MainLayout>
           </ProtectedRoute>
         }
-      />
+      /> */}
 
-      */}
     </Routes>
   );
 }

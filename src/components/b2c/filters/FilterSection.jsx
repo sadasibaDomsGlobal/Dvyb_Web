@@ -21,7 +21,7 @@ const FilterSection = ({ title, items, searchable = false, defaultOpen = false, 
     };
 
     return (
-        <div className="pb-4 ">
+        <div className="pb-4 hide-scrollbar scrollbar-none">
             {/* Header with toggle */}
             <button
                 onClick={() => setIsOpen(!isOpen)}

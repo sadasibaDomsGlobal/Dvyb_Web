@@ -3,22 +3,14 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
 
-const ColorFilter = ({ title, colors, defaultOpen = false }) => {
+const ColorFilter = ({ title, colors, defaultOpen = false, filterType }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const { selectedFilters, updateFilter } = useFilter();
 
-    const handleColorChange = (colorName) => {
-        updateFilter('colors', colorName);
-    };
-
-    const isColorSelected = (colorName) => {
-        return selectedFilters.colors.includes(colorName);
-    };
-
     return (
         <div className="pb-4">
-            {/* Header with toggle */}
-            <button 
+            {/* Header */}
+            <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full text-left mb-2"
             >
@@ -26,25 +18,30 @@ const ColorFilter = ({ title, colors, defaultOpen = false }) => {
                 {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
 
-            {/* Collapsible Content */}
+            {/* Color Grid */}
             {isOpen && (
-                <div className="grid grid-cols-4 gap-2">
-                    {colors.map((color, i) => (
-                        <label key={i} className="flex flex-col items-center cursor-pointer group">
-                            <input 
-                                type="checkbox" 
-                                checked={isColorSelected(color.name)}
-                                onChange={() => handleColorChange(color.name)}
-                                className="sr-only peer" 
+                <div className="grid grid-cols-4 gap-3">
+                    {colors.map((color) => (
+                        <button
+                            key={color.name}
+                            onClick={() => updateFilter(filterType, color.name)}
+                            className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${selectedFilters.colors.includes(color.name)
+                                    ? 'ring-2 ring-gray-800 ring-offset-2'
+                                    : 'hover:ring-1 hover:ring-gray-300'
+                                }`}
+                        >
+                            {/* Color circle with inline style */}
+                            <div
+                                className="w-8 h-8 rounded-full border border-gray-200"
+                                style={{
+                                    backgroundColor: color.hex,
+                                    // Add white border for light colors
+                                    border: color.hex.toLowerCase() === '#ffffff' ? '1px solid #d1d5db' : '1px solid transparent'
+                                }}
                             />
-                            <div className={`w-6 h-6 rounded-full border-2 transition-all group-hover:scale-110 ${
-                                isColorSelected(color.name) 
-                                    ? 'border-gray-900 ring-2 ring-gray-300' 
-                                    : 'border-gray-300'
-                            } ${color.bgClass}`} />
-                            <span className="text-xs text-gray-700 mt-1 text-center leading-tight">{color.name}</span>
-                            <span className="text-[10px] text-gray-500">({color.count})</span>
-                        </label>
+                            <span className="text-xs text-gray-600 capitalize">{color.name}</span>
+                            <span className="text-xs text-gray-400">({color.count})</span>
+                        </button>
                     ))}
                 </div>
             )}
