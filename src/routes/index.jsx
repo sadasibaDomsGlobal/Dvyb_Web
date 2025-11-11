@@ -11,6 +11,7 @@ import Home from "../pages/b2c/homePage/homePage";
 import CartPage from "../pages/b2c/cartPage/cartPage";
 import CheckoutPage from "../pages/b2c/cartPage/CheckoutPage";
 import ProductDetailsPageIndividual from "../pages/b2c/ProductDetailsPageIndividual";
+import OrderSuccessPage from "../pages/b2c/cartPage/OrderSuccessPage";
 
 // 📰 Common Pages
 import BlogPage from "../components/common/BlogPage/BlogPage";
@@ -38,6 +39,14 @@ export default function AppRoutes() {
         element={
           <MainLayout>
             <Home />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/order-success"
+        element={
+          <MainLayout>
+            <OrderSuccessPage />
           </MainLayout>
         }
       />
