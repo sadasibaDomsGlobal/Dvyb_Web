@@ -1,11 +1,18 @@
 import React from "react";
 import { FilterProvider } from "./context/FilterContext";
 import AppRoutes from "./routes";
+import { AuthProvider } from "./context/AuthContext";
+import { PopupProvider } from "./context/ToastPopupContext";
 
 function App() {
   return (
     <FilterProvider>
+      <AuthProvider>
+        <PopupProvider>
+
       <AppRoutes />
+        </PopupProvider>
+      </AuthProvider>
     </FilterProvider>
   );
 }

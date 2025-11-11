@@ -1,36 +1,38 @@
-import { useState } from "react";
+// components/navbar/Navbar.jsx
+import { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import SearchDropdown from "./SearchDropdown";
 import MobileMenu from "./MobileMenu";
 import NavIcons from "./NavIcons";
-import {mainlogo} from "@/assets"
+import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
+import { useAuth } from "../../../context/AuthContext";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
-  const [showLogin, setShowLogin] = useState(false); 
+  const { user, loading } = useAuth();
+  const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate()
 
-  const isLoggedIn = false;
-  const wishlistCount = 3;
-  const cartCount = 5;
-
-  // const navigate = (path) => console.log("Go to", path);
-  const handleProtected = (path) => {
-    if (!isLoggedIn) {
+  
+  const guard = (path) => {
+    if (!loading && !user) {
       setShowLogin(true);
-      // alert("Please login!");
-      // navigate("/login");
     } else {
       navigate(path);
     }
   };
 
+  const isLoggedIn = true;
+  const wishlistCount = 0;
+  const cartCount = 0;
+ 
   return (
     <header className="sticky top-0 z-50 bg-white">
       {searchOpen ? (
@@ -43,42 +45,61 @@ export default function Navbar() {
         />
       ) : (
         <>
+        <div class=" flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins ">
+  <span class="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
+    CATEGORIES
+  </span>
+  <span class="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
+    VIRTUAL TRYON
+  </span>
+</div>
+
           {/* Top Bar */}
           <div className="flex items-center justify-between px-4 py-4">
-            <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden">
-              <FaBars className="text-2xl" />
+            
+            <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden flex items-center gap-1 font-medium text-gray-800">
+              {/* <FaBars className="text-2xl" /> */}
+              WOMEN <MdOutlineArrowDropDown className="text-xl" />
             </button>
 
-            <div className="flex-1 flex justify-center"
+            <div className="flex-1 cursor-pointer flex justify-center"
             onClick={()=> navigate("/") }
             >
               <img src={mainlogo} alt="Logo"  className="h-14 md:h-18 lg:h-20 cursor-pointer transition-all duration-200" onClick={() => navigate("/")} />
             </div>
 
-            <NavIcons
+            <NavIcons 
               wishlistCount={wishlistCount}
               cartCount={cartCount}
               onSearch={() => setSearchOpen(true)}
-              onWishlist={() => handleProtected("/wishlist")}
-              onCart={() => handleProtected("/cart")}
-              // onProfile={() => handleProtected("/profile")}
-              onProfile={() => setShowLogin(true)}
+              onWishlist={() => guard("/wishlist")}
+              onCart={() => guard("/cart")}
+              onProfile={() => guard("/profile")} 
+              // onWishlist={() => console.log("hey wishlist")}
+              // onCart={() => console.log("hey cart")}
+              // onProfile={() => console.log("hey profile")} 
             />
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex justify-center gap-8 py-3 text-sm font-medium">
+          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar  justify-start sm:justify-center py-2 sm:py-3 font-medium whitespace-nowrap">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 // onClick={() => navigate(item.path)}
-                 onClick={() => navigate("/womenwear")}
-                className={item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"}
+                onClick={() => navigate("/womenwear")}
+                className={`${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"} transition-colors duration-200`}
               >
                 {item.label}
               </button>
             ))}
           </nav>
+          {showLogin && (
+        <LoginModal
+          isOpen={true}
+          onClose={() => setShowLogin(false)}
+        />
+      )}
         </>
       )}
 
@@ -87,14 +108,128 @@ export default function Navbar() {
         onClose={() => setMobileMenuOpen(false)}
         navItems={navItems}
         onNavClick={navigate}
-        onProtectedClick={handleProtected}
+        onProtectedClick={guard}
       />
-      
-      {/* Login model used here */}
-      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </header>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useState } from "react";
+// import { FaBars } from "react-icons/fa";
+// import SearchDropdown from "./SearchDropdown";
+// import MobileMenu from "./MobileMenu";
+// import NavIcons from "./NavIcons";
+// import {mainlogo} from "@/assets"
+// import navItems from "../../../static/navbar/navItems";
+// import { useNavigate } from "react-router-dom";
+// import LoginModal from "../../../pages/b2c/login/loginModel";
+
+
+// export default function Navbar() {
+//   const [searchOpen, setSearchOpen] = useState(false);
+//   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+//   const [searchQuery, setSearchQuery] = useState("");
+//   const navigate = useNavigate();
+//   const [showLogin, setShowLogin] = useState(false); 
+
+//   const isLoggedIn = false;
+//   const wishlistCount = 3;
+//   const cartCount = 5;
+
+//   // const navigate = (path) => console.log("Go to", path);
+//   const handleProtected = (path) => {
+//     if (!isLoggedIn) {
+//       setShowLogin(true);
+//       // alert("Please login!");
+//       // navigate("/login");
+//     } else {
+//       navigate(path);
+//     }
+//   };
+
+//   return (
+//     <header className="sticky top-0 z-50 bg-white">
+//       {searchOpen ? (
+//         <SearchDropdown
+//           searchQuery={searchQuery}
+//           onClose={() => {
+//             setSearchOpen(false);
+//             setSearchQuery("");
+//           }}
+//         />
+//       ) : (
+//         <>
+//           {/* Top Bar */}
+//           <div className="flex items-center justify-between px-4 py-4">
+//             <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden">
+//               <FaBars className="text-2xl" />
+//             </button>
+
+//             <div className="flex-1 flex justify-center"
+//             onClick={()=> navigate("/") }
+//             >
+//               <img src={mainlogo} alt="Logo"  className="h-14 md:h-18 lg:h-20 cursor-pointer transition-all duration-200" onClick={() => navigate("/")} />
+//             </div>
+
+//             <NavIcons
+//               wishlistCount={wishlistCount}
+//               cartCount={cartCount}
+//               onSearch={() => setSearchOpen(true)}
+//               onWishlist={() => handleProtected("/wishlist")}
+//               onCart={() => handleProtected("/cart")}
+//               // onProfile={() => handleProtected("/profile")}
+//               onProfile={() => setShowLogin(true)}
+//             />
+//           </div>
+
+//           {/* Desktop Nav */}
+//           <nav className="hidden lg:flex justify-center gap-8 py-3 text-sm font-medium">
+//             {navItems.map((item) => (
+//               <button
+//                 key={item.label}
+//                 // onClick={() => navigate(item.path)}
+//                  onClick={() => navigate("/womenwear")}
+//                 className={item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"}
+//               >
+//                 {item.label}
+//               </button>
+//             ))}
+//           </nav>
+//         </>
+//       )}
+
+//       <MobileMenu
+//         isOpen={mobileMenuOpen}
+//         onClose={() => setMobileMenuOpen(false)}
+//         navItems={navItems}
+//         onNavClick={navigate}
+//         onProtectedClick={handleProtected}
+//       />
+      
+//       {/* Login model used here */}
+//       <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
+//     </header>
+//   );
+// }
 
 
 
