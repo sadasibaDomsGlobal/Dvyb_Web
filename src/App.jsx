@@ -1,11 +1,14 @@
 import React from "react";
 import { FilterProvider } from "./context/FilterContext";
 import AppRoutes from "./routes";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <FilterProvider>
+      <AuthProvider>
       <AppRoutes />
+      </AuthProvider>
     </FilterProvider>
   );
 }
