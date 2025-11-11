@@ -1,6 +1,6 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "../components/protectedRoute";
 import MainLayout from "../layout/mainLayout";
 import ProductLayout from "../layout/ProductLayout";
 import WomenwearRoute from "./WomenwearRoute";
@@ -22,7 +22,9 @@ import PrivacyPolicy from "../components/common/PrivacyPolicy/PrivacyPolicy";
 import ReturnExchangePolicy from "../components/common/Returnpolicy/ReturnPolicy";
 import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
-import EmptyWishlist from "../components/b2c/empty_wishlist/EmptyWishlist";
+import UploadSelfieModalMobile from "../pages/b2c/TryOnMobilePages/UploadselfieMobie";
+import ProfilePage from "../pages/b2c/Profilepages/ProfilePage";
+import Navbar from "../components/common/navbar/navbar";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -135,9 +137,9 @@ export default function AppRoutes() {
       <Route
         path="/privacy"
         element={
-          <MainLayout>
+          // <MainLayout>
             <PrivacyPolicy />
-          </MainLayout>
+          // </MainLayout>
         }
       />
       <Route
@@ -157,6 +159,27 @@ export default function AppRoutes() {
         }
       />
 
+      <Route
+        path="/upload-mobile"
+        element={
+          <MainLayout>
+            
+            <UploadSelfieModalMobile/>
+          </MainLayout>
+        }
+      />
+
+
+     <Route
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Navbar/>
+      <ProfilePage />
+    </ProtectedRoute>
+  }
+/>
+
       {/* 🔒 Example protected routes (commented for now) */}
       
       <Route
@@ -169,17 +192,8 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      {/* <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <MainLayout>
-              <ProfilePage />
-            </MainLayout>
-          </ProtectedRoute>
-        }
-      /> */}
-     
+
+      */}
     </Routes>
   );
 }
