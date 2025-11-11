@@ -174,8 +174,10 @@ export default function AppRoutes() {
   path="/profile"
   element={
     <ProtectedRoute>
-      <Navbar/>
+      <MainLayout>
+
       <ProfilePage />
+      </MainLayout>
     </ProtectedRoute>
   }
 />
