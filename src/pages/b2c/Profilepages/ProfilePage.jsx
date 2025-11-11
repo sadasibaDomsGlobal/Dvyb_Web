@@ -25,7 +25,7 @@ const ProfilePage = () => {
       const validTabs = [
         "my-info",
         "my-orders",
-        "my-model",
+        // "my-model",  
         "wishlist",
         "my-tryon-gallery",
         "rewards",
@@ -55,7 +55,7 @@ const ProfilePage = () => {
       <div className={`absolute ${activeTab === "my-tryon-gallery" ? 'w-250' : 'w-250'} left-64 w-250 flex-1 p-6 `}>
         {activeTab === "my-info" && <MyInfo userId={userId} />}
         {activeTab === "my-orders" && <MyOrders  />}
-        {activeTab === "my-model" && <ProfileImage />}
+        {/* {activeTab === "my-model" && <ProfileImage />} */}
         {activeTab === "wishlist" && <WishlistPage />}
         {activeTab === "my-tryon-gallery" && <TryOnGallery/>}
         {activeTab === "rewards" && <RewardsRedemption />}

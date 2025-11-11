@@ -24,6 +24,7 @@ import SingleBlog from "../components/common/SingleBlog/SingleBlog";
 import TermsAndConditions from "../components/common/TermsAndCondtions/TermsAndConditions";
 import UploadSelfieModalMobile from "../pages/b2c/TryOnMobilePages/UploadselfieMobie";
 import ProfilePage from "../pages/b2c/Profilepages/ProfilePage";
+import Navbar from "../components/common/navbar/navbar";
 
 export default function AppRoutes() {
   const { products, loading, error } = useProducts();
@@ -162,6 +163,7 @@ export default function AppRoutes() {
         path="/upload-mobile"
         element={
           <MainLayout>
+            
             <UploadSelfieModalMobile/>
           </MainLayout>
         }
@@ -172,6 +174,7 @@ export default function AppRoutes() {
   path="/profile"
   element={
     <ProtectedRoute>
+      <Navbar/>
       <ProfilePage />
     </ProtectedRoute>
   }
