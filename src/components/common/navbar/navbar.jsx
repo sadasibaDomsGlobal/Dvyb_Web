@@ -2,14 +2,14 @@
 import { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import SearchDropdown from "./SearchDropdown";
-import MobileMenu from "./MobileMenu";
-import NavIcons from "./NavIcons";
+import NavIcons from "./navIcons";
 import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
+import MobileMenu from "./mobileMenu";
 
 
 export default function Navbar() {
@@ -86,8 +86,8 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                // onClick={() => navigate(item.path)}
-                onClick={() => navigate("/womenwear")}
+                onClick={() => navigate(item.path)}
+                // onClick={() => navigate("/womenwear")}
                 className={`${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"} transition-colors duration-200`}
               >
                 {item.label}

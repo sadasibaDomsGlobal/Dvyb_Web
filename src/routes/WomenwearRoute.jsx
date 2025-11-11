@@ -1,35 +1,31 @@
+import { useLocation } from "react-router-dom";
 import ProductGrid from "../components/b2c/products/ProductGrid";
 
 export default function WomenwearRoute({ products }) {
-  return <ProductGrid products={products} />;
+  console.log(products)
+   const location = useLocation();
+     const queryParams = new URLSearchParams(location.search);
+     const category = queryParams.get("category");
+
+     const filteredProducts = products.filter((p) => {
+  const match = p.dressType?.toLowerCase() == category?.toLowerCase();
+  console.log(match);
+  console.log(p.dressType?.toLowerCase());
+  console.log(category?.toLowerCase());
+  return match; // ✅ must return the condition
+});
+
+
+  console.log(filteredProducts)
+
+
+  return (
+    <div className="px-6 py-8">
+      <h1 className="text-2xl font-semibold mb-4 capitalize">
+        {category ? category : "All Products"}
+      </h1>
+      <ProductGrid products={filteredProducts} />
+    </div>
+  );
 }
-    
-
-
-
-
-
-
-
-// import { useProducts } from '../hooks';
-// // import { PremiumSection05 } from '../components/b2c';
-// import MainLayout from '../layout';
-// import {ProductGrid} from '../components/b2c/products';
-
-// const WomenwearRoute = () => {
-//     const { products, loading, error } = useProducts();
-
-//     if (loading) return <div className="p-8 text-center">Loading...</div>;
-//     if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
-
-//     return (
-//         <MainLayout products={products}>
-//             <div className="p-6">
-//                 <h1 className="text-3xl font-bold text-gray-900 mb-6">All Products</h1>
-//                 <ProductGrid />
-//             </div>
-//         </MainLayout>
-//     );
-// };
-
-// export default WomenwearRoute;
+ 

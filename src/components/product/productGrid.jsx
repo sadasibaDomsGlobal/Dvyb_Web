@@ -1,5 +1,5 @@
 // ProductGrid.jsx
-import DisplayCard from "./DisplayCard";
+import DisplayCard from "./displayCard";
 
 export default function ProductGrid({ products, columns = 4 }) {
   const colMap = { 2: "md:grid-cols-2", 3: "md:grid-cols-3", 4: "md:grid-cols-4", 5: "md:grid-cols-5" };
