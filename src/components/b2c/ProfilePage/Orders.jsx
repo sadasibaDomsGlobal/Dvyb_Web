@@ -169,7 +169,7 @@ const mockOrders = [
         <button className='bg-[#F6F6F6] cursor-pointer p-2'>Cancel Order</button>
           <button 
             onClick={() => setSelectedOrder(order)}
-            className="bg-blue-800 hover:bg-blue-900 text-white px-6 py-2 rounded-md text-sm font-medium"
+            className="bg-primary hover:bg-hoverBg text-white px-6 py-2  cursor-pointer text-sm font-medium"
           >
             View Details
           </button>

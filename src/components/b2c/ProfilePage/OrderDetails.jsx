@@ -157,46 +157,105 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
 
         {/* PROGRESS TRACKER */}
         {/* Use flex with connectors between items so widths are responsive */}
-        {order.status !== 'Cancelled' && (
-          <div className="mb-6">
-            <div className="flex items-center">
-              {progressSteps.map((step, idx) => (
-                <div key={step.id} className="flex-1 flex items-center last:flex-initial">
-                  {/* left connector (except first) */}
-                  {idx > 0 && (
-                    <div
-                      className={`h-0.5 flex-1 ${
-                        progressSteps[idx - 1].completed ? 'bg-red-600' : 'bg-gray-200'
-                      }`}
-                      aria-hidden
-                    />
-                  )}
+     {/* PROGRESS TRACKER */}
+{order.status !== 'Cancelled' && (
+  <div className="px-6 py-8 bg-white mb-6">
+    <div className="relative max-w-2xl mx-auto">
+      {/* Background Line */}
+      <div className="absolute top-3 left-0 right-0 h-[4px] bg-[#F0E0E0]" style={{ marginLeft: '12px', marginRight: '12px' }}></div>
+      
+      {/* Active Progress Line */}
+      <div 
+        className="absolute top-3 left-0 h-[4px] bg-[#8B0000] transition-all duration-500"
+        style={{ 
+          marginLeft: '12px', 
+          width: order.status === 'Delivered' ? 'calc(100% - 24px)' : 
+                 order.status === 'Shipped' ? 'calc(66.66% - 24px)' :
+                 order.status === 'Active' ? 'calc(33.33% - 24px)' : '0%'
+        }}
+      ></div>
 
-                  {/* circle + label */}
-                  <div className="flex flex-col items-center px-3">
-                    <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium ${
-                        step.completed ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-400'
-                      }`}
-                    >
-                      {step.completed ? '✓' : ''}
-                    </div>
-                    <div
-                      className={`mt-2 text-xs font-medium ${
-                        step.completed ? 'text-red-700' : 'text-gray-400'
-                      } text-center`}
-                    >
-                      {step.name}
-                    </div>
-                  </div>
-
-                  {/* right connector (if last, nothing) */}
-                  {/* connector on right is rendered as next loop's left connector */}
-                </div>
-              ))}
-            </div>
+      {/* Progress Steps */}
+      <div className="relative flex justify-between">
+        {/* Order Placed */}
+        <div className="flex flex-col items-center" style={{ width: '80px' }}>
+          <div className="w-6 h-6 -ml-8 rounded-full bg-[#8B0000] flex items-center justify-center mb-3 relative z-10">
+            <svg className="w-4 h-4  text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+            </svg>
           </div>
-        )}
+          <p className="text-xs font-medium text-gray-900 text-center">Order Placed</p>
+        </div>
+
+        {/* In-progress */}
+        <div className="flex flex-col items-center" style={{ width: '80px' }}>
+          <div className={`w-6 h-6 -ml-8 rounded-full flex items-center justify-center mb-3 relative z-10 ${
+            order.status === 'Active' || order.status === 'Shipped' || order.status === 'Delivered'
+              ? 'bg-[#8B0000]' 
+              : 'bg-[#F0E0E0]'
+          }`}>
+              {(order.status === 'Active' || order.status === 'Shipped' || order.status === 'Delivered') ? (
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                </svg>
+              ) : null}
+          </div>
+          <p className={`text-xs font-medium text-center ${
+            order.status === 'Active' || order.status === 'Shipped' || order.status === 'Delivered'
+              ? 'text-gray-900' 
+              : 'text-gray-400'
+          }`}>
+            In-progress
+          </p>
+        </div>
+
+        {/* Shipped */}
+        <div className="flex flex-col items-center" style={{ width: '80px' }}>
+          <div className={`w-5 h-5  rounded-full flex items-center justify-center mb-3 mt-1 relative z-10 ${
+            order.status === 'Shipped' || order.status === 'Delivered'
+              ? 'bg-[#8B0000]' 
+              : 'bg-[#F0E0E0]'
+          }`}>
+            {(order.status === 'Shipped' || order.status === 'Delivered') ? (
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+              </svg>
+            ) : null}
+          </div>
+          <p className={`text-xs font-medium text-center ${
+            order.status === 'Shipped' || order.status === 'Delivered'
+              ? 'text-gray-900' 
+              : 'text-[#F0E0E0]'
+          }`}>
+            Shipped
+          </p>
+        </div>
+
+        {/* Delivered */}
+        <div className="flex flex-col items-center" style={{ width: '80px' }}>
+          <div className={`w-5 h-5 mt-1 rounded-full flex  ml-10 items-center justify-center mb-3 relative z-10 ${
+            order.status === 'Delivered'
+              ? 'bg-[#8B0000]' 
+              : 'bg-[#F0E0E0]'
+          }`}>
+            {order.status === 'Delivered' ? (
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+              </svg>
+            ) : null}
+          </div>
+          <p className={`text-xs font-medium ml-9 text-center ${
+            order.status === 'Delivered'
+              ? 'text-gray-900' 
+              : 'text-[#F0E0E0]'
+          }`}>
+            Delivered
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
         {/* STATUS MESSAGE */}
         <div className="bg-gray-50 text-sm w-[510px] text-gray-700 border border-gray-200  px-4 py-3 mb-8">
@@ -204,7 +263,7 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
         </div>
 
         {/* PRODUCT LIST (white cards with separator lines) */}
-        <div className="bg-white border border-gray-200 rounded-md divide-y divide-gray-200 mb-12">
+        <div className="bg-white border border-gray-200  divide-y divide-gray-200 mb-12">
           {products.map((product, i) => (
             <div
               key={product.id ?? i}
@@ -214,7 +273,7 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
                 <img
                   src={product.image ?? '/api/placeholder/80/80'}
                   alt={product.name}
-                  className="w-20 h-24 object-cover rounded-md mr-4 flex-shrink-0"
+                  className="w-20 h-24 object-cover  mr-4 flex-shrink-0"
                 />
                 <div>
                   <h3 className="font-semibold text-gray-900">{product.name}</h3>
@@ -230,7 +289,7 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
               </div>
 
               <div className="mt-4 sm:mt-0 text-right">
-                <p className="font-semibold text-gray-900 text-base">{product.price}</p>
+                <p className="font-semibold text-gray-900 text-xl">₹{product.price}</p>
               </div>
             </div>
           ))}
