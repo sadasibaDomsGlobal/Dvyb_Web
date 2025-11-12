@@ -6,6 +6,10 @@ import step1img from '../../../assets/TryOn/step1img.svg'
 import Tickic from '../../../assets/TryOn/tick_ic.svg'
 import black_warnIc from '../../../assets/TryOn/black_warnIc.svg'
 import red_warnIc from '../../../assets/TryOn/red_warnIc.svg'
+import right_ic from '../../../assets/TryOn/right_ic.svg'
+import  rightHoverArrow from '../../../assets/TryOn/rightHoverArrow.svg'
+
+
 
 
 // models
@@ -521,64 +525,84 @@ const models = [
 
 {/* Model Preview - Image 2 UI */}
 {showModelPreview && selectedModel && (
-  <div className="p-12 w-full bg-white md:w-[818px]">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      {/* Left - Garment Card */}
-      <div className="border p-4">
-       
-        <img src={garmentImage} className="w-full h-64 object-cover mb-3" />
-         <div className="bg-green-50 border border-green-200 px-3 py-2 flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-green-700">SELECTED DRESS</span>
-          <CheckCircle size={16} className="text-green-600" />
+  <div className="p-6 sm:p-12 w-full bg-white md:max-w-[818px] mx-auto">
+    {/* ---------- Two cards side-by-side (mobile stacks) ---------- */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+      {/* ---------- Garment Card ---------- */}
+      <div className="border border-gray-300 rounded-lg p-4 shadow-sm">
+        <img
+          src={garmentImage}
+          alt="Selected dress"
+          className="w-full h-64 md:h-72 object-cover rounded-md mb-3"
+        />
+        <div className="bg-[#EEF7F0] border border-[#B8E3C6] px-3 py-2 flex items-center justify-between mb-3 rounded">
+          <span className="text-sm font-semibold text-[#15912C]">SELECTED DRESS</span>
+          <img src={Tickic} className="h-4 w-4" alt="check" />
         </div>
-        <p className="text-sm line-clamp-1 text-gray-700">{garmentName}</p>
+        <p className="text-sm text-gray-700 line-clamp-2">{garmentName}</p>
+
        
       </div>
 
-      {/* Right - Model Card */}
-      <div className="border p-4">
-        
-        <img src={selectedModel.image} className="w-full h-64 object-cover  mb-3" />
-        <div className="bg-green-50 border border-green-200 px-3 py-2  flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-green-700">SELECTED MODEL</span>
-          <CheckCircle size={16} className="text-green-600" />
+      {/* ---------- Model Card ---------- */}
+      <div className="border border-gray-300 rounded-lg p-4 shadow-sm">
+        <img
+          src={selectedModel.image}
+          alt="Selected model"
+          className="w-full h-64 md:h-72 object-cover rounded-md mb-3"
+        />
+        <div className="bg-[#EEF7F0] border border-[#B8E3C6] px-3 py-2 flex items-center justify-between mb-3 rounded">
+          <span className="text-sm font-semibold text-[#15912C]">SELECTED MODEL</span>
+          <img src={Tickic} className="h-4 w-4" alt="check" />
         </div>
         <p className="text-sm text-gray-700">{selectedModel.name}</p>
-      
+
+  
       </div>
-     <button onClick={() => {
-                onClose();
-                navigate(`/products/${tryOnData?.productId}`);
-              }} className="w-full border border-primary text-primary py-2  font-medium">
+    </div>
+
+<div className='flex gap-2'>
+
+     {/* Select Another Dress */}
+        <button
+          onClick={() => {
+            onClose();
+            navigate(`/products/${tryOnData?.productId}`);
+          }}
+          className="mt-4 w-full bg-[#8B0000] text-white py-2.5 text-sm font-medium  hover:bg-[#A30000] transition"
+        >
           Select Another Dress
         </button>
-        <button 
+
+      {/* Select Another Model */}
+        <button
           onClick={() => {
             setShowModelPreview(false);
             setShowModelSelector(true);
           }}
-          className="w-full border border-primary text-primary py-2 font-medium"
+          className="mt-4 w-full bg-[#8B0000] text-white py-2.5 text-sm font-medium  hover:bg-[#A30000] transition"
         >
           Select Another Model
         </button>
+</div>
+    {/* ---------- Continue button (bottom-right) ---------- */}
+    <div className="flex justify-end mt-8">
+      <button
+        onClick={() => {
+          onNext({
+            modelImage: selectedModel.image,
+            garmentImage,
+            is3D,
+          });
+        }}
+        className="group flex items-center gap-2 px-4 py-2 bg-white border border-gray-700 text-gray-700 rounded text-sm font-medium hover:bg-[#8B0000] hover:text-white hover:border-[#8B0000] transition-all"
+      >
+        Continue
+        <img src={right_ic} alt="" className="h-4 w-4 group-hover:hidden" />
+        <img src={rightHoverArrow} alt="" className="h-4 w-4 hidden group-hover:inline" />
+      </button>
     </div>
-    
-  
-
-    {/* Continue Button */}
-    <button 
-      onClick={() => {
-        onNext({ 
-          modelImage: selectedModel.image, 
-          garmentImage, 
-          is3D 
-        });
-      }}
-      className="w-full bg-primary text-white py-3 mt-6 font-medium"
-    >
-      Continue →
-    </button>
   </div>
 )}
 

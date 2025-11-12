@@ -89,10 +89,10 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
       return `Order cancelled on ${order.date || ''}`;
     }
     if (order.status === 'Delivered') {
-      return `${order.date || ''} — Your order has been successfully delivered.`;
+      return `${ '01 November 2025,3:40 PM'} — Your order has been successfully delivered.`;
     }
     // Active or other
-    return `${order.date || ''} — Your order has been successfully placed.`;
+    return `${'01 November 2025,3:40 PM'} — Your order has been successfully placed.`;
   };
 
   return (
@@ -112,26 +112,34 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
 
         {/* HEADER BAR */}
         <div className="bg-gray-50 rounded-md p-5 mb-8 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+         
+         <div className='flex  gap-4'>
+
           <div>
-            <h2 className="text-base font-semibold text-gray-900">
+            <h2 className="text-sm font-semibold text-gray-800">
               Order no: #{order.id ?? '123456789'}
             </h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-xs  text-gray-600 mt-1">
               {order.status === 'Cancelled'
                 ? `Cancelled On: ${order.date ?? '3 June 2023 2:40 PM'}`
-                : `Placed On: ${order.date ?? '2 June 2023 2:40 PM'}`}
+                : `Placed On: ${ '2 June 2023 2:40 PM'}`}
             </p>
+
+            
           </div>
 
-          <div className="flex items-center gap-4 ml-auto">
-           <button
+              <button
   onClick={onDownloadInvoice}
-  className="bg-blue-800 hover:bg-blue-900 text-white px-8 py-3 rounded-md font-medium flex items-center"
+  className=" hover:bg-hoverBg text-sm p-2   border border-primary text-primary  cursor-pointer hover:text-white   font-medium flex items-center"
 >
-  <Download className="h-4 w-4 mr-2" />
-  View Invoice
+  {/* <Download className="h-4 w-4 mr-2" /> */}
+  Download Invoice
 </button>
 
+         </div>
+
+          <div className="flex  items-center gap-4 ml-auto">
+       
             <div className="text-right">
               <span
                 className={`inline-block text-sm font-semibold px-3 py-1 rounded ${getStatusColorClass(
@@ -191,7 +199,7 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
         )}
 
         {/* STATUS MESSAGE */}
-        <div className="bg-gray-50 text-sm text-gray-700 border border-gray-200 rounded-md px-4 py-3 mb-8">
+        <div className="bg-gray-50 text-sm w-[510px] text-gray-700 border border-gray-200  px-4 py-3 mb-8">
           {getStatusMessage()}
         </div>
 
@@ -212,10 +220,10 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
                   <h3 className="font-semibold text-gray-900">{product.name}</h3>
                   <p className="text-sm text-gray-700 mt-1">{product.desc}</p>
                   <p className="text-sm text-gray-700 mt-2">
-                    <span className="font-medium">Size:</span> {product.size}{' '}
+                    <span className="font-medium mt-4">Size:</span> {product.size}{' '}
                     <span className="ml-4 font-medium">Qty:</span> {product.qty}
                   </p>
-                  <p className="text-xs text-gray-500 mt-2 uppercase">
+                  <p className="text-xs text-gray-900 font-semibold mt-2 uppercase">
                     ESTIMATED SHIPPING DATE: {product.date}
                   </p>
                 </div>
