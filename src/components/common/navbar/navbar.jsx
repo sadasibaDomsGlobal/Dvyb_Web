@@ -1,15 +1,14 @@
 // components/navbar/Navbar.jsx
 import { useState, useEffect } from "react";
 import SearchDropdown from "./SearchDropdown";
-import MobileMenu from "./MobileMenu";
-import NavIcons from "./NavIcons";
-import { mainlogo } from "../../../assets"
+import NavIcons from "./navIcons";
+import {mainlogo} from "../../../assets"
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import { useFilter } from "../../../context/FilterContext";
+import MobileMenu from "./mobileMenu";
 
 
 export default function Navbar() {
@@ -91,8 +90,8 @@ export default function Navbar() {
               WOMEN <MdOutlineArrowDropDown className="text-xl" />
             </button>
 
-            <div className="flex-1 cursor-pointer flex justify-center"
-              onClick={() => navigate("/")}
+            <div className="flex-1 flex justify-center"
+            onClick={()=> navigate("/") }
             >
               <img src={mainlogo} alt="Logo" className="h-14 md:h-18 lg:h-20 cursor-pointer transition-all duration-200" onClick={() => navigate("/")} />
             </div>
@@ -130,7 +129,8 @@ export default function Navbar() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => handleNavItemClick(item.label)}
+                onClick={() => navigate(item.path)}
+                // onClick={() => navigate("/womenwear")}
                 className={`${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"} transition-colors duration-200`}
               >
                 {item.label}
