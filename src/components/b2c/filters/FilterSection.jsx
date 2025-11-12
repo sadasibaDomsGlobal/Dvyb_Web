@@ -2,6 +2,21 @@
 import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
+import { useNavigate } from 'react-router-dom';
+
+// Define mapping directly in the file
+const categoryPathMap = {
+  'LEHANGA': '/womenwear?category=lehenga',
+  'SAREE': '/womenwear?category=saree',
+  'KURTA SETS': '/womenwear?category=kurta-sets',
+  'ANARKALIS': '/womenwear?category=anarkalis',
+  'SHARARAS': '/womenwear?category=shararas',
+  'PRÊT': '/womenwear?category=pret',
+  'FUSION': '/womenwear?category=fusion',
+  'WEDDING': '/womenwear?category=wedding',
+  'SALE': '/womenwear?category=sale',
+  'VIRTUAL TRYON': '/virtual-tryon',
+};
 
 const FilterSection = ({
     title,
@@ -13,8 +28,31 @@ const FilterSection = ({
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const { selectedFilters, updateFilter } = useFilter();
+    const navigate = useNavigate();
 
     const handleCheckboxChange = (itemName) => {
+        // Only handle navigation for categories
+        if (filterType === 'categories') {
+            const normalizedName = itemName.toUpperCase().trim();
+
+            // Check if deselecting current category
+            const isCurrentlySelected = selectedFilters.categories[0] === itemName;
+            if (isCurrentlySelected) {
+                updateFilter(filterType, itemName); // clears category
+                navigate('/womenwear'); // go to base URL
+                return;
+            }
+
+            // Navigate to mapped path
+            const path = categoryPathMap[normalizedName];
+            if (path) {
+                updateFilter(filterType, itemName);
+                navigate(path);
+                return;
+            }
+        }
+
+        // For size, color, discount — just update filter
         updateFilter(filterType, itemName);
     };
 

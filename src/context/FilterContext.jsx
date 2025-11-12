@@ -1,13 +1,11 @@
 // src/context/FilterContext.jsx
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const FilterContext = createContext();
 
 export const useFilter = () => {
     const context = useContext(FilterContext);
-    if (!context) {
-        throw new Error('useFilter must be used within a FilterProvider');
-    }
+    if (!context) throw new Error('useFilter must be used within a FilterProvider');
     return context;
 };
 
@@ -29,16 +27,7 @@ export const FilterProvider = ({ children }) => {
         discounts: []
     });
 
-    const [navbarCategory, setNavbarCategory] = useState('');
-
-    useEffect(() => {
-        if (navbarCategory) {
-            setSelectedFilters(prev => ({
-                ...prev,
-                categories: [navbarCategory]
-            }));
-        }
-    }, [navbarCategory]);
+    const [navbarCategory, setNavbarCategory] = useState(''); 
 
     const updateFilter = (filterType, value) => {
         setSelectedFilters(prev => {
@@ -48,23 +37,19 @@ export const FilterProvider = ({ children }) => {
                 case 'categories':
                     if (newFilters.categories.includes(value)) {
                         newFilters.categories = [];
-                        setNavbarCategory('');
+                        // Do NOT clear navbarCategory
                     } else {
                         newFilters.categories = [value];
-                        if (navbarCategory && navbarCategory !== value) {
-                            setNavbarCategory(value);
-                        }
+                        setNavbarCategory(value); // Keep UI in sync
                     }
                     break;
 
                 case 'sizes':
                 case 'colors':
                 case 'discounts':
-                    if (newFilters[filterType].includes(value)) {
-                        newFilters[filterType] = newFilters[filterType].filter(item => item !== value);
-                    } else {
-                        newFilters[filterType] = [...newFilters[filterType], value];
-                    }
+                    newFilters[filterType] = newFilters[filterType].includes(value)
+                        ? newFilters[filterType].filter(item => item !== value)
+                        : [...newFilters[filterType], value];
                     break;
 
                 case 'priceMin':
@@ -81,10 +66,6 @@ export const FilterProvider = ({ children }) => {
 
             return newFilters;
         });
-    };
-
-    const setCategoryFromNavbar = (category) => {
-        setNavbarCategory(category);
     };
 
     const clearAllFilters = () => {
@@ -105,8 +86,7 @@ export const FilterProvider = ({ children }) => {
         selectedFilters,
         updateFilter,
         clearAllFilters,
-        navbarCategory,
-        setCategoryFromNavbar
+        navbarCategory, // Optional: for active nav highlight
     };
 
     return (

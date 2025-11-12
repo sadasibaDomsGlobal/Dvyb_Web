@@ -3,45 +3,37 @@ import React, { useState, useEffect } from "react";
 const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
   const [selectedSize, setSelectedSize] = useState(null);
 
-  // ✅ Debug logs to verify backend data
+  // Debug logs
   useEffect(() => {
-    console.group("🧩 ProductSizeSelector Backend Data");
-    console.log("👉 Selected Sizes (from backend):", selectedSizes);
-    console.log("👉 Units Object (from backend):", units);
-    console.log("👉 Total sizes received:", selectedSizes.length);
-    console.log("👉 Total units received:", Object.keys(units).length);
+    console.group("🧩 ProductSizeSelector Data");
+    console.log("Selected Sizes:", selectedSizes);
+    console.log("Units:", units);
     console.groupEnd();
   }, [selectedSizes, units]);
 
-  // Static fallback list
-  const staticSizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
-
-  // Merge all possible sizes (static + selectedSizes + backend units)
-  const allSizes = Array.from(
-    new Set([
-      ...staticSizes,
-      ...selectedSizes,
-      ...Object.keys(units || {}),
-    ])
+  // Extract valid size keys (ignore colors like "pink_#DB7093")
+  const unitSizeKeys = Object.keys(units).filter(
+    (key) => !key.includes("#") && !key.includes("_")
   );
 
-  // Determine if a size is available
-  const isAvailable = (size) => {
-    // If units has stock for this size
-    if (units[size] !== undefined && units[size] > 0) return true;
-    // If in selectedSizes but no units → show disabled (not available)
-    if (selectedSizes.includes(size)) return false;
-    // Else default to not available
-    return false;
+  // Combine unique display sizes
+  const displaySizes = Array.from(new Set([...selectedSizes, ...unitSizeKeys]));
+
+  // Get stock for a size
+  const getStockForSize = (size) => {
+    const stock = units[size];
+    return typeof stock === "number"
+      ? stock
+      : typeof stock === "string"
+      ? parseInt(stock, 10) || 0
+      : 0;
   };
 
-  const getStockForSize = (size) => {
-    if (units && units[size] !== undefined) return units[size];
-    return 0;
-  };
+  // Determine if size is available
+  const isAvailable = (size) => getStockForSize(size) > 0;
 
   const handleSizeSelect = (size) => {
-    if (!isAvailable(size)) return; // Disabled sizes can’t be selected
+    if (!isAvailable(size)) return;
     setSelectedSize(size);
   };
 
@@ -57,7 +49,7 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
 
       {/* Size Buttons */}
       <div className="flex flex-wrap gap-3 relative">
-        {allSizes.map((size, index) => {
+        {displaySizes.map((size, index) => {
           const available = isAvailable(size);
           const stock = getStockForSize(size);
 
@@ -67,16 +59,17 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
                 onClick={() => handleSizeSelect(size)}
                 disabled={!available}
                 className={`relative w-12 h-12 flex items-center justify-center rounded-md border text-sm font-medium transition 
-                  ${!available
-                    ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : selectedSize === size
+                  ${
+                    !available
+                      ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : selectedSize === size
                       ? "border-gray-900 bg-gray-900 text-white"
                       : "border-gray-300 hover:border-gray-900"
                   }`}
               >
-                {size}
+                {size === "FREE SIZE" ? "FREE" : size}
 
-                {/* Stock badge (show only if stock > 0) */}
+                {/* ✅ Stock Badge — same design as your old version */}
                 {stock > 0 && (
                   <span
                     className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-semibold px-1.5 py-[1px] rounded-full border-2 border-white"
@@ -95,7 +88,7 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
         })}
       </div>
 
-      {/* Stock info message */}
+      {/* Stock Info */}
       {selectedSize && (
         <p className="text-sm text-gray-600">
           {getStockForSize(selectedSize) <= 1

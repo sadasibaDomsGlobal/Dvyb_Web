@@ -1,5 +1,4 @@
 const navItems = [
-    { label: "LEHANGA", path: "/womenwear?category=lehenga" },
     { label: "SAREE", path: "/womenwear?category=saree" },
     { label: "KURTA SETS", path: "/womenwear?category=kurta-sets" },
     { label: "ANARKALIS", path: "/womenwear?category=anarkalis" },
@@ -9,6 +8,7 @@ const navItems = [
     { label: "WEDDING", path: "/womenwear?category=wedding" },
     { label: "SALE", path: "/womenwear?category=sale", isHighlight: true },
     { label: "VIRTUAL TRYON", path: "/virtual-tryon", isHighlight: true },
+    { label: "LEHANGA", path: "/womenwear?category=Lehenga" },
   ];
 
   export default navItems

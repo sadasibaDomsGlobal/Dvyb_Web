@@ -16,7 +16,7 @@ const Sidebar = ({ products = [] }) => {
   const { selectedFilters, navbarCategory } = useFilter();
 
   // Determine selected category - prioritize navbar selection, then sidebar selection
-  const selectedCategory = navbarCategory || selectedFilters.categories[0] || null;
+  const selectedCategory = selectedFilters.categories[0] || null;
 
   // Custom category data from image (for fallback if no categories in API)
   const customCategories = [

@@ -8,7 +8,7 @@ export default function LuxuryPicks() {
   const { products, loading, error } = useProducts();
   const [luxuryProducts, setLuxuryProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 4; // 👈 how many products visible at a time
+  const itemsPerPage = 4;
 
   // Filter luxury items when loaded
   useEffect(() => {

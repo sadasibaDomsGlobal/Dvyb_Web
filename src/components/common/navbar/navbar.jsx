@@ -1,15 +1,15 @@
 // components/navbar/Navbar.jsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SearchDropdown from "./SearchDropdown";
 import NavIcons from "./navIcons";
-import {mainlogo} from "../../../assets"
+import { mainlogo } from "../../../assets";
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import MobileMenu from "./mobileMenu";
-
+import { useFilter } from "../../../context/FilterContext";
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -19,9 +19,8 @@ export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
   const navigate = useNavigate();
 
-  // Add filter context
-  const { setCategoryFromNavbar } = useFilter();
-
+  // Filter context
+  const { updateFilter, selectedFilters } = useFilter();
 
   const guard = (path) => {
     if (!loading && !user) {
@@ -32,37 +31,59 @@ export default function Navbar() {
   };
 
   // Handle navbar item click
-  const handleNavItemClick = (itemLabel) => {
+  const handleNavItemClick = (item) => {
+    const label = item.label;
 
-    const categoryMap = {
-      'LEHANGA': 'LEHANGA',
+    // Map label to display name (used in filter)
+    const labelToFilterValue = {
       'SAREE': 'SAREE',
       'KURTA SETS': 'KURTA SETS',
       'ANARKALIS': 'ANARKALIS',
       'SHARARAS': 'SHARARAS',
-      'PRET': 'PRET',
+      'PRÊT': 'PRET',
       'FUSION': 'FUSION',
       'WEDDING': 'WEDDING',
       'SALE': 'SALE',
-      'VIRTUAL TRYON': 'VIRTUAL TRYON'
+      '1970': 'VIRTUAL TRYON',
+      'LEHANGA': 'LEHANGA',
     };
 
-    const category = categoryMap[itemLabel] || itemLabel;
+    const filterValue = labelToFilterValue[label] || label;
 
-    // Set the category in filter context
-    setCategoryFromNavbar(category);
+    // Special case: Virtual Tryon
+    if (item.path === '/virtual-tryon') {
+      navigate(item.path);
+      return;
+    }
 
-    // Navigate to products page
-    navigate("/womenwear");
-  }
+    // Update filter + navigate
+    updateFilter('categories', filterValue);
+    navigate(item.path); // e.g. /womenwear?category=lehenga
+  };
 
-
-  const isLoggedIn = true;
   const wishlistCount = 0;
   const cartCount = 0;
 
+  // Check if current category is active
+  const isActive = (item) => {
+    if (item.path === '/virtual-tryon') return false;
+    const param = new URLSearchParams(window.location.search).get('category');
+    const map = {
+      'saree': 'SAREE',
+      'kurta-sets': 'KURTA SETS',
+      'anarkalis': 'ANARKALIS',
+      'shararas': 'SHARARAS',
+      'pret': 'PRET',
+      'fusion': 'FUSION',
+      'wedding': 'WEDDING',
+      'sale': 'SALE',
+      'lehenga': 'LEHANGA',
+    };
+    return map[param] === item.label;
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className="sticky top-0 z-50 bg-white mb-20">
       {searchOpen ? (
         <SearchDropdown
           searchQuery={searchQuery}
@@ -73,27 +94,30 @@ export default function Navbar() {
         />
       ) : (
         <>
-          <div class=" flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins ">
-            <span class="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
+          <div className="flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins">
+            <span className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
               CATEGORIES
             </span>
-            <span class="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
+            <span className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
               VIRTUAL TRYON
             </span>
           </div>
 
           {/* Top Bar */}
           <div className="flex items-center justify-between px-4 py-4">
-
-            <button onClick={() => setMobileMenuOpen(true)} className="lg:hidden flex items-center gap-1 font-medium text-gray-800">
-              {/* <FaBars className="text-2xl" /> */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden flex items-center gap-1 font-medium text-gray-800"
+            >
               WOMEN <MdOutlineArrowDropDown className="text-xl" />
             </button>
 
-            <div className="flex-1 flex justify-center"
-            onClick={()=> navigate("/") }
-            >
-              <img src={mainlogo} alt="Logo" className="h-14 md:h-18 lg:h-20 cursor-pointer transition-all duration-200" onClick={() => navigate("/")} />
+            <div className="flex-1 flex justify-center cursor-pointer" onClick={() => navigate("/")}>
+              <img
+                src={mainlogo}
+                alt="Logo"
+                className="h-14 md:h-18 lg:h-20 transition-all duration-200"
+              />
             </div>
 
             <NavIcons
@@ -103,12 +127,9 @@ export default function Navbar() {
               onWishlist={() => navigate("/wishlist")}
               onCart={() => guard("/cart")}
               onProfile={() => guard("/profile")}
-
-            // onWishlist={() => console.log("hey wishlist")}
-            // onCart={() => console.log("hey cart")}
-            // onProfile={() => console.log("hey profile")} 
             />
-            {/* Logout button visible only if logged in */}
+
+            {/* Logout */}
             {user && !loading && (
               <button
                 onClick={() => {
@@ -121,29 +142,27 @@ export default function Navbar() {
                 <LogOut className="w-5 h-5 text-gray-700" />
               </button>
             )}
-
           </div>
 
           {/* Desktop Nav */}
-          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar  justify-start sm:justify-center py-2 sm:py-3 font-medium whitespace-nowrap">
+          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center py-2 sm:py-3 font-medium whitespace-nowrap">
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => navigate(item.path)}
-                // onClick={() => navigate("/womenwear")}
-                className={`${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"} transition-colors duration-200`}
+                onClick={() => handleNavItemClick(item)}
+                className={`
+                  ${isActive(item) ? "text-primary font-bold" : ""}
+                  ${item.isHighlight ? "text-primary" : "text-[#2C2C2C] hover:text-black"}
+                  transition-colors duration-200
+                `}
               >
                 {item.label}
               </button>
             ))}
           </nav>
 
-
           {showLogin && (
-            <LoginModal
-              isOpen={true}
-              onClose={() => setShowLogin(false)}
-            />
+            <LoginModal isOpen={true} onClose={() => setShowLogin(false)} />
           )}
         </>
       )}
