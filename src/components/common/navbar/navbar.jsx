@@ -10,6 +10,8 @@ import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import MobileMenu from "./mobileMenu";
 import { useFilter } from "../../../context/FilterContext";
+import { LogOut } from "lucide-react";
+
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
