@@ -238,6 +238,7 @@ const IndividualProductDetailsPage = () => {
             onNext={handleUploadSelfieNext}
             garmentImage={tryOnData.garmentImage}
             garmentName={tryOnData.garmentName}
+             tryOnData={tryOnData}
           />
         )}
         {showTryOnPreviewModal && (

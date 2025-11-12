@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import { ArrowLeft, User, Upload, X, CheckCircle, AlertCircle } from "lucide-react";
 import step1img from '../../../assets/TryOn/step1img.svg'
 import Tickic from '../../../assets/TryOn/tick_ic.svg'
@@ -6,6 +8,12 @@ import black_warnIc from '../../../assets/TryOn/black_warnIc.svg'
 import red_warnIc from '../../../assets/TryOn/red_warnIc.svg'
 
 
+// models
+
+import model1 from '../../../assets/TryOn/model1.png'
+import model2 from '../../../assets/TryOn/model2.png'
+import model3 from '../../../assets/TryOn/young.jpg'
+import model4 from '../../../assets/TryOn/model4.jpg'
 
 
 const ProfilePhotoSelector = ({ onSelect }) => {
@@ -48,7 +56,7 @@ const ProfilePhotoSelector = ({ onSelect }) => {
   );
 };
 
-const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName, isSaree, is3D = false }) => {
+const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName, isSaree, is3D = false, tryOnData }) => {
   const [step, setStep] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -56,6 +64,34 @@ const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName,
   const [loadingFirebaseImage, setLoadingFirebaseImage] = useState(true);
   const [imageSource, setImageSource] = useState("");
   const [uploadError, setUploadError] = useState("");
+  const [showModelSelector, setShowModelSelector] = useState(false);
+const [selectedModel, setSelectedModel] = useState(null);
+const [showModelPreview, setShowModelPreview] = useState(false); 
+const navigate = useNavigate();
+
+
+
+
+const models = [
+  {
+    modelName : 'mira',
+    modelimg : model1
+  },
+  {
+    modelName : 'samira',
+    modelimg : model2
+  }
+  ,
+  {
+    modelName : 'hamira',
+    modelimg : model3
+  }
+  ,
+  {
+    modelName : 'tamira',
+    modelimg : model4
+  }
+]
 
   useEffect(() => {
     if (isOpen) {
@@ -148,13 +184,19 @@ const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName,
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center  p-4">
-      <div className="w-auto bg-white shadow-2xl overflow-hidden relative flex flex-col">
-        <button
-          onClick={onClose}
-          className="absolute top-13 right-12 text-gray-600 hover:text-gray-800  p-1 shadow-sm"
-        >
-          <X size={22} />
-        </button>
+<button
+  onClick={() => {
+    if (showModelSelector || showModelPreview) {
+      setShowModelSelector(false);
+      setShowModelPreview(false);
+      setSelectedModel(null);
+    }
+    onClose();
+  }}
+  className="absolute top-13 right-12 text-gray-600 hover:text-gray-800  p-1 shadow-sm"
+>
+  <X size={22} />
+</button>
 
         {/* Step 1: Initial Selection */}
 {step === 1 && (
@@ -204,12 +246,16 @@ const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName,
         Upload a picture
       </button>
 
-      <button
-        onClick={onClose}
-        className="w-full md:w-[345px] border border-[#8B0000] text-[#8B0000] h-[44px] text-sm font-medium mt-3 hover:bg-[#8B0000] hover:text-white transition rounded-md md:rounded-none"
-      >
-        Select a model
-      </button>
+   <button
+  onClick={() => {
+    setShowModelSelector(true);
+    setStep(null); // hide Step1
+  }}
+  className="w-full md:w-[345px] border border-[#8B0000] text-[#8B0000] h-[44px] text-sm hover:bg-[#8B0000] hover:text-white transition rounded-md md:rounded-none"
+>
+  Select a model
+</button>
+
 
       {/* FOOTNOTE */}
       <p className="text-[10px] mt-4 text-gray-600 leading-tight md:max-w-[320px] text-start">
@@ -402,8 +448,142 @@ const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName,
             <p className="text-xs text-gray-600 mt-4">Your photos are never stored in our system. We respect your privacy and are committed to protecting your personal data.</p>
           </div>
         )}
-      </div>
+
+
+        {/* Model Selector - Image 1 UI */}
+{showModelSelector && !showModelPreview && (
+  <div className="p-6 w-full bg-white md:w-[818px]">
+    {/* Header */}
+    <h2 className="text-xl font-semibold mb-1">Select a model:</h2>
+    <p className="text-sm text-gray-600 mb-6">You can only choose one model</p>
+    
+    {/* Model Grid */}
+ <div className="grid grid-cols-2 md:grid-cols-4  w-[550px] mb-6">
+  {models.map((model, index) => (
+    <div
+      key={index}
+      onClick={() => {
+        setSelectedModel({
+          image: model.modelimg,
+          name: model.modelName
+        });
+        setShowModelPreview(true);
+        setShowModelSelector(false);
+      }}
+      className="cursor-pointer  flex flex-col items-center"
+    >
+      <img
+        src={model.modelimg}
+        alt={model.modelName}
+        className="w-[95px] h-[180px] object-contain rounded-lg"
+      />
+      <p className="text-center mt-2 text-sm font-medium capitalize">
+        {model.modelName}
+      </p>
     </div>
+  ))}
+</div>
+
+
+    {/* Warning Box */}
+    <div className="flex items-start gap-2 p-3 rounded-lg">
+      <input type="checkbox" className="mt-0.5" />
+      <p className="text-xs text-black">
+        Make it default model for All future try ons you can always change the model in the settings
+      </p>
+    </div>
+
+    {/* Footer Buttons */}
+    <div className="flex justify-between items-center mt-6">
+      <button 
+        onClick={() => {
+          setShowModelSelector(false);
+          setStep(1);
+        }}
+        className="flex items-center gap-2 text-gray-600 border border-gray-300 px-4 py-2"
+      >
+        <ArrowLeft size={16} /> BACK
+      </button>
+      <button onClick={() => {
+  setSelectedModel({
+    image: 'https://res.cloudinary.com/doiezptnn/image/upload/v1760530680/model2_eh2sqf.jpg',
+    name: 'Mira'
+  });
+  setShowModelPreview(true);
+  setShowModelSelector(false);
+}} className="bg-primary text-white px-6 py-2">
+        NEXT →
+      </button>
+    </div>
+  </div>
+)}
+
+
+{/* Model Preview - Image 2 UI */}
+{showModelPreview && selectedModel && (
+  <div className="p-12 w-full bg-white md:w-[818px]">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      {/* Left - Garment Card */}
+      <div className="border p-4">
+       
+        <img src={garmentImage} className="w-full h-64 object-cover rounded-lg mb-3" />
+         <div className="bg-green-50 border border-green-200 px-3 py-2 flex items-center justify-between mb-3">
+          <span className="text-xs font-semibold text-green-700">SELECTED DRESS</span>
+          <CheckCircle size={16} className="text-green-600" />
+        </div>
+        <p className="text-sm line-clamp-1 text-gray-700">{garmentName}</p>
+       
+      </div>
+
+      {/* Right - Model Card */}
+      <div className="border p-4">
+        
+        <img src={selectedModel.image} className="w-full h-64 object-cover  mb-3" />
+        <div className="bg-green-50 border border-green-200 px-3 py-2  flex items-center justify-between mb-3">
+          <span className="text-xs font-semibold text-green-700">SELECTED MODEL</span>
+          <CheckCircle size={16} className="text-green-600" />
+        </div>
+        <p className="text-sm text-gray-700">{selectedModel.name}</p>
+      
+      </div>
+     <button onClick={() => {
+                onClose();
+                navigate(`/products/${tryOnData?.productId}`);
+              }} className="w-full border border-primary text-primary py-2  font-medium">
+          Select Another Dress
+        </button>
+        <button 
+          onClick={() => {
+            setShowModelPreview(false);
+            setShowModelSelector(true);
+          }}
+          className="w-full border border-primary text-primary py-2 font-medium"
+        >
+          Select Another Model
+        </button>
+    </div>
+    
+  
+
+    {/* Continue Button */}
+    <button 
+      onClick={() => {
+        onNext({ 
+          modelImage: selectedModel.image, 
+          garmentImage, 
+          is3D 
+        });
+      }}
+      className="w-full bg-primary text-white py-3 mt-6 font-medium"
+    >
+      Continue →
+    </button>
+  </div>
+)}
+
+      </div>
+    // </div>
   );
 };
 
