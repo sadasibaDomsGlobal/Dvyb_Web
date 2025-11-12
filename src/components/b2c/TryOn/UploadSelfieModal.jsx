@@ -251,7 +251,7 @@ const models = [
     setShowModelSelector(true);
     setStep(null); // hide Step1
   }}
-  className="w-full md:w-[345px] border border-[#8B0000] text-[#8B0000] h-[44px] text-sm hover:bg-[#8B0000] hover:text-white transition rounded-md md:rounded-none"
+  className="w-full md:w-[345px] border mt-2 border-[#8B0000] text-[#8B0000] h-[44px] text-sm hover:bg-[#8B0000] hover:text-white transition rounded-md md:rounded-none"
 >
   Select a model
 </button>
@@ -454,8 +454,8 @@ const models = [
 {showModelSelector && !showModelPreview && (
   <div className="p-6 w-full bg-white md:w-[818px]">
     {/* Header */}
-    <h2 className="text-xl font-semibold mb-1">Select a model:</h2>
-    <p className="text-sm text-gray-600 mb-6">You can only choose one model</p>
+    <h2 className="text-md font-semibold mb-1">Select a model:</h2>
+    <p className="text-xs text-gray-600 mb-6">You can only choose one model</p>
     
     {/* Model Grid */}
  <div className="grid grid-cols-2 md:grid-cols-4  w-[550px] mb-6">
@@ -527,7 +527,7 @@ const models = [
       {/* Left - Garment Card */}
       <div className="border p-4">
        
-        <img src={garmentImage} className="w-full h-64 object-cover rounded-lg mb-3" />
+        <img src={garmentImage} className="w-full h-64 object-cover mb-3" />
          <div className="bg-green-50 border border-green-200 px-3 py-2 flex items-center justify-between mb-3">
           <span className="text-xs font-semibold text-green-700">SELECTED DRESS</span>
           <CheckCircle size={16} className="text-green-600" />

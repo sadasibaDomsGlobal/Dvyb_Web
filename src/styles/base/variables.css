@@ -1,6 +1,8 @@
 @theme {
   /* ===== COLOR PALETTE ===== */
     --color-primary: #7A0000;
+     --color-hoverBg: #600000;
+    
     --color-yellowprimary: #FEC601;
     --color-primaryLight: #B33A3A;
     --color-secondary: #F5F1EF;  
