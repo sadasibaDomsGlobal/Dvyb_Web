@@ -2,14 +2,17 @@ import React from "react";
 import { FilterProvider } from "./context/FilterContext";
 import AppRoutes from "./routes";
 import { AuthProvider } from "./context/AuthContext";
+import ScrollToTop from "./components/utils/scrollToTop";
 
 function App() {
   return (
+    // <ScrollToTop>
     <FilterProvider>
-          <AuthProvider>
+      <AuthProvider>
       <AppRoutes />
       </AuthProvider>
     </FilterProvider>
+   // </ScrollToTop> */}
   );
 }
 

@@ -3,10 +3,13 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductCard from "../../product/productCard";
 import ProductGrid from "../../product/productGrid";
 import { scrollLeft, scrollRight } from "../../utils/scroll";
-import SectionTitle from "../../utils/sectionTitle";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useProducts } from "../../../hooks/useProducts";
+
  
-export default function ClosetIconsSection({ products }) {
+export default function ClosetIconsSection() {
+  const {products, loading, error} = useProducts();
+
   return (
     <section className="container mx-auto sm:px-2 md:px-9 lg:px-20">
   

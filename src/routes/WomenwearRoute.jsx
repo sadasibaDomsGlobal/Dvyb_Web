@@ -22,9 +22,9 @@ export default function WomenwearRoute({ products }) {
   return (
     <div className="px-6 py-8">
       <h1 className="text-2xl font-semibold mb-4 capitalize">
-        {category ? category : "All Products"}
+        {category ? category.toUpperCase : "All Products"}
       </h1>
-      <ProductGrid products={filteredProducts} />
+      <ProductGrid products={filteredProducts || products} />
     </div>
   );
 }

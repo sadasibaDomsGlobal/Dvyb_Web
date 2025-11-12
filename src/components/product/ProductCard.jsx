@@ -1,14 +1,18 @@
 // ProductCard.jsx
+import { CloudCog } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product, className }) {
-  const hasDiscount = product.discountPercent > 0;
-  const finalPrice = hasDiscount
-    ? product.originalPrice * (1 - product.discountPercent / 100)
-    : product.price;
+
+  // const hasDiscount = product.discountPercent > 0;
+  // const finalPrice = hasDiscount
+  //   ? product.originalPrice * (1 - product.discountPercent / 100)
+  //   : product.price;
 
 
   const title = product.title || "Unnamed Product";
+  const navigate = useNavigate();
 
   return (
     <article
@@ -18,10 +22,12 @@ export default function ProductCard({ product, className }) {
       )}
     >
       {/* FIXED IMAGE CONTAINER - THIS IS THE KEY */}
-      <div className="relative w-full pt-[133.33%] bg-gray-100">
+      <div className="relative w-full pt-[133.33%] bg-gray-100"
+      onClick={() => navigate(`/products/${product.id}`)}
+      >
         {/* pt-[133.33%] = 3:4 aspect ratio (perfect for fashion/products) */}
         <img
-          src= {product.images?.[0] }
+          src= {product.imageUrls?.[0] || product.images[0]}
           alt={title}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 "
           loading="lazy"
@@ -50,7 +56,7 @@ export default function ProductCard({ product, className }) {
 
         {/* <div className="flex items-left justify-center gap-2"> */}
           <span className="text-xl text-primary">
-            ₹{Math.round(finalPrice).toLocaleString("en-IN")}
+            ₹{Math.round(product.price).toLocaleString("en-IN")}
           </span>
           {/* {hasDiscount && (
             <span className="text-sm line-through text-left text-gray-400">

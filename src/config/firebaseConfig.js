@@ -27,14 +27,6 @@ const firebaseConfig = {
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-/**
- * Optional: Analytics initialization
- * Only initialize analytics if running in a browser environment
- */
-// let analytics;
-// if (typeof window !== "undefined") {
-//   analytics = getAnalytics(app);
-// }
 
 export const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);

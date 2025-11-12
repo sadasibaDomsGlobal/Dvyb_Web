@@ -1,7 +1,9 @@
 import React from "react";
 import { cn } from "../../lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function DisplayCard({ product, className }) {
+  const navigate = useNavigate()
   return (
     <article
       className={cn(
@@ -14,7 +16,8 @@ export default function DisplayCard({ product, className }) {
         <img
           src={product.images[0]}
           alt={product.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onClick={()=>navigate(product.path)}
+          className="w-full h-full object-cover transition-transform duration-500 cursor-pointer group-hover:scale-105"
         />
 
         {/* Gradient Overlay */}

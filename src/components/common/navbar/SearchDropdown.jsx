@@ -20,7 +20,7 @@ export default function SearchDropdown({ searchQuery, onClose }) {
             className="flex-1 text-lg outline-none"
             autoFocus
           />
-          <button className="bg-black text-white px-8 py-3 rounded-md font-medium hover:bg-gray-900 transition">
+          <button className="bg-black text-white px-6 py-3  font-medium  transition">
             Search
           </button>
           <button onClick={onClose} className="text-3xl text-gray-600 hover:text-black">

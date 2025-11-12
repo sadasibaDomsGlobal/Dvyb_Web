@@ -8,6 +8,7 @@ import { useStaticProducts } from "../../../hooks/useStaticProducts";
 import LuxuryPicks from "../../../components/b2c/home/LuxuryPicks";
 import SpotlightCollections from "../../../components/b2c/home/SpotlightCollections";
 import BestProducts from "../../../components/b2c/home/BestProducts";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,25 +16,13 @@ export default function Home() {
   // const { products, loading, error } = useProducts();
   // const { loading, error } = useProducts();
   const { staticProducts, loading, error } = useStaticProducts();
+  const navigate = useNavigate()
   console.log(staticProducts)
 
   if (loading) return <div className="text-center py-20 sm:py-2">Loading…</div>;
   if (error) return <div className="text-center text-iserror py-20">{error}</div>;
 
-  // ----- Split data for sections -----
-  // const hero = products.find((p) => p.isNew); // or static banner data
-  // const wedding = products.filter((p) => p.category === "Wedding");
-  // const discount = products.filter((p) => p.discountPercent && p.discountPercent > 0);
-  // const bestsellers = products.slice(0, 8);
-  // const spotlight = products[0];
-  // const luxuryPicks = products.filter((p) => p.category === "Luxury").slice(0, 4); // For Luxurious Picks
-  // const closetIcons = products.filter((p) => p.category === "Closet").slice(0, 8); // Adjust category as needed
-
-  // ----- static data for sections -----
-  // Filter products based on category
-
   const productsArray = Array.isArray(staticProducts) ? staticProducts : [];
-
   const wedding = productsArray.filter((p) => p.category === "Wedding");
   // const discount = productsArray.filter((p) => p.discountPercent && p.discountPercent > 0);
   const discount = productsArray.filter((p) => p.category === "Discount");
@@ -54,6 +43,7 @@ export default function Home() {
         className="w-full max-w-[95vw] md:h-[90vh] aspect-3/2 sm:aspect-16/7 md:aspect-16/7 lg:aspect-16/5 m-2 md:m-4 lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
       >
         <img
+          onClick={()=>navigate("/womenwear")}
           src={homeBanner}
           alt="New Year Sale"
           className="w-full h-full object-fill object-center"
