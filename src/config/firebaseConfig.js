@@ -8,8 +8,8 @@
  */
 
 import { initializeApp, getApps, getApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth,  setPersistence, browserLocalPersistence   } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import envConfig from "./envConfig";
@@ -27,19 +27,11 @@ const firebaseConfig = {
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-/**
- * Optional: Analytics initialization
- * Only initialize analytics if running in a browser environment
- */
-// let analytics;
-// if (typeof window !== "undefined") {
-//   analytics = getAnalytics(app);
-// }
 
 export const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 // export { analytics };
 export  {app};
 export default app;
-
