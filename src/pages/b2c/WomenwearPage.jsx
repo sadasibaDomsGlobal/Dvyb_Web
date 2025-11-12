@@ -15,7 +15,7 @@ const WomenwearPage = () => {
 
     // Map URL param → display label
     const paramToLabel = {
-      'lehenga': 'LEHANGA',
+      'lehenga': 'LEHENGA',
       'saree': 'SAREE',
       'kurta-sets': 'KURTA SETS',
       'anarkalis': 'ANARKALIS',

@@ -45,7 +45,7 @@ export default function Navbar() {
       'WEDDING': 'WEDDING',
       'SALE': 'SALE',
       '1970': 'VIRTUAL TRYON',
-      'LEHANGA': 'LEHANGA',
+      'LEHENGA': 'LEHENGA',
     };
 
     const filterValue = labelToFilterValue[label] || label;
@@ -77,7 +77,7 @@ export default function Navbar() {
       'fusion': 'FUSION',
       'wedding': 'WEDDING',
       'sale': 'SALE',
-      'lehenga': 'LEHANGA',
+      'lehenga': 'LEHENGA',
     };
     return map[param] === item.label;
   };

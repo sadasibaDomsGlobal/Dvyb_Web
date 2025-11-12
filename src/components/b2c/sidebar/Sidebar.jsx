@@ -20,7 +20,7 @@ const Sidebar = ({ products = [] }) => {
 
   // Custom category data from image (for fallback if no categories in API)
   const customCategories = [
-    { name: "LEHANGA", count: 1183 },
+    { name: "LEHENGA", count: 1183 },
     { name: "SAREE", count: 23246 },
     { name: "KURTA SETS", count: 13550 },
     { name: "ANARKALIS", count: 4956 },

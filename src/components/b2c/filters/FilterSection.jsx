@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Define mapping directly in the file
 const categoryPathMap = {
-  'LEHANGA': '/womenwear?category=lehenga',
+  'LEHENGA': '/womenwear?category=lehenga',
   'SAREE': '/womenwear?category=saree',
   'KURTA SETS': '/womenwear?category=kurta-sets',
   'ANARKALIS': '/womenwear?category=anarkalis',
