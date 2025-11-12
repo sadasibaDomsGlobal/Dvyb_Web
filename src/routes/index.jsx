@@ -1,6 +1,6 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "../components/protectedRoute";
 import MainLayout from "../layout/mainLayout";
 import ProductLayout from "../layout/ProductLayout";
 import WomenwearRoute from "./WomenwearRoute";
@@ -138,7 +138,7 @@ export default function AppRoutes() {
         path="/privacy"
         element={
           // <MainLayout>
-            <PrivacyPolicy />
+          <PrivacyPolicy />
           // </MainLayout>
         }
       />
@@ -163,39 +163,36 @@ export default function AppRoutes() {
         path="/upload-mobile"
         element={
           <MainLayout>
-            
-            <UploadSelfieModalMobile/>
+
+            <UploadSelfieModalMobile />
           </MainLayout>
         }
       />
 
 
-     <Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <MainLayout>
-
-      <ProfilePage />
-      </MainLayout>
-    </ProtectedRoute>
-  }
-/>
-
-      {/* 🔒 Example protected routes (commented for now) */}
-      {/*
       <Route
-        path="/wishlist"
+        path="/profile"
         element={
           <ProtectedRoute>
-            <MainLayout>
-              <WishlistPage />
-            </MainLayout>
+            <Navbar />
+            <ProfilePage />
           </ProtectedRoute>
         }
       />
 
-      */}
+      {/* 🔒 Example protected routes (commented for now) */}
+
+      {/* <Route
+        path="/wishlist"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+              <EmptyWishlist />
+            </MainLayout>
+          </ProtectedRoute>
+        }
+      /> */}
+
     </Routes>
   );
 }

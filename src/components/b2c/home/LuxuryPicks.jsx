@@ -1,9 +1,13 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ProductCard from "../products/ProductCard";
+import ProductCard from "../../product/productCard";
 import { scrollLeft, scrollRight } from "../../utils/scroll";
-import { luxIcon } from "@/assets";
+import { luxIcon } from "../../../assets";
+import { useNavigate } from "react-router-dom";
+import { useProducts } from "../../../hooks/useProducts";
 
-export default function LuxuryPicks({ products }) {
+export default function LuxuryPicks() {
+    const {products, loading, error} = useProducts();
+    const navigate = useNavigate()
   return (
     <section className="bg-lighted-bg mx-auto py-12 md:py-16 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -22,7 +26,9 @@ export default function LuxuryPicks({ products }) {
             <h2 className="text-sm tracking-wide text-gray-600 uppercase mb-2">
               DVYB Essence
             </h2>
-            <button className="bg-[#400000] text-xs lg:text-sm mt-2 text-white px-8 py-4 transition-colors duration-300 w-full sm:w-auto">
+            <button
+            onClick={()=>navigate("/womenwear")}
+            className="bg-[#400000] text-xs lg:text-sm mt-2 text-white px-8 py-4 transition-colors duration-300 w-full sm:w-auto">
               Explore All
             </button>
           </div>
@@ -42,12 +48,12 @@ export default function LuxuryPicks({ products }) {
           {/* SCROLLABLE GRID */}
           <div
             id="luxuryScroll"
-            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth scrollbar-hide py-2 px-2"
+            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
           >
             {products.map((product, index) => (
               <div 
                 key={index} 
-                className="min-w-[200px] xs:min-w-[220px] sm:min-w-[240px] md:min-w-[260px] lg:min-w-[280px] flex-shrink-0"
+                className="cursor-pointer"
               >
                 <ProductCard product={product} />
               </div>

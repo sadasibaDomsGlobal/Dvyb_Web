@@ -1,27 +1,7 @@
-// src/data/staticProducts.js
-// Static data for testing homepage sections
-// Use in useProducts hook: return { products: staticProducts, loading: false, error: null }
+import { closet01, img01, img02, img03, lux01, lux02, lux03, lux04, best01, best02, img04, img05, img06, closet05, closet02, closet03, closet04 } from "../../assets";
 
-import { closet01, img01, img02, img03, lux01, lux03, lux04, best01, best02, img04, img05, img06, closet05, closet02, closet03, closet04 } from "@/assets";
-
-console.log(img01); 
  const staticProducts = [
   
-  // Hero/New Arrivals
-  // {
-  //   id: "hero-1",
-  //   title: "New Year Festive Lehenga",
-  //   name: "Festive Lehenga Choli",
-  //   price: 12500,
-  //   originalPrice: 15000,
-  //   discountPercent: 15,
-  //   category: "Wedding",
-  //   images:  [img01],
-  //   description: "Embroidered red lehenga with mirror work, perfect for celebrations.",
-  //   isNew: true,
-  //   timestamp: new Date(),
-  // },
-
   // Wedding Tales (3 products)
   {
     id: "wedding-1",
@@ -32,6 +12,7 @@ console.log(img01);
     category: "Wedding",
     images: [img01],
     description: "Purple georgette lehenga with zari embroidery.",
+    path: "/womenwear?category=lehenga",
   },
   {
     id: "wedding-2",
@@ -40,6 +21,7 @@ console.log(img01);
     category: "Wedding",
     images: [img02],
     description: "Silk drapery saree in pastel shades for evening wear.",
+    path: "/womenwear?category=saree" ,
   },
   {
     id: "wedding-3",
@@ -48,6 +30,7 @@ console.log(img01);
     category: "Wedding",
     images: [img03],
     description: "Red floral printed churidar set with dupatta.",
+    path: "/womenwear?category=fusion"
   },
 
   // Discount Collection (4+ products)
@@ -60,6 +43,7 @@ console.log(img01);
     category: "Discount",
     images: [img01],
     description: "Discounted cocktail lehenga in lavender.",
+    path: "/womenwear?category=lehenga",
   },
   {
     id: "discount-2",
@@ -70,6 +54,7 @@ console.log(img01);
     category: "Discount",
     images: [closet01],
     description: "Discounted silk saree with zari border.",
+    path: "/womenwear?category=saree" ,
   },
   {
     id: "discount-3",
@@ -80,6 +65,7 @@ console.log(img01);
     category: "Discount",
     images: [img03],
     description: "Floral printed kurta with discount.",
+    path: "/womenwear?category=kurta-sets"
   },
   {
     id: "discount-4",
@@ -90,6 +76,7 @@ console.log(img01);
     category: "Discount",
     images: [closet01],
     description: "Churidar set on sale.",
+    path: "/womenwear?category=kurta-sets"
   },
 
   // Luxurious Picks (4 products)
@@ -144,6 +131,7 @@ console.log(img01);
     category: "Bestselling",
     images: [best01],
     description: "Top-selling purple lehenga.",
+    path: "/womenwear?category=lehenga" 
   },
   {
     id: "best-2",
@@ -160,6 +148,7 @@ console.log(img01);
     category: "Bestselling",
     images: [img04],
     description: "Green char kurta set.",
+    path: "/womenwear?category=kurta-sets" 
   },
   {
     id: "best-4",
@@ -168,6 +157,7 @@ console.log(img01);
     category: "Bestselling",
     images: [img04],
     description: "Bestselling floral set.",
+    path: "/womenwear?category=fusion",
   },
   {
     id: "best-5",
@@ -192,6 +182,7 @@ console.log(img01);
     category: "Bestselling",
     images: ["/images/pink-lehenga.jpg"],
     description: "Festive pink lehenga.",
+    path: "/womenwear?category=lehenga" 
   },
   {
     id: "best-8",
@@ -244,6 +235,7 @@ console.log(img01);
     category: "Closet",
     images: [closet05],
     description: "Versatile cocktail lehenga.",
+    path: "/womenwear?category=lehenga" 
   },
   {
     id: "closet-6",

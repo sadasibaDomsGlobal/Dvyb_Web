@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 
 const ProductColorSelector = ({ colors = [] }) => {
-  // Default static fallback colors
+  console.log("🎨 ProductColorSelector colors:", colors);
+
+  // Static fallback colors
   const staticColors = ["#000000", "#C62828", "#1565C0", "#F9A825", "#6A1B9A"];
 
-  // Extract or normalize available colors (from backend)
-  const availableColors =
-    colors.length > 0
-      ? colors.map((c) => (c.includes("_") ? c.split("_")[1] : c))
-      : [];
+  // Extract hex codes from backend format: "pink_#DB7093" → "#DB7093"
+  const backendColors = colors
+    .map((c) => {
+      if (typeof c === "string" && c.includes("_")) {
+        const parts = c.split("_");
+        return parts[1]; // return hex
+      }
+      return c; // already hex
+    })
+    .filter(Boolean);
 
-  // Merge both but keep all static visible
-  const allColors = staticColors.map((color) => ({
-    value: color,
-    available: availableColors.includes(color),
-  }));
+  // Final colors to display — backend if available, else static
+  const displayColors = backendColors.length > 0 ? backendColors : staticColors;
 
-  const [selectedColor, setSelectedColor] = useState(
-    allColors.find((c) => c.available)?.value || staticColors[0]
-  );
+  // Default selected color
+  const [selectedColor, setSelectedColor] = useState(displayColors[0]);
 
-  const handleColorSelect = (colorObj) => {
-    if (colorObj.available) setSelectedColor(colorObj.value);
+  const handleColorSelect = (hex) => {
+    setSelectedColor(hex);
   };
 
   return (
@@ -31,25 +34,16 @@ const ProductColorSelector = ({ colors = [] }) => {
 
       {/* Color buttons */}
       <div className="flex flex-wrap gap-3">
-        {allColors.map((colorObj, index) => (
+        {displayColors.map((hex, index) => (
           <button
             key={index}
-            onClick={() => handleColorSelect(colorObj)}
-            className={`relative w-8 h-8 rounded-md border-2 transition-transform duration-200 ${
-              selectedColor === colorObj.value
-                ? "border-gray-900 scale-110"
-                : "border-gray-300"
-            } ${!colorObj.available ? "opacity-40 cursor-not-allowed" : ""}`}
-            style={{ backgroundColor: colorObj.value }}
-            title={colorObj.available ? colorObj.value : "Not Available"}
-            disabled={!colorObj.available}
-          >
-            {!colorObj.available && (
-              <span className="absolute inset-0 flex items-center justify-center">
-                <span className="w-6 h-[2px] bg-gray-500 rotate-45 rounded"></span>
-              </span>
-            )}
-          </button>
+            onClick={() => handleColorSelect(hex)}
+            className={`relative w-8 h-8 rounded-md border-2 transition-transform duration-200
+              ${selectedColor === hex ? "border-gray-900 scale-110" : "border-gray-300"}
+            `}
+            style={{ backgroundColor: hex }}
+            title={hex}
+          />
         ))}
       </div>
     </div>

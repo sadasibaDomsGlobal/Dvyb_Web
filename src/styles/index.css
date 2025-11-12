@@ -23,23 +23,14 @@
 @import "./base/variables.css";
 @import "./base/typography.css";
 
-/* Hide scrollbar for Chrome, Safari, Edge */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for Firefox */
-.scrollbar-hide {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-
 /* Hide scrollbar but allow scroll */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-.no-scrollbar {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;   
+
+.hide-scrollbar::-webkit-scrollbar {
+    width: 0px;
+  height: 0px;
+  display: none; /* Chrome, Safari, Opera */
 }
