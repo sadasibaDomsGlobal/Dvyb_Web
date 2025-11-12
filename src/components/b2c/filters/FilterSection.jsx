@@ -3,18 +3,24 @@ import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
 
-const FilterSection = ({ title, items, searchable = false, defaultOpen = false, filterType }) => {
+const FilterSection = ({
+    title,
+    items,
+    searchable = false,
+    defaultOpen = false,
+    filterType
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const { selectedFilters, updateFilter } = useFilter();
 
-    const filtered = items
-        .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        .sort((a, b) => b.count - a.count);
-
     const handleCheckboxChange = (itemName) => {
         updateFilter(filterType, itemName);
     };
+
+    const filtered = items
+        .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        .sort((a, b) => b.count - a.count);
 
     const isChecked = (itemName) => {
         return selectedFilters[filterType].includes(itemName);
