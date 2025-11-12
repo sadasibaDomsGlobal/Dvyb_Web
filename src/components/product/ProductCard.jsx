@@ -1,67 +1,48 @@
 // ProductCard.jsx
 import { cn } from "../../lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product, className }) {
-  const hasDiscount = product.discountPercent > 0;
-  const finalPrice = hasDiscount
-    ? product.originalPrice * (1 - product.discountPercent / 100)
-    : product.price;
-
-
   const title = product.title || "Unnamed Product";
+  const navigate = useNavigate();
 
   return (
     <article
+      onClick={() => navigate(`/products/${product.id}`)}
       className={cn(
-        "group relative bg-white overflow-hidden transition-all duration-300",
+        "group w-85 h-130 relative bg-white overflow-hidden shadow-sm cursor-pointer transition-all duration-300 flex flex-col",
         className
       )}
     >
-      {/* FIXED IMAGE CONTAINER - THIS IS THE KEY */}
-      <div className="relative w-full pt-[133.33%] bg-gray-100">
-        {/* pt-[133.33%] = 3:4 aspect ratio (perfect for fashion/products) */}
+      {/* IMAGE CONTAINER */}
+      <div className="relative flex items-center justify-center overflow-hidden">
         <img
-          src= {product.images?.[0] }
+          src={product.imageUrls?.[0] || product.images?.[0]}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 "
+          className="w-full h-100 object-fit transition-transform duration-500"
           loading="lazy"
         />
-
-        {/* Discount Badge */}
-        {/* {hasDiscount && (
-          <div className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10">
-            -{product.discountPercent}%
-          </div>
-        )} */}
       </div>
 
-      {/* Content */}
-      <div className="p-4 space-y-3">
-        <div className="text-left">
-          <h3 className="font-semibold text-gray-900 line-clamp-2 leading-tight">
+      {/* CONTENT */}
+      <div className="p-4 flex flex-col flex-grow justify-between">
+        <div>
+          <h3 className="font-semibold text-gray-900 text-base line-clamp-2 leading-snug">
             {title}
           </h3>
+
           {product.description && (
-            <p className="text-sm text-gray-500 mt-1.5 line-clamp-2">
+            <p className="text-sm text-gray-500 mt-1 line-clamp-2">
               {product.description}
             </p>
           )}
         </div>
 
-        {/* <div className="flex items-left justify-center gap-2"> */}
-          <span className="text-xl text-primary">
-            ₹{Math.round(finalPrice).toLocaleString("en-IN")}
+        <div className="mt-2">
+          <span className="text-lg font-semibold text-primary">
+            ₹{Math.round(product.price).toLocaleString("en-IN")}
           </span>
-          {/* {hasDiscount && (
-            <span className="text-sm line-through text-left text-gray-400">
-              ₹{product.originalPrice.toLocaleString("en-IN")}
-            </span>
-          )} */}
-        {/* </div> */}
-{/* 
-        <button className="w-full py-2.5 text-primary font-medium text-sm transition">
-          ADD TO CART
-        </button> */}
+        </div>
       </div>
     </article>
   );

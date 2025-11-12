@@ -104,7 +104,7 @@ export default function Navbar() {
           </div>
 
           {/* Top Bar */}
-          <div className="flex items-center justify-between px-4 py-4">
+          <div className="flex items-center justify-between px-4 py-2">
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="lg:hidden flex items-center gap-1 font-medium text-gray-800"
@@ -116,7 +116,7 @@ export default function Navbar() {
               <img
                 src={mainlogo}
                 alt="Logo"
-                className="h-14 md:h-18 lg:h-20 transition-all duration-200"
+                className="h-14 sm:ml-1 md:ml-34 md:h-18 lg:h-20 transition-all duration-200"
               />
             </div>
 
@@ -145,7 +145,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center py-2 sm:py-3 font-medium whitespace-nowrap">
+          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center pb-2 font-medium whitespace-nowrap">
             {navItems.map((item) => (
               <button
                 key={item.label}

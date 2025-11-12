@@ -14,7 +14,7 @@ const ProductCard = ({ image, title, size = 'normal' }) => (
       <p className="sm:text-[8px] md:text-sm lg:text-lg sm:font-thin font-medium uppercase mb-2">
         {title}
       </p>
-      <button className="sm:text-xs md:text-sm lg:text-lg uppercase tracking-widest px-4 sm:px-2 py-2 hover:text-black transition-all duration-300">
+      <button className="sm:text-xs md:text-sm lg:text-lg uppercase tracking-widest px-4 sm:px-2 py-2 transition-all duration-300">
         Shop Now
       </button>
     </div>
