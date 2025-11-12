@@ -2,26 +2,70 @@
 import { useState } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
+import { useNavigate } from 'react-router-dom';
 
-const FilterSection = ({ title, items, searchable = false, defaultOpen = false, filterType }) => {
+// Define mapping directly in the file
+const categoryPathMap = {
+  'LEHENGA': '/womenwear?category=lehenga',
+  'SAREE': '/womenwear?category=saree',
+  'KURTA SETS': '/womenwear?category=kurta-sets',
+  'ANARKALIS': '/womenwear?category=anarkalis',
+  'SHARARAS': '/womenwear?category=shararas',
+  'PRÊT': '/womenwear?category=pret',
+  'FUSION': '/womenwear?category=fusion',
+  'WEDDING': '/womenwear?category=wedding',
+  'SALE': '/womenwear?category=sale',
+  'VIRTUAL TRYON': '/virtual-tryon',
+};
+
+const FilterSection = ({
+    title,
+    items,
+    searchable = false,
+    defaultOpen = false,
+    filterType
+}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const { selectedFilters, updateFilter } = useFilter();
+    const navigate = useNavigate();
+
+    const handleCheckboxChange = (itemName) => {
+        // Only handle navigation for categories
+        if (filterType === 'categories') {
+            const normalizedName = itemName.toUpperCase().trim();
+
+            // Check if deselecting current category
+            const isCurrentlySelected = selectedFilters.categories[0] === itemName;
+            if (isCurrentlySelected) {
+                updateFilter(filterType, itemName); // clears category
+                navigate('/womenwear'); // go to base URL
+                return;
+            }
+
+            // Navigate to mapped path
+            const path = categoryPathMap[normalizedName];
+            if (path) {
+                updateFilter(filterType, itemName);
+                navigate(path);
+                return;
+            }
+        }
+
+        // For size, color, discount — just update filter
+        updateFilter(filterType, itemName);
+    };
 
     const filtered = items
         .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort((a, b) => b.count - a.count);
-
-    const handleCheckboxChange = (itemName) => {
-        updateFilter(filterType, itemName);
-    };
 
     const isChecked = (itemName) => {
         return selectedFilters[filterType].includes(itemName);
     };
 
     return (
-        <div className="pb-4 ">
+        <div className="pb-4 hide-scrollbar scrollbar-none">
             {/* Header with toggle */}
             <button
                 onClick={() => setIsOpen(!isOpen)}

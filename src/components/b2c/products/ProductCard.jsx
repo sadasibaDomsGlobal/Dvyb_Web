@@ -5,6 +5,7 @@ import { useState } from "react";
  * ProductCard displays a single product with clean UI and enhanced visual hierarchy.
  */
 const ProductCard = ({ product }) => {
+  console.log("##################### THe product we are getting",product);
   const navigate = useNavigate();
   const [imageError, setImageError] = useState(false);
 

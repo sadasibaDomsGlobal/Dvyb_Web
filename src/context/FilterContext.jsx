@@ -5,9 +5,7 @@ const FilterContext = createContext();
 
 export const useFilter = () => {
     const context = useContext(FilterContext);
-    if (!context) {
-        throw new Error('useFilter must be used within a FilterProvider');
-    }
+    if (!context) throw new Error('useFilter must be used within a FilterProvider');
     return context;
 };
 
@@ -29,23 +27,29 @@ export const FilterProvider = ({ children }) => {
         discounts: []
     });
 
-    // Function to update filters
+    const [navbarCategory, setNavbarCategory] = useState(''); 
+
     const updateFilter = (filterType, value) => {
         setSelectedFilters(prev => {
             const newFilters = { ...prev };
 
             switch (filterType) {
                 case 'categories':
+                    if (newFilters.categories.includes(value)) {
+                        newFilters.categories = [];
+                        // Do NOT clear navbarCategory
+                    } else {
+                        newFilters.categories = [value];
+                        setNavbarCategory(value); // Keep UI in sync
+                    }
+                    break;
+
                 case 'sizes':
                 case 'colors':
                 case 'discounts':
-                    if (newFilters[filterType].includes(value)) {
-                        // Remove if already selected
-                        newFilters[filterType] = newFilters[filterType].filter(item => item !== value);
-                    } else {
-                        // Add if not selected
-                        newFilters[filterType] = [...newFilters[filterType], value];
-                    }
+                    newFilters[filterType] = newFilters[filterType].includes(value)
+                        ? newFilters[filterType].filter(item => item !== value)
+                        : [...newFilters[filterType], value];
                     break;
 
                 case 'priceMin':
@@ -64,7 +68,6 @@ export const FilterProvider = ({ children }) => {
         });
     };
 
-    // Function to clear all filters
     const clearAllFilters = () => {
         setSelectedFilters({
             categories: [],
@@ -74,6 +77,7 @@ export const FilterProvider = ({ children }) => {
             priceMax: null,
             discounts: []
         });
+        setNavbarCategory('');
     };
 
     const value = {
@@ -81,7 +85,8 @@ export const FilterProvider = ({ children }) => {
         setFilters,
         selectedFilters,
         updateFilter,
-        clearAllFilters
+        clearAllFilters,
+        navbarCategory, // Optional: for active nav highlight
     };
 
     return (
