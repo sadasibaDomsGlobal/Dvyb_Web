@@ -1,7 +1,7 @@
 // components/navbar/Navbar.jsx
 import { useState } from "react";
 import SearchDropdown from "./SearchDropdown";
-import NavIcons from "./navIcons";
+import NavIcons from "./NavIcons";
 import { mainlogo } from "../../../assets";
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
