@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import MobileMenu from "./mobileMenu";
+import MobileMenu from "./MobileMenu";
 import { useFilter } from "../../../context/FilterContext";
 import { LogOut } from "lucide-react";
 
