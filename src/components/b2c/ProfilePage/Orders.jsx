@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OrderDetails from './OrderDetails';
 import orderService from '../../../services/orderService';
-import InvoiceView from './invoiceView.JSX';
+import InvoiceView from './InvoiceView.jsx';
 
 
 const mockOrders = [
