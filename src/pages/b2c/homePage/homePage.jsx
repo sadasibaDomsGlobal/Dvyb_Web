@@ -1,6 +1,6 @@
 import CategoryCarousel from "../../../components/utils/CategoryCarousel";
 import ProductGrid from "../../../components/product/productGrid";
-import SectionTitle from "../../../components/utils/sectionTitle";
+import SectionTitle from "../../../components/utils/SectionTitle";
 import homeBanner from "../../../assets/B2C/landing/banner01.svg";
 import ClosetIconsSection from "../../../components/b2c/home/ClosetIconsSection";
 import { useProducts } from "../../../hooks/useProducts";
