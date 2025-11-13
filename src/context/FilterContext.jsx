@@ -10,6 +10,20 @@ export const useFilter = () => {
 };
 
 export const FilterProvider = ({ children }) => {
+    // Define categoryPathMap inside the component
+    const categoryPathMap = {
+        'LEHENGA': '/womenwear?category=lehenga',
+        'SAREE': '/womenwear?category=saree', 
+        'KURTA SETS': '/womenwear?category=kurta-sets',
+        'ANARKALIS': '/womenwear?category=anarkalis',
+        'SHARARAS': '/womenwear?category=shararas',
+        'PRÊT': '/womenwear?category=pret',
+        'FUSION': '/womenwear?category=fusion',
+        'WEDDING': '/womenwear?category=wedding',
+        'SALE': '/womenwear?category=sale',
+        'VIRTUAL TRYON': '/virtual-tryon',
+    };
+
     const [filters, setFilters] = useState({
         categories: [],
         sizes: [],
@@ -35,12 +49,23 @@ export const FilterProvider = ({ children }) => {
 
             switch (filterType) {
                 case 'categories':
-                    if (newFilters.categories.includes(value)) {
-                        newFilters.categories = [];
-                        // Do NOT clear navbarCategory
+                    // Check if the value is a main category (from navItems) or subcategory
+                    const isMainCategory = Object.keys(categoryPathMap).includes(value.toUpperCase());
+                    
+                    if (isMainCategory) {
+                        // Main category - replace the entire categories array
+                        if (newFilters.categories.includes(value)) {
+                            newFilters.categories = [];
+                            setNavbarCategory('');
+                        } else {
+                            newFilters.categories = [value];
+                            setNavbarCategory(value);
+                        }
                     } else {
-                        newFilters.categories = [value];
-                        setNavbarCategory(value); // Keep UI in sync
+                        // Subcategory - toggle it in the array
+                        newFilters.categories = newFilters.categories.includes(value)
+                            ? newFilters.categories.filter(item => item !== value)
+                            : [...newFilters.categories, value];
                     }
                     break;
 
@@ -86,7 +111,7 @@ export const FilterProvider = ({ children }) => {
         selectedFilters,
         updateFilter,
         clearAllFilters,
-        navbarCategory, // Optional: for active nav highlight
+        navbarCategory,
     };
 
     return (

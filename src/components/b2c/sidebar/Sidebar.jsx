@@ -81,9 +81,10 @@ const Sidebar = ({ products = [] }) => {
 
       {/* Sidebar */}
       <aside
-        className={`h-full fixed lg:sticky lg:top-0 inset-y-0 left-0 z-30 w-64 bg-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          } lg:translate-x-0 transition-transform duration-300 ease-in-out h-screen overflow-hidden`}
+        className={`fixed lg:sticky lg:top-0 left-0 z-30 w-64 bg-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-visible`}
       >
+
         <div className="h-full flex flex-col">
           {/* Header Section - Fixed */}
           <div className="flex-shrink-0 p-4 border-b border-gray-100">
