@@ -303,13 +303,14 @@ if (showAddAddress) {
             <label className="absolute -top-2 left-3 bg-white text-gray-500 text-xs px-1">
               Landmark / Bridge Nearby
             </label>
-            <textarea
-              name="landmark"
-              value={newAddress.landmark}
-              onChange={handleNewAddressChange}
-              rows="2"
-              className="w-full border-none focus:outline-none focus:ring-0 text-sm text-gray-900 resize-none"
-            />
+           <textarea
+  name="address"
+  value={newAddress.address}
+  onChange={handleNewAddressChange}
+  rows="2"
+  className="w-full border-none focus:outline-none focus:ring-0 text-sm text-gray-900 resize-none"
+/>
+
           </div>
 
           <div className="relative border border-dotted border-gray-400  px-3 pt-3 pb-1">

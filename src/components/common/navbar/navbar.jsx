@@ -1,15 +1,17 @@
 // components/navbar/Navbar.jsx
 import { useState } from "react";
 import SearchDropdown from "./SearchDropdown";
-import NavIcons from "./navIcons";
+import NavIcons from "./NavIcons";
 import { mainlogo } from "../../../assets";
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../../pages/b2c/login/loginModel";
 import { useAuth } from "../../../context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
-import MobileMenu from "./mobileMenu";
+import MobileMenu from "./MobileMenu";
 import { useFilter } from "../../../context/FilterContext";
+import { LogOut } from "lucide-react";
+
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
