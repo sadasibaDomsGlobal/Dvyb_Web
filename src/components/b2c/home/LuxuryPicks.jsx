@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ProductCard from "../../product/productCard";
+import ProductCard from "../../product/ProductCard";
 import { luxIcon } from "../../../assets";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../hooks/useProducts";

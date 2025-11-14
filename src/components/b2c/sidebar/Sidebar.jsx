@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { FilterSection, ColorFilter, PriceRange, DiscountFilter } from "../filters";
 import { useFilter } from "../../../context/FilterContext";
+// import BlouseFilter from "../filters/BlouseFilter";
 
 const Sidebar = ({ products = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -105,6 +106,9 @@ const Sidebar = ({ products = [] }) => {
                 defaultOpen={true}
                 filterType="categories"
               />
+
+              {/* Blouse Filter */}
+              {/* <BlouseFilter /> */}
 
               {/* SIZE FILTER - Hide for saree category */}
               {!isSareeCategory && (
