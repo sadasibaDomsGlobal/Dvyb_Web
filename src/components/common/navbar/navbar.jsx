@@ -95,7 +95,9 @@ export default function Navbar() {
       ) : (
         <>
           <div className="flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins">
-            <span className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
+            <span
+            onClick={()=>navigate("/womenwear")}
+            className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
               CATEGORIES
             </span>
             <span className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
@@ -139,13 +141,13 @@ export default function Navbar() {
                 className="ml-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
                 title="Logout"
               >
-                <LogOut className="w-5 h-5 text-gray-700" />
+                {/* <LogOut className="w-5 h-5 text-gray-700" /> */}
               </button>
             )}
           </div>
 
           {/* Desktop Nav */}
-          <nav className="flex text-[8px] sm:text-sm md:text-base gap-2 sm:gap-5 md:gap-6 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center pb-2 font-medium whitespace-nowrap">
+          <nav className="flex text-[8px] sm:text-sm md:text-[10px] gap-2 sm:gap-5 md:gap-10 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center pb-2 font-medium whitespace-nowrap">
             {navItems.map((item) => (
               <button
                 key={item.label}

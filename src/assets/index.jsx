@@ -1,16 +1,16 @@
 export { default as mainlogo } from "./logos/mainlogo.svg";
 
 export { default as img01 } from "./b2c/landing/wedding/wed01.svg";
-export { default as img02 } from "./b2c/landing/wedding/wed02.svg";
+export { default as img02 } from "./b2c/landing/wedding/wed02.png";
 export { default as img03 } from "./b2c/landing/wedding/wed03.svg";
 
 
 
-export { default as cat01 } from "./b2c/landing/category/cat01.svg";
+export { default as cat01 } from "./b2c/landing/category/cat01.png";
 export { default as cat02 } from "./b2c/landing/category/cat02.svg";
 export { default as cat03 } from "./b2c/landing/category/cat03.png";
 export { default as cat04 } from "./b2c/landing/category/cat04.svg";
-export { default as cat05 } from "./b2c/landing/category/cat05.svg";
+export { default as cat05 } from "./b2c/landing/category/cat05.png";
 export { default as cat06 } from "./b2c/landing/category/cat06.svg";
 
 export { default as spotLight } from "./b2c/landing/spotLight.svg";
