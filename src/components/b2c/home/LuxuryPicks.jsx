@@ -1,95 +1,75 @@
-import { useRef } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductCard from "../../product/ProductCard";
+import { scrollLeft, scrollRight } from "../../utils/scroll";
 import { luxIcon } from "../../../assets";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../hooks/useProducts";
 
 export default function LuxuryPicks() {
     const {products, loading, error} = useProducts();
-    const navigate = useNavigate();
-    const scrollContainerRef = useRef(null);
+    const navigate = useNavigate()
+  return (
+    <section className="bg-lighted-bg mx-auto py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        
+        {/* LEFT CONTENT - Always on top in mobile, left in desktop */}
+        <div className="w-full lg:w-1/4 text-center lg:text-left order-1 lg:order-1">
+          <div className="flex flex-col items-center max-w-sm mx-auto lg:mx-0">
+            <img
+              src={luxIcon}
+              alt="Luxury Icon"
+              className="w-20 md:w-24 lg:w-25 mb-4"
+            />
+            <h2 className="text-sm tracking-wide text-gray-600 uppercase mb-2">
+              Luxurious Pick of the
+            </h2>
+            <h2 className="text-sm tracking-wide text-gray-600 uppercase mb-2">
+              DVYB Essence
+            </h2>
+            <button
+            onClick={()=>navigate("/womenwear")}
+            className="bg-[#400000] text-xs lg:text-sm mt-2 text-white px-8 py-4 transition-colors duration-300 w-full sm:w-auto">
+              Explore All
+            </button>
+          </div>
+        </div>
 
-    const scrollLeft = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: -300,
-                behavior: "smooth",
-            });
-        }
-    };
+        {/* RIGHT CONTENT — SCROLLABLE PRODUCT ROW - Below in mobile, right in desktop */}
+        <div className="w-full lg:w-3/4 relative order-2 lg:order-2">
+          {/* LEFT ARROW */}
+          <button
+            onClick={() => scrollLeft("luxuryScroll")}
+            className="absolute -left-4 lg:-left-6 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300 hover:shadow-xl"
+            aria-label="Scroll left"
+          >
+            <IoIosArrowBack size={20} className="text-gray-700" />
+          </button>
 
-    const scrollRight = () => {
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: 300,
-                behavior: "smooth",
-            });
-        }
-    };
+          {/* SCROLLABLE GRID */}
+          <div
+            id="luxuryScroll"
+            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
+          >
+            {products.map((product, index) => (
+              <div 
+                key={index} 
+                className="cursor-pointer"
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
 
-    return (
-        <section className="bg-lighted-bg mx-auto py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                
-                {/* LEFT CONTENT */}
-                <div className="w-full lg:w-1/4 text-center lg:text-left order-1 lg:order-1">
-                    <div className="flex flex-col items-center max-w-sm mx-auto lg:mx-0">
-                        <img
-                            src={luxIcon}
-                            alt="Luxury Icon"
-                            className="w-20 md:w-24 lg:w-25 mb-4"
-                        />
-                        <h2 className="text-sm tracking-wide text-gray-600 uppercase mb-2">
-                            Luxurious Pick of the
-                        </h2>
-                        <h2 className="text-sm tracking-wide text-gray-600 uppercase mb-2">
-                            DVYB Essence
-                        </h2>
-                        <button
-                            onClick={()=>navigate("/womenwear")}
-                            className="bg-[#400000] text-xs lg:text-sm mt-2 text-white px-8 py-4 transition-colors duration-300 w-full sm:w-auto">
-                            Explore All
-                        </button>
-                    </div>
-                </div>
-
-                {/* RIGHT CONTENT — SCROLLABLE PRODUCT ROW */}
-                <div className="w-full lg:w-3/4 relative order-2 lg:order-2">
-                    {/* LEFT ARROW */}
-                    <button
-                        onClick={scrollLeft}
-                        className="absolute -left-4 lg:-left-6 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300 hover:shadow-xl"
-                        aria-label="Scroll left"
-                    >
-                        <IoIosArrowBack size={20} className="text-gray-700" />
-                    </button>
-
-                    {/* SCROLLABLE GRID */}
-                    <div
-                        ref={scrollContainerRef}
-                        className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
-                    >
-                        {products.map((product, index) => (
-                            <div 
-                                key={index} 
-                                className="cursor-pointer"
-                            >
-                                <ProductCard product={product} />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* RIGHT ARROW */}
-                    <button
-                        onClick={scrollRight}
-                        className="absolute -right-4 lg:-right-6 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300 hover:shadow-xl"
-                        aria-label="Scroll right"
-                    >
-                        <IoIosArrowForward size={20} className="text-gray-700" />
-                    </button>
-                </div>
-            </div>
-        </section>
-    );
-}
+          {/* RIGHT ARROW */}
+          <button
+            onClick={() => scrollRight("luxuryScroll")}
+            className="absolute -right-4 lg:-right-6 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg hover:bg-gray-50 transition-all duration-300 hover:shadow-xl"
+            aria-label="Scroll right"
+          >
+            <IoIosArrowForward size={20} className="text-gray-700" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+ }
