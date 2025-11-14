@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
 
-const ColorFilter = ({ title, colors, defaultOpen = false, filterType }) => {
+const ColorFilter = ({ title, colors, defaultOpen = false }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const { selectedFilters, updateFilter } = useFilter();
 
@@ -12,36 +12,45 @@ const ColorFilter = ({ title, colors, defaultOpen = false, filterType }) => {
             {/* Header */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full text-left mb-2"
+                className="flex items-center justify-between w-full text-left mb-3"
             >
                 <h3 className="font-medium text-gray-900 text-sm">{title}</h3>
                 {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
 
-            {/* Color Grid */}
+            {/* Color List */}
             {isOpen && (
-                <div className="grid grid-cols-4 gap-3">
+                <div className="space-y-2">
                     {colors.map((color) => (
-                        <button
+                        <label 
                             key={color.name}
-                            onClick={() => updateFilter(filterType, color.name)}
-                            className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${selectedFilters.colors.includes(color.name)
-                                    ? 'ring-2 ring-gray-800 ring-offset-2'
-                                    : 'hover:ring-1 hover:ring-gray-300'
-                                }`}
+                            className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50"
                         >
-                            {/* Color circle with inline style */}
-                            <div
-                                className="w-8 h-8 rounded-full border border-gray-200"
-                                style={{
-                                    backgroundColor: color.hex,
-                                    // Add white border for light colors
-                                    border: color.hex.toLowerCase() === '#ffffff' ? '1px solid #d1d5db' : '1px solid transparent'
-                                }}
-                            />
-                            <span className="text-xs text-gray-600 capitalize">{color.name}</span>
-                            <span className="text-xs text-gray-400">({color.count})</span>
-                        </button>
+                            <div className="flex items-center gap-3">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedFilters.colors.includes(color.name)}
+                                    onChange={() => updateFilter('colors', color.name)}
+                                    className="rounded border-gray-300 text-gray-900 focus:ring-gray-500 w-4 h-4"
+                                />
+                                
+                                {/* Color circle */}
+                                <div 
+                                    className="w-5 h-5 rounded-full border border-gray-200"
+                                    style={{
+                                        backgroundColor: color.hex,
+                                        border: color.hex.toLowerCase() === '#ffffff' ? '1px solid #d1d5db' : '1px solid transparent'
+                                    }}
+                                />
+                                
+                                <span className="text-sm text-gray-800 capitalize">{color.name}</span>
+                            </div>
+                            
+                            {/* Count (not percentage) */}
+                            <span className="text-sm text-gray-500">
+                                ({color.count})
+                            </span>
+                        </label>
                     ))}
                 </div>
             )}
