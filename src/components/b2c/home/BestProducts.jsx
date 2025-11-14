@@ -1,7 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({ image, title, size = 'normal' }) => (
-  <div className="relative group overflow-hidden cursor-pointer">
+
+const ProductCard = ({ path,image, title, size = 'normal' }) => {
+
+  const navigate = useNavigate();
+   
+   return (
+
+
+  <div className="relative group overflow-hidden cursor-pointer"
+        onClick={()=> navigate(path)}
+  >
     <img
       src={image}
       alt={title}
@@ -20,9 +30,10 @@ const ProductCard = ({ image, title, size = 'normal' }) => (
     </div>
   </div>
 );
-
+}
 const BestProducts = ({products, columns }) => {
 
+console.log(products, "bestselling")
   return (
     <section className="bg-white sm:px-2 md:px-6 lg:px-14">
       <div className="container mx-auto sm:px-2 md:px-6 lg:px-8">
@@ -32,6 +43,7 @@ const BestProducts = ({products, columns }) => {
           {/* Large left image */}
           <div className={`md:col-span-${columns===2?8:6}`}>
             <ProductCard
+              path = {products[0].path}
               image={columns===2?products[0].images:products[3].images}
               title={products[0].title}
               size="large"
@@ -42,6 +54,7 @@ const BestProducts = ({products, columns }) => {
           <div className= {`md:col-span-${columns===2?4:6} grid grid-cols-${columns===2?1:2} gap-3 lg:gap-6` }>
   {products.slice(columns === 2 ? 1 : 4,columns === 2 ? 2 : 6).map((product) => (
     <ProductCard
+     path = {product.path}
       key={product.id}
       image={product.images}
       title={product.title}

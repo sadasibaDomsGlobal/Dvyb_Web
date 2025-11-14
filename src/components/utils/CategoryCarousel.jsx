@@ -11,7 +11,7 @@ export default function CategoryCarousel() {
 
   return (
     <section className="relative">
-      <div className="flex items-center gap-2 sm:px-1 md:px-8 lg:px-18">
+      <div className="flex items-center gap-2 sm:px-1 md:px-6 lg:px-12">
         
         {/* LEFT ARROW */}
         <button

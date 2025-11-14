@@ -8,17 +8,15 @@ const LoginForm = ({ onOtpSent, onGuest }) => {
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-  // Only run once on mount
-  setupRecaptcha("recaptcha-container");
-  return () => {
-    // Cleanup on unmount
-    if (window.recaptchaVerifier) {
-      window.recaptchaVerifier.clear();
-      window.recaptchaVerifier = null;
-    }
-  };
-}, []);
+   useEffect(() => {
+     setupRecaptcha("recaptcha-container");
+     return () => {
+       // Cleanup on unmount
+       if (recaptchaVerifier) {
+         recaptchaVerifier.clear();
+       }
+     };
+   }, []);
 
   const handleSendOtp = async (e) => {
     e.preventDefault();

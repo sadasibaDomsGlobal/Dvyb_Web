@@ -79,7 +79,7 @@ export default function Home() {
       {/* 5. SPOTLIGHT OF THE DAY */}
       {spotlight && (
         <section className="container mx-auto py-12">
-          <SectionTitle>Spotlight of the Day</SectionTitle>
+          {/* <SectionTitle>Spotlight of the Day</SectionTitle> */}
 
           <SpotlightCollections />
         </section>

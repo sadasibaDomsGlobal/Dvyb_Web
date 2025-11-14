@@ -140,6 +140,7 @@ import { closet01, img01, img02, img03, lux01, lux02, lux03, lux04, best01, best
     category: "Bestselling",
     images: [best02],
     description: "Popular evening wear drapery.",
+    path: "/womenwear?category=fusion",
   },
   {
     id: "best-3",
@@ -166,6 +167,7 @@ import { closet01, img01, img02, img03, lux01, lux02, lux03, lux04, best01, best
     category: "Bestselling",
     images: [img05],
     description: "Classic red saree.",
+    path: "/womenwear?category=fusion",
   },
   {
     id: "best-6",
@@ -174,6 +176,7 @@ import { closet01, img01, img02, img03, lux01, lux02, lux03, lux04, best01, best
     category: "Bestselling",
     images: [img06],
     description: "Elegant blue anarkali suit.",
+    path: "/womenwear?category=fusion",
   },
   {
     id: "best-7",
@@ -191,6 +194,7 @@ import { closet01, img01, img02, img03, lux01, lux02, lux03, lux04, best01, best
     category: "Bestselling",
     images: [img04],
     description: "Embroidered sharara.",
+    path: "/womenwear?category=fusion",
   },
 
   // Closet Icons (8 products)

@@ -10,7 +10,7 @@ export default function ProductCard({ product, className }) {
     <article
       onClick={() => navigate(`/products/${product.id}`)}
       className={cn(
-        "group w-85 h-130 relative bg-white overflow-hidden shadow-sm cursor-pointer transition-all duration-300 flex flex-col",
+        "group w-70 h-130 relative bg-white overflow-hidden shadow-sm cursor-pointer transition-all duration-300 flex flex-col",
         className
       )}
     >
@@ -25,7 +25,7 @@ export default function ProductCard({ product, className }) {
       </div>
 
       {/* CONTENT */}
-      <div className="p-4 flex flex-col flex-grow justify-between">
+      <div className="py-4 px-2 flex flex-col flex-grow justify-between">
         <div>
           <h3 className="font-semibold text-gray-900 text-base line-clamp-2 leading-snug">
             {title}

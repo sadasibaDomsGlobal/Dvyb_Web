@@ -25,13 +25,28 @@ const firebaseConfig = {
   measurementId: envConfig.firebase.measurementId,
 };
 
+// Validate config (prevents partial init leading to internal-error)
+const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'appId'];
+for (const key of requiredKeys) {
+  if (!firebaseConfig[key]) {
+    throw new Error(`Missing Firebase config key: ${key}. Check envConfig.`);
+  }
+}
+
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-
-
 export const auth = getAuth(app);
-setPersistence(auth, browserLocalPersistence);
+
+
+try {
+  await setPersistence(auth, browserLocalPersistence);
+  console.log('Firebase persistence set to local.'); // Optional log
+} catch (error) {
+  console.error('Failed to set auth persistence:', error);
+  // Fallback to default (session) if needed
+}
+
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-// export { analytics };
+
 export  {app};
 export default app;
