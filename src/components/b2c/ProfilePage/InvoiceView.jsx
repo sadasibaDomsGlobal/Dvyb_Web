@@ -90,70 +90,72 @@ const InvoiceView = ({ order, onBack }) => {
   const total = subtotal + deliveryFee;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 md:p-6 pb-20 md:pb-6">
       <button
         onClick={onBack}
-        className="mb-6 text-gray-600 font-medium hover:text-gray-900 transition-colors"
+        className="hidden md:block mb-6 text-gray-600 font-medium hover:text-gray-900 transition-colors"
       >
         ← Back to Orders
       </button>
 
-      <div ref={invoiceRef} className="max-w-5xl mx-auto bg-white shadow-lg p-8">
+      <div ref={invoiceRef} className="max-w-5xl mx-auto bg-white md:shadow-lg md:p-8">
         {/* Header with Barcode and Download */}
-        <div className="flex justify-between items-start mb-8 pb-6 border-b border-gray-200">
-          <div className="flex items-start gap-4">
-            <div className="bg-white">
-              <Barcode 
-                value={order.orderId || order.id || '287368838'} 
-                width={1.5}
-                height={60}
-                fontSize={0}
-                margin={0}
-              />
+        <div className="mb-6 pb-6 border-b border-gray-200">
+          <div className="flex flex-col items-center md:flex-row md:justify-between md:items-start gap-4">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4 w-full md:w-auto">
+              <div className="bg-white">
+                <Barcode 
+                  value={order.orderId || order.id || '287368838'} 
+                  width={1.3}
+                  height={50}
+                  fontSize={0}
+                  margin={0}
+                />
+              </div>
+              <div className="text-center md:text-left">
+                <p className="text-sm md:text-lg font-semibold text-gray-900">
+                  Order ID: {order.orderId || order.id}
+                </p>
+                <p className="text-xs md:text-base text-gray-600">
+                  {formatDate(order.date)} {formatTime(order.date)}
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-lg font-semibold text-gray-900">
-                Order ID: {order.orderId || order.id}
-              </p>
-              <p className="text-gray-600">
-                {formatDate(order.date)} {formatTime(order.date)}
-              </p>
-            </div>
+            
+            <button
+              onClick={handleDownloadPDF}
+              className="hidden md:block bg-[#8B1B1B] hover:bg-[#6d1515] text-white px-6 py-2.5 rounded font-medium transition-colors"
+            >
+              Download Invoice
+            </button>
           </div>
-          
-          <button
-            onClick={handleDownloadPDF}
-            className="bg-[#8B1B1B] hover:bg-[#6d1515] text-white px-6 py-2.5 rounded font-medium transition-colors"
-          >
-            Download Invoice
-          </button>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-2 gap-8">
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 p-4 md:p-0">
           {/* Left Column - Order Details */}
           <div className="border border-gray-300 rounded-lg">
-            <h2 className="text-xl font-semibold text-gray-900 p-4 border-b border-gray-300 bg-gray-50">
+            <h2 className="text-base md:text-xl font-semibold text-gray-900 p-3 md:p-4 border-b border-gray-300 bg-gray-50">
               Order Details
             </h2>
             
-            <div className="p-4">
+            <div className="p-3 md:p-4">
               {order.products?.map((product, index) => (
-                <div key={index} className="mb-6 pb-6 border-b border-gray-200 last:border-0">
-                  <div className="flex gap-4">
+                <div key={index} className="mb-4 md:mb-6 pb-4 md:pb-6 border-b border-gray-200 last:border-0">
+                  <div className="flex gap-3 md:gap-4">
                     <img
                       src={product.image || 'https://via.placeholder.com/120'}
                       alt={product.name}
-                      className="w-24 h-28 object-cover rounded"
+                      className="w-16 h-20 md:w-24 md:h-28 object-cover rounded"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-1">
+                      <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-1">
                         {product.name || 'SURBHI SHAH'}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-xs md:text-sm text-gray-600 mb-2">
                         {product.description || 'mustard spun silk anarkali set'}
                       </p>
-                      <div className="flex gap-4 text-sm">
+                      <div className="flex gap-3 md:gap-4 text-xs md:text-sm">
                         <span className="text-gray-700">
                           <span className="font-medium">Size:</span> {product.size || 'S'}
                         </span>
@@ -168,27 +170,27 @@ const InvoiceView = ({ order, onBack }) => {
 
               {/* Order Summary */}
               <div className="space-y-3 mt-6 pt-4 border-t border-gray-300">
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs md:text-sm">
                   <span className="text-gray-700">ID</span>
                   <span className="text-gray-900">#{order.orderId || order.id}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs md:text-sm">
                   <span className="text-gray-700">Product Name:</span>
                   <span className="text-gray-900">{order.products?.[0]?.name || 'SURBHI SHAH'}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs md:text-sm">
                   <span className="text-gray-700">Qty</span>
                   <span className="text-gray-900">x{order.products?.reduce((sum, p) => sum + (p.quantity || 0), 0) || 2}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs md:text-sm">
                   <span className="text-gray-700">Price</span>
                   <span className="text-gray-900">₹{subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-xs md:text-sm">
                   <span className="text-gray-700">Delivery Fee</span>
                   <span className="text-gray-900">₹{deliveryFee}</span>
                 </div>
-                <div className="flex justify-between text-base font-semibold pt-2 border-t border-gray-300">
+                <div className="flex justify-between text-sm md:text-base font-semibold pt-2 border-t border-gray-300">
                   <span className="text-gray-900">Total</span>
                   <span className="text-gray-900">₹{total.toLocaleString()}</span>
                 </div>
@@ -197,31 +199,31 @@ const InvoiceView = ({ order, onBack }) => {
           </div>
 
           {/* Right Column - Customer & Payment Info */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-4 md:gap-6">
             {/* Customer Information */}
             <div className="border border-gray-300 rounded-lg">
-              <h2 className="text-xl font-semibold text-gray-900 p-4 border-b border-gray-300 bg-gray-50">
+              <h2 className="text-base md:text-xl font-semibold text-gray-900 p-3 md:p-4 border-b border-gray-300 bg-gray-50">
                 Customer Information
               </h2>
               
-              <div className="p-4 space-y-4">
+              <div className="p-3 md:p-4 space-y-3 md:space-y-4">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Name</p>
-                  <p className="text-gray-900 font-medium">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Name</p>
+                  <p className="text-sm md:text-base text-gray-900 font-medium">
                     {order.customerName || order.shippingAddress?.name || 'Ravi Kumar'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">E-Mail</p>
-                  <p className="text-gray-900">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">E-Mail</p>
+                  <p className="text-sm md:text-base text-gray-900">
                     {order.customerEmail || order.email || 'customer@example.com'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Shipping Address</p>
-                  <p className="text-gray-900">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Shipping Address</p>
+                  <p className="text-sm md:text-base text-gray-900">
                     {order.shippingAddress?.fullAddress || 
                      order.shippingAddress?.address || 
                      '92-145/1A, Madura Nagar, Hyderabad, Ajay Towers, Road No 3, Near. Vijay Modal High School 500056'}
@@ -232,35 +234,35 @@ const InvoiceView = ({ order, onBack }) => {
 
             {/* Payment Details */}
             <div className="border border-gray-300 rounded-lg">
-              <h2 className="text-xl font-semibold text-gray-900 p-4 border-b border-gray-300 bg-gray-50">
+              <h2 className="text-base md:text-xl font-semibold text-gray-900 p-3 md:p-4 border-b border-gray-300 bg-gray-50">
                 Payment Details
               </h2>
               
-              <div className="p-4 space-y-4">
+              <div className="p-3 md:p-4 space-y-3 md:space-y-4">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Payment Mode</p>
-                  <p className="text-gray-900 font-medium">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Payment Mode</p>
+                  <p className="text-sm md:text-base text-gray-900 font-medium">
                     {order.paymentMethod || 'UPI'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Transaction ID</p>
-                  <p className="text-gray-900">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Transaction ID</p>
+                  <p className="text-sm md:text-base text-gray-900">
                     {order.transactionId || 'TR3290889200'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Payment Date</p>
-                  <p className="text-gray-900">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Payment Date</p>
+                  <p className="text-sm md:text-base text-gray-900">
                     {formatDate(order.paymentDate || order.date)} {formatTime(order.paymentDate || order.date)}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Bank Name</p>
-                  <p className="text-gray-900">
+                  <p className="text-xs md:text-sm text-gray-600 mb-1">Bank Name</p>
+                  <p className="text-sm md:text-base text-gray-900">
                     {order.bankName || 'Kotak Mahindra Bank'}
                   </p>
                 </div>
@@ -268,6 +270,16 @@ const InvoiceView = ({ order, onBack }) => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Download Button - Mobile Only (Fixed at bottom) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 shadow-lg">
+        <button
+          onClick={handleDownloadPDF}
+          className="w-full bg-[#8B1B1B] hover:bg-[#6d1515] text-white px-6 py-3 rounded font-medium transition-colors"
+        >
+          Download Invoice
+        </button>
       </div>
     </div>
   );

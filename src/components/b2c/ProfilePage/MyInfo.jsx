@@ -216,7 +216,7 @@ if (showAddAddress) {
         </div>
 
         {/* FORM */}
-        <div className="p-6 grid grid-cols-2 gap-7">
+        <div className="md:p-6 flex  flex-col md:grid md:grid-cols-2 gap-7">
           {/* Row 1 */}
           <div className="relative border border-dotted border-gray-400 px-3 pt-3 pb-1">
             <label className="absolute -top-2 left-3 bg-white text-gray-500 text-xs px-1">

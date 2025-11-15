@@ -15,7 +15,9 @@ import {
   FaShareAlt,
   FaRupeeSign,
   FaSignOutAlt,
+  FaChevronRight,
 } from "react-icons/fa";
+import { LogOut } from "lucide-react";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const { user } = useAuth();
@@ -29,15 +31,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const menu = [
     { id: "my-info", label: "My info", icon: <FaUser /> },
     { id: "my-orders", label: "My orders", icon: <FaShoppingBag /> },
-    // { id: "my-model", label: "My Model", icon: <FaCamera /> },
     { id: "my-tryon-gallery", label: "My Try-On Gallery", icon: <FaImages /> },
     { id: "wishlist", label: "Wishlist", icon: <FaHeart /> },
-    // { id: "rewards", label: "Rewards", icon: <FaTrophy /> },
-    // { id: "refer-earn", label: "Refer & Earn", icon: <FaShareAlt /> },
-    // { id: "subscriptions", label: "Subscriptions", icon: <FaRupeeSign /> },
   ];
 
-  // ✅ Fetch user data
+  // Fetch user data
   useEffect(() => {
     if (!user) return;
 
@@ -64,13 +62,13 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     fetchData();
   }, [user]);
 
-  // ✅ Handle logout
+  // Handle logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
-      window.location.href = "/B2c-login"; // Redirect to login
+      window.location.href = "/B2c-login";
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -78,16 +76,8 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
   return (
     <>
-      {/* Sidebar - Fixed position below navbar */}
-      <div className="w-64 h-[calc(100vh-40px)] mt-24 bg-gray-50 p-4 fixed left-0 top-[40px] overflow-y-auto z-40">
-        {/* Optional Logo */}
-        {/* <img 
-          src={b2clogo} 
-          alt="logo" 
-          className="h-5 sm:h-6 md:h-6 mb-4 object-contain cursor-pointer" 
-          onClick={() => navigate("/")}
-        /> */}
-        
+      {/* DESKTOP SIDEBAR - Fixed position below navbar */}
+      <div className="hidden md:block w-64 h-[calc(100vh-40px)] mt-16 bg-gray-50 p-4 fixed left-0 top-[40px] overflow-y-auto z-40">
         {/* Welcome Message */}
         <div className="mb-6 pb-4 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-800">
@@ -103,11 +93,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               onClick={() => setActiveTab(item.id)}
               className={`cursor-pointer flex items-center gap-3 p-3 rounded-md transition-all duration-200 ${
                 activeTab === item.id
-                  ? " text-primary font-semibold "
+                  ? "text-primary font-semibold"
                   : "text-gray-700"
               }`}
             >
-              {/* <span className="text-lg">{item.icon}</span> */}
               <span>{item.label}</span>
             </li>
           ))}
@@ -123,7 +112,44 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </ul>
       </div>
 
-      {/* ✅ Logout Confirmation Modal */}
+      {/* MOBILE SIDEBAR - Full page overlay */}
+      <div className="md:hidden bg-white min-h-screen">
+        {/* Header */}
+        <div className="bg-white  border-gray-200 px-4 py-4">
+          <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
+            MY ACCOUNT
+          </h2>
+        </div>
+
+        {/* Menu Items */}
+        <ul className="bg-white">
+          {menu.map((item) => (
+            <li
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className="border-b border-gray-100 px-4 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
+            >
+              <span className="text-sm font-medium text-gray-900 uppercase tracking-wide">
+                {item.label}
+              </span>
+              <FaChevronRight className="text-gray-400 text-xs" />
+            </li>
+          ))}
+        </ul>
+
+        {/* Logout Button */}
+        <div className="px-4 mt-auto pt-8 pb-6">
+          <button
+            onClick={() => setShowLogoutModal(true)}
+            className="w-full bg-[#8B0000] text-white py-3 flex items-center justify-center gap-2 font-medium text-sm uppercase tracking-wide hover:bg-[#6d0000] transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Log out
+          </button>
+        </div>
+      </div>
+
+      {/* Logout Confirmation Modal */}
       {showLogoutModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-[9999]">
           <div className="bg-white rounded-lg shadow-2xl p-6 w-80 text-center mx-4">

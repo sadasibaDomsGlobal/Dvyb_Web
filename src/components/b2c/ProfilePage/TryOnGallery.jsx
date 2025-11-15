@@ -13,7 +13,6 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
   const [imageError, setImageError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Debug: Log the image URL
   console.log('Try-on image URL:', item.tryOnImage);
 
   const formattedDate = item.createdAt
@@ -32,8 +31,7 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 relative group">
-      {/* Delete Button - Hidden */}
+    <div className="bg-white overflow-hidden    shadow-sm hover:shadow-md transition-shadow duration-300 relative group">
       <button
         onClick={handleDelete}
         disabled={isDeleting}
@@ -45,9 +43,7 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
         ) : null}
       </button>
 
-      {/* Image Container */}
       <div className="relative bg-[#D4B89C] aspect-[3/4] overflow-hidden">
-        {/* Loading Spinner - Only show when loading and no error */}
         {!imageLoaded && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
             <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
@@ -55,7 +51,6 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
           </div>
         )}
         
-        {/* Error State */}
         {imageError && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100">
             <p className="text-xs text-red-500">Failed to load image</p>
@@ -66,7 +61,7 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
         <img
           src={item.tryOnImage || item.garmentImage || 'https://via.placeholder.com/400x600?text=No+Image'}
           alt={item.productName}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
+          className={`md:w-full md:h-full object-cover transition-opacity duration-300 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={() => {
@@ -78,9 +73,8 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
             console.error('❌ Image load error for:', item.tryOnImage);
             console.error('Full item data:', item);
             setImageError(true);
-            setImageLoaded(true); // Stop loading spinner
+            setImageLoaded(true);
             
-            // Fallback to garment image if try-on image fails
             if (item.garmentImage && e.target.src !== item.garmentImage) {
               console.log('Trying fallback to garmentImage:', item.garmentImage);
               e.target.src = item.garmentImage;
@@ -88,10 +82,9 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
               e.target.src = 'https://via.placeholder.com/400x600?text=Image+Not+Available';
             }
           }}
-          crossOrigin="anonymous" // Add this if images are from external domain
+          crossOrigin="anonymous"
         />
 
-        {/* Video Icon for 3D - Bottom Right */}
         {item.videoUrl && (
           <div className="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
             🎥 Video
@@ -99,26 +92,21 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
         )}
       </div>
 
-      {/* Content */}
       <div className="p-4">
-        {/* Brand/Designer Name */}
         {item.garmentName && (
           <p className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">
             {item.garmentName}
           </p>
         )}
         
-        {/* Product Name */}
         <h3 className="font-normal text-gray-900 text-sm mb-2 line-clamp-2 leading-snug">
           {item.productName || 'Product'}
         </h3>
         
-        {/* Try-on Date */}
         <p className="text-xs text-gray-500 mb-4">
           Tried On {formattedDate}
         </p>
 
-        {/* Action Buttons */}
         <div className="space-y-2">
           <button
             onClick={() => onAddToCart(item)}
@@ -137,6 +125,7 @@ const TryOnGalleryCard = ({ item, onShare, onAddToCart, onDelete }) => {
     </div>
   );
 };
+
 const ShareModal = ({ isOpen, onClose, item }) => {
   if (!isOpen || !item) return null;
 
@@ -226,66 +215,75 @@ export default function TryOnGallery() {
   const { tryons, loading, error } = useUserTryons();
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { showPopup } = usePopup();
+  
+  // Safe access to usePopup - fallback if not available
+  let showPopup = null;
+  try {
+    const popupContext = usePopup();
+    showPopup = popupContext?.showPopup;
+  } catch (err) {
+    console.warn('usePopup context not available:', err);
+  }
+  
   const { user } = useAuth();
 
-    console.log('Total tryons:', tryons.length);
-  console.log('First tryon data:', tryons[0]);
+  console.log('Total tryons:', tryons?.length || 0);
+  console.log('First tryon data:', tryons?.[0]);
 
   const handleShare = (item) => {
     setSelectedItem(item);
     setShareModalOpen(true);
   };
 
- const handleAddToCart = async (item) => {
-  if (!user) {
-    toast.error("Please log in to add items to cart!");
-    return;
-  }
+  const handleAddToCart = async (item) => {
+    if (!user) {
+      toast.error("Please log in to add items to cart!");
+      return;
+    }
 
-  try {
-    const productData = {
-      name: item.productName,
-      title: item.productName,
-      price: parseFloat(item.price) || 0,
-      size: item.selectedSizes?.[0] || 'Free Size',
-      color: item.selectedColors?.[0] || '',
-      image: item.garmentImage,  // 🔥 Use original garment image
-      imageUrls: [item.garmentImage, item.tryOnImage].filter(Boolean), // 🔥 Original first, then try-on
-      selectedColors: item.selectedColors || [],
-      selectedSizes: item.selectedSizes || [],
-      fabric: item.fabric || '',
-      description: '',
-      subtotal: parseFloat(item.price) || 0,
-      discount: item.discount || 0,
-      fromTryOnGallery: true, // 🔥 Flag to indicate this came from gallery
-      tryOnData: {
-        tryOnImage: item.tryOnImage,
-        originalImage: item.garmentImage,
-        viewMode: item.viewMode,
-        videoUrl: item.videoUrl
-      }
-    };
+    try {
+      const productData = {
+        name: item.productName,
+        title: item.productName,
+        price: parseFloat(item.price) || 0,
+        size: item.selectedSizes?.[0] || 'Free Size',
+        color: item.selectedColors?.[0] || '',
+        image: item.garmentImage,
+        imageUrls: [item.garmentImage, item.tryOnImage].filter(Boolean),
+        selectedColors: item.selectedColors || [],
+        selectedSizes: item.selectedSizes || [],
+        fabric: item.fabric || '',
+        description: '',
+        subtotal: parseFloat(item.price) || 0,
+        discount: item.discount || 0,
+        fromTryOnGallery: true,
+        tryOnData: {
+          tryOnImage: item.tryOnImage,
+          originalImage: item.garmentImage,
+          viewMode: item.viewMode,
+          videoUrl: item.videoUrl
+        }
+      };
 
-    await cartService.addToCart(item.productId, productData, 1);
-    
-    showPopup("cart", {
-      title: item.productName,
-      image: item.garmentImage, // 🔥 Show original garment image in popup
-    });
+      await cartService.addToCart(item.productId, productData, 1);
+      
+      showPopup("cart", {
+        title: item.productName,
+        image: item.garmentImage,
+      });
 
-    toast.success(`${item.productName} added to cart!`);
-  } catch (error) {
-    console.error("Add to cart error:", error);
-    toast.error("Failed to add item to cart.");
-  }
-};
+      toast.success(`${item.productName} added to cart!`);
+    } catch (error) {
+      console.error("Add to cart error:", error);
+      toast.error("Failed to add item to cart.");
+    }
+  };
 
   const handleDelete = async (tryOnId) => {
     try {
       await deleteTryOn(tryOnId);
       toast.success('Try-on deleted successfully!');
-      window.location.reload(); // Simple reload to refresh data
+      window.location.reload();
     } catch (error) {
       console.error('Delete error:', error);
       toast.error('Failed to delete try-on');
@@ -294,7 +292,7 @@ export default function TryOnGallery() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="flex items-center justify-center py-20">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
           <p className="text-gray-600">Loading your try-ons...</p>
@@ -305,7 +303,7 @@ export default function TryOnGallery() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
+      <div className="flex items-center justify-center py-20">
         <div className="text-center">
           <div className="text-5xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
@@ -323,9 +321,9 @@ export default function TryOnGallery() {
     );
   }
 
-  if (!tryons.length) {
+  if (!tryons || tryons.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-6">
+      <div className="flex items-center justify-center py-20">
         <div className="text-center">
           <div className="text-6xl mb-4">👗</div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">
@@ -346,17 +344,10 @@ export default function TryOnGallery() {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="w-full">
+      <div className="px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center text-gray-600 hover:text-gray-800 mb-4 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </button>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
             My Try-On Gallery
           </h1>
@@ -366,7 +357,8 @@ export default function TryOnGallery() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+       <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+
           {tryons.map((item) => (
             <TryOnGalleryCard
               key={item.id}

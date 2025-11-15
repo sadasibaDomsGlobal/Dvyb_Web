@@ -258,12 +258,12 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
 )}
 
         {/* STATUS MESSAGE */}
-        <div className="bg-gray-50 text-sm w-[510px] text-gray-700 border border-gray-200  px-4 py-3 mb-8">
+        <div className="bg-gray-50 text-sm md:w-[510px] text-gray-700 border border-gray-200  px-4 py-3 mb-8">
           {getStatusMessage()}
         </div>
 
         {/* PRODUCT LIST (white cards with separator lines) */}
-        <div className="bg-white border border-gray-200  divide-y divide-gray-200 mb-12">
+        <div className="bg-[#F6F6F6]  p-3  divide-y divide-gray-200 mb-12">
           {products.map((product, i) => (
             <div
               key={product.id ?? i}
@@ -273,7 +273,7 @@ const OrderDetails = ({ order = {}, onBack = () => {}, onDownloadInvoice = () =>
                 <img
                   src={product.image ?? '/api/placeholder/80/80'}
                   alt={product.name}
-                  className="w-20 h-24 object-cover  mr-4 flex-shrink-0"
+                  className="w-20 h-20 object-cover  mr-4 flex-shrink-0"
                 />
                 <div>
                   <h3 className="font-semibold text-gray-900">{product.name}</h3>

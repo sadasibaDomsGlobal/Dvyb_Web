@@ -21,8 +21,6 @@ import empty_wishlistIc from '../../../assets/ProfileImages/empty_wishlistIc.png
 const WishlistButton = ({ productId, productData, className = "" }) => {
   const [inWishlist, setInWishlist] = useState(false);
   const [loading, setLoading] = useState(false);
-  
-
 
   useEffect(() => {
     checkWishlistStatus();
@@ -66,7 +64,6 @@ const WishlistButton = ({ productId, productData, className = "" }) => {
       }}
     >
       {loading ? '...' : inWishlist ? '❤️ Remove' : '🤍 Add to Wishlist'}
-
     </button>
   );
 };
@@ -75,9 +72,16 @@ const WishlistButton = ({ productId, productData, className = "" }) => {
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { showPopup } = usePopup();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  // Safe access to usePopup - fallback if not available
+  let showPopup = null;
+  try {
+    const popupContext = usePopup();
+    showPopup = popupContext?.showPopup;
+  } catch (err) {
+    console.warn('usePopup context not available:', err);
+  }
 
   useEffect(() => {
     let unsubscribe = null;
@@ -108,10 +112,11 @@ const WishlistPage = () => {
   const handleRemoveItem = async (productId) => {
     try {
       await removeFromWishlist(productId);
+      toast.success('Item removed from wishlist');
       // Real-time listener will automatically update the list
     } catch (error) {
       console.error('Error removing item:', error);
-      alert('Failed to remove item. Please try again.');
+      toast.error('Failed to remove item. Please try again.');
     }
   };
 
@@ -119,10 +124,11 @@ const WishlistPage = () => {
     if (window.confirm('Are you sure you want to clear your entire wishlist?')) {
       try {
         await clearWishlist();
+        toast.success('Wishlist cleared');
         // Real-time listener will automatically update the list
       } catch (error) {
         console.error('Error clearing wishlist:', error);
-        alert('Failed to clear wishlist. Please try again.');
+        toast.error('Failed to clear wishlist. Please try again.');
       }
     }
   };
@@ -135,97 +141,100 @@ const WishlistPage = () => {
     );
   }
 
-return (
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-10">
+        <img
+          src={b2clogo}
+          alt="logo"
+          className="h-6 object-contain cursor-pointer"
+          onClick={() => navigate("/")}
+        />
+        <h1 className="text-2xl tracking-wide font-semibold text-gray-900">
+          My Wishlist Items <span className="text-gray-500">({wishlistItems.length})</span>
+        </h1>
+      </div>
 
-    {/* Header */}
-    <div className="flex items-center gap-4 mb-10">
-      <img
-        src={b2clogo}
-        alt="logo"
-        className="h-6 object-contain cursor-pointer"
-        onClick={() => navigate("/")}
-      />
-      <h1 className="text-2xl tracking-wide font-semibold text-gray-900">
-        My Wishlist Items <span className="text-gray-500">({wishlistItems.length})</span>
-      </h1>
-    </div>
+      {/* Empty Wishlist UI */}
+      {wishlistItems.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-24">
+          <div className="h-[400px] w-[800px] flex items-center justify-center rounded-full">
+            <img src={empty_wishlistIc} className='object-cover h-auto w-auto' alt="Empty wishlist" />
+          </div>
 
-    {/* Empty Wishlist UI */}
-    {wishlistItems.length === 0 ? (
-      <div className="flex flex-col items-center justify-center py-24">
-        <div className=" h-[400px] w-[800px] flex items-center justify-center rounded-full">
-         <img src={empty_wishlistIc} className=' object-cover h-auto w-auto' alt="" />
-        </div>
+          <p className="text-lg font-semibold text-gray-800 mt-12">Your Wishlist is Empty</p>
+          <p className="text-sm font-medium text-gray-700 mt-3 mb-6">Start adding your favorites</p>
 
-        <p className="text-lg font-semibold text-gray-800 mt-12">Your Wishlist is Empty</p>
-        <p className="text-sm font-medium text-gray-700 mt-3 mb-6">Start adding your favorites</p>
+          <Link
+            to="/products"
+            className="px-6 py-2 border border-double border-gray-400 text-gray-900 hover:bg-gray-900 hover:text-white transition text-sm font-medium"
+          >
+            CONTINUE SHOPPING
+          </Link>
 
-        <Link
-          to="/products"
-          className="px-6 py-2 border border-double  border-gray-400 text-gray-900 hover:bg-gray-900 hover:text-white transition  text-sm font-medium"
-        >
-          CONTINUE SHOPPING
-        </Link>
+          {/* Trending section */}
+          <div className="w-full mt-20">
+            <h2 className="text-base font-semibold tracking-wide text-gray-900 mb-6">TRENDING PRODUCTS</h2>
 
-        {/* Trending section */}
-        <div className="w-full mt-20">
-          <h2 className="text-base font-semibold tracking-wide text-gray-900 mb-6">TRENDING PRODUCTS</h2>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="border rounded-md overflow-hidden">
-                <div className="w-full h-64 bg-gray-100" />
-                <div className="p-3">
-                  <p className="text-sm text-gray-700 font-medium">Sample Product</p>
-                  <p className="text-sm text-gray-900 font-semibold mt-1">₹12345</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="border rounded-md overflow-hidden">
+                  <div className="w-full h-64 bg-gray-100" />
+                  <div className="p-3">
+                    <p className="text-sm text-gray-700 font-medium">Sample Product</p>
+                    <p className="text-sm text-gray-900 font-semibold mt-1">₹12345</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    ) : (
-      /* Wishlist Grid UI */
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-        {wishlistItems.map((item) => (
-          <div key={item.productId} className="group  h-[448px]  w-[219px]  overflow-hidden  hover:shadow-md transition">
+      ) : (
+        /* Wishlist Grid UI */
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+          {wishlistItems.map((item) => (
+            <div key={item.productId} className="group h-[448px] w-[219px] overflow-hidden hover:shadow-md transition">
+              {/* Image */}
+              <Link to={`/products/${item.productId}`}>
+                <img
+                  src={item.image || item.imageUrls?.[0]}
+                  alt={item.name}
+                  className="w-full h-[322px] object-cover"
+                />
+              </Link>
 
-            {/* Image */}
-            <Link to={`/products/${item.productId}`}>
-              <img
-                src={item.image || item.imageUrls?.[0]}
-                alt={item.name}
-                className="w-full h-[322px] object-cover"
-              />
-            </Link>
+              {/* Details */}
+              <div>
+                <p className="text-sm w-1/2 mt-1 text-gray-900 font-medium truncate">{item.name}</p>
+                <p className='text-xs line-clamp-2 text-gray-600 mt-1'>{item.description}</p>
+                <p className="text-sm text-gray-600 mt-1">₹{item.price?.toLocaleString("en-IN")}</p>
 
-            {/* Details */}
-            <div className="">
-              <p className="text-sm w-1/2 mt-1 text-gray-900 font-medium truncate">{item.name}</p>
-              <p className='text-xs line-clamp-2 text-gray-600 mt-1'>{item.description}</p>
-              <p className="text-sm text-gray-600 mt-1">₹{item.price?.toLocaleString("en-IN")}</p>
-
-              <button
-                onClick={() => handleRemoveItem(item.productId)}
-                className=" mt-1.5 h-[27px] text-center font-semibold cursor-pointer  w-[219px] bg-[#D9D9D9] text-gray-900 text-sm  hover:bg-gray-700 hover:text-white transition"
-              >
-                REMOVE FROM WISHLIST
-              </button>
+                <button
+                  onClick={() => handleRemoveItem(item.productId)}
+                  className="mt-1.5 h-[27px] text-center font-semibold cursor-pointer w-[219px] bg-[#D9D9D9] text-gray-900 text-sm hover:bg-gray-700 hover:text-white transition"
+                >
+                  REMOVE FROM WISHLIST
+                </button>
+              </div>
             </div>
-
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-);
-
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 
 // Example usage in a product component
 const ProductCard = ({ product }) => {
-  const { showPopup } = usePopup();
+  // Safe access to usePopup
+  let showPopup = null;
+  try {
+    const popupContext = usePopup();
+    showPopup = popupContext?.showPopup;
+  } catch (err) {
+    console.warn('usePopup context not available:', err);
+  }
 
   return (
     <div className="product-card" style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px' }}>

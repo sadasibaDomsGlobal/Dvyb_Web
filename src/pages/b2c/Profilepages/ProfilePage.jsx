@@ -1,19 +1,17 @@
 // ProfilePage.js
 import React, { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import Sidebar from '../../../components/B2C/ProfilePage/Sidebar';
 import MyInfo from "../../../components/B2C/ProfilePage/MyInfo";
 import ProfileImage from "../../../components/B2C/ProfilePage/PhotoManager";
 import MyOrders from "../../../components/B2C/ProfilePage/Orders";
 import { WishlistPage } from "../WishlistPage/WishlistPage";
 import TryOnGallery from "../../../components/B2C/ProfilePage/TryOnGallery";
-// import RewardsRedemption from "../../B2C/B2CComponents/RewardsRedemption";
-// import ReferEarn from "../../B2C/B2CComponents/ReferEarn";
-// import SubscriptionFlow from "../../B2C/B2CComponents/SubscriptionFlow";
 
 const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState("my-info");
-  const userId = "USER_ID_HERE"; // Replace with Firebase Auth UID
+  const [activeTab, setActiveTab] = useState("menu"); // Start with menu on mobile
+  const userId = "USER_ID_HERE";
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
@@ -25,37 +23,79 @@ const ProfilePage = () => {
         "my-orders",
         "wishlist",
         "my-tryon-gallery",
-        "rewards",
-        "refer-earn",
-        "subscriptions",
       ];
       if (validTabs.includes(tabFromUrl)) {
         setActiveTab(tabFromUrl);
       } else {
-        setActiveTab("my-info"); // Default to my-info if tab is invalid
+        setActiveTab("my-info");
       }
     }
   }, [location.search, searchParams]);
 
-  return (
-    <div className="flex min-h-screen mt-32 bg-gray-50">
-      {/* Fixed Sidebar - handles its own positioning */}
-      <Sidebar  activeTab={activeTab} setActiveTab={setActiveTab} />
+  const handleBackToMenu = () => {
+    setActiveTab("menu");
+  };
 
-      {/* Main Content Area - offset by sidebar width */}
-      <div className="flex-1 ml-64 p-6 min-h-screen">
-        <div className="max-w-7xl mx-auto">
-          {activeTab === "my-info" && <MyInfo userId={userId} />}
-          {activeTab === "my-orders" && <MyOrders />}
-          {activeTab === "wishlist" && <WishlistPage />}
-          {activeTab === "my-tryon-gallery" && <TryOnGallery />}
-          {/* Uncomment when components are ready */}
-          {/* {activeTab === "rewards" && <RewardsRedemption />}
-          {activeTab === "refer-earn" && <ReferEarn />}
-          {activeTab === "subscriptions" && <SubscriptionFlow />} */}
+  const getPageTitle = () => {
+    switch(activeTab) {
+      case "my-info": return "User Details";
+      case "my-orders": return "My Orders";
+      case "wishlist": return "My Wishlist";
+      case "my-tryon-gallery": return "My Try-On Gallery";
+      default: return "";
+    }
+  };
+
+  return (
+    <>
+      {/* DESKTOP VIEW - Sidebar + Content */}
+      <div className="hidden md:flex min-h-screen mt-0 bg-gray-50">
+        {/* Fixed Sidebar */}
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+        {/* Main Content Area - offset by sidebar width */}
+        <div className="flex-1 ml-64 -mt-28 p-6 min-h-screen">
+          <div className="max-w-7xl mx-auto">
+            {activeTab === "my-info" && <MyInfo userId={userId} />}
+            {activeTab === "my-orders" && <MyOrders />}
+            {activeTab === "wishlist" && <WishlistPage />}
+            {activeTab === "my-tryon-gallery" && <TryOnGallery />}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* MOBILE VIEW - Full screen navigation */}
+      <div className="md:hidden min-h-screen bg-white">
+        {/* Show Menu when activeTab is "menu" */}
+        {activeTab === "menu" ? (
+          <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        ) : (
+          /* Show selected component content with back button */
+          <div className="w-full">
+            {/* Mobile Header with Back Button */}
+            <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center gap-3 sticky top-0 z-10">
+              <button 
+                onClick={handleBackToMenu}
+                className="text-gray-700 hover:text-gray-900"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <h2 className="text-base font-semibold text-gray-900">
+                {getPageTitle()}
+              </h2>
+            </div>
+
+            {/* Component Content */}
+            <div className="p-4">
+              {activeTab === "my-info" && <MyInfo userId={userId} />}
+              {activeTab === "my-orders" && <MyOrders />}
+              {activeTab === "wishlist" && <WishlistPage />}
+              {activeTab === "my-tryon-gallery" && <TryOnGallery />}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

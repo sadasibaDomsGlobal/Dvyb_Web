@@ -2,6 +2,7 @@
 import { useState } from "react";
 import SearchDropdown from "./SearchDropdown";
 import NavIcons from "./navIcons";
+import { LogOut } from "lucide-react";
 import { mainlogo } from "../../../assets";
 import navItems from "../../../static/navbar/navItems";
 import { useNavigate } from "react-router-dom";

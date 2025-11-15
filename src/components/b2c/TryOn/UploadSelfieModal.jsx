@@ -78,22 +78,22 @@ const navigate = useNavigate();
 
 const models = [
   {
-    modelName : 'mira',
-    modelimg : model1
+    modelName : 'Fair & Slim',
+    modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188140/ChatGPT_Image_Nov_15_2025_11_58_37_AM_cnzfyj.png'
   },
   {
-    modelName : 'samira',
-    modelimg : model2
+    modelName : 'Dusky & Curvy',
+    modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188482/ChatGPT_Image_Nov_15_2025_12_04_25_PM_cyygt0.png'
   }
   ,
   {
-    modelName : 'hamira',
-    modelimg : model3
+    modelName : 'Wheatist & Athletic',
+    modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188139/lehenga3_yksavv.jpg'
   }
   ,
   {
-    modelName : 'tamira',
-    modelimg : model4
+    modelName : ' Medium',
+    modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188139/lehenga2_sat3wm.jpg'
   }
 ]
 
@@ -283,7 +283,7 @@ const models = [
 
         {/* Step 2: Upload Instructions */}
  {step === 2 && (
-  <div className="p-4  items-center text-center justify-center w-full md:w-[818px] overflow-y-auto relative max-w-full">
+  <div className="p-4  items-center text-center bg-white justify-center w-full md:w-[818px] overflow-y-auto relative max-w-full">
     {/* Close Button */}
     <button className="absolute top-4 right-4 md:top-6 md:right-6 text-gray-500 hover:text-gray-700">
       {/* <X size={24} /> */}
@@ -376,7 +376,7 @@ const models = [
 )}
         {/* Step 3: Uploading */}
         {step === 3 && (
-          <div className="p-8 flex flex-col items-center justify-center overflo text-center min-h-[400px]">
+          <div className="p-8 flex flex-col  bg-white items-center justify-center overflo text-center min-h-[400px]">
             <div className="relative bg-gray-100 rounded-xl w-full max-w-sm overflow-hidden mb-6">
               <img src={selectedImage} alt="Uploading" className="w-full h-64 object-contain opacity-50" />
               <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/40">
@@ -404,7 +404,7 @@ const models = [
 
         {/* Step 4: Success */}
         {step === 4 && (
-          <div className="p-8 flex flex-col items-center justify-center text-center">
+          <div className="p-8 flex flex-col items-center bg-white justify-center text-center">
             <img src={selectedImage} alt="Success" className="w-full max-w-sm h-64 object-cover  shadow-md mb-4" />
             <div className="flex items-center gap-2  px-4 py-3 rounded-lg mb-5">
               {/* <CheckCircle className="text-green-600" size={22} /> */}
