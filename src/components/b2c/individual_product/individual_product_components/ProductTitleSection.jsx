@@ -16,7 +16,7 @@ const ProductTitleSection = ({ product }) => {
         : description?.slice(0, maxLength) + (isLongDescription ? "..." : "");
 
     return (
-        <div className="flex flex-col" style={{ gap: "3px" }}>
+        <div className="flex flex-col" style={{ gap: "1px" }}>
 
             {/* Title + Icons */}
             <div className="flex items-start justify-between">
@@ -35,8 +35,7 @@ const ProductTitleSection = ({ product }) => {
                             color: "#000000",
                             margin: 0,
                             padding: 0,
-
-                            /* ⭐ FIX: Keep the title in one line */
+                            textTransform: "uppercase",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
                             textOverflow: "ellipsis",

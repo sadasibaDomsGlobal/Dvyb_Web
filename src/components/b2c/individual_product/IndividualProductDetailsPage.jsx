@@ -217,13 +217,13 @@ const IndividualProductDetailsPage = () => {
         <div
           className="space-y-6 overflow-y-scroll"
           style={{
-            width: "663px",          // FIXED WIDTH
-            height: "auto",          // HUG HEIGHT
-            maxHeight: "calc(100vh - 4rem)",  // keep sticky scrolling
-            gap: "24px",             // GAP BETWEEN SECTIONS
-            paddingRight: "8px",     // prevent content shifting when scroll hidden
-            scrollbarWidth: "none",  // Firefox hide
-            msOverflowStyle: "none", // IE/Edge hide
+            width: "663px",          
+            height: "auto",          
+            maxHeight: "calc(100vh - 4rem)",
+            gap: "24px",             
+            paddingRight: "8px",     
+            scrollbarWidth: "none",  
+            msOverflowStyle: "none", 
           }}
         >
           <style>
@@ -250,13 +250,12 @@ const IndividualProductDetailsPage = () => {
             />
           )}
 
-
-          <ProductStockAndShipping />
           <ProductActionButtons
             onAddToBag={handleAddToBag}
             onBuyNow={handleBuyNow}
             onVirtualTryOn={handleTryOnClick}
           />
+          <ProductStockAndShipping />
           <OfferAndShippingInfo />
           <ProductDescriptionSection product={product} />
           <ProductDetailsSection product={product} />

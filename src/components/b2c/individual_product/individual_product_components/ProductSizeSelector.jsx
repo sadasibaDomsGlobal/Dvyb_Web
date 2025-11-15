@@ -25,8 +25,8 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
     return typeof stock === "number"
       ? stock
       : typeof stock === "string"
-      ? parseInt(stock, 10) || 0
-      : 0;
+        ? parseInt(stock, 10) || 0
+        : 0;
   };
 
   // Check availability
@@ -90,11 +90,11 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
           }}
           onMouseEnter={(e) => {
             e.target.style.textDecoration = "underline";
-            e.target.style.color = "#B71C1C"; 
+            e.target.style.color = "#B71C1C";
           }}
           onMouseLeave={(e) => {
             e.target.style.textDecoration = "none";
-            e.target.style.color = "#E53935"; 
+            e.target.style.color = "#E53935";
           }}
         >
           Size Guide
@@ -127,15 +127,19 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
                   borderRadius: "2px",
                   fontFamily: "Outfit, sans-serif",
                   fontSize: "14px",
-                  color: available ? "#000" : "#808080",
+                  color: available
+                    ? selectedSize === size
+                      ? "#FFFFFF" // ensure contrast on dark background
+                      : "#000000"
+                    : "#808080",
                   background: available
                     ? selectedSize === size
-                      ? "#000000"
+                      ? "#400000" // ← changed from "#000000"
                       : "#FFFFFF"
                     : "#F4F4F4",
                   border: available
                     ? selectedSize === size
-                      ? "1px solid #000000"
+                      ? "1px solid #400000" // match the new selected background
                       : "0.89px solid #D8D8D8"
                     : "0.89px solid #D8D8D8",
                   cursor: available ? "pointer" : "not-allowed",
