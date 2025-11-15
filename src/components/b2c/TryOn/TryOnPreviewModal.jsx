@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { saveTryOnResult } from '../../../services/tryOnService';
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/index.css';
+import share_ic from '../../../assets/TryOn/share_ic.svg'
 
 
 const API_BASE_URL = '/api/kling';
@@ -290,7 +291,7 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
   ];
 
   const backgroundOptions = [
-    { id: 'hallway', name: 'Hallway', image: bg2 },
+    { id: 'hallway', name: 'Hallway', image: 'https://res.cloudinary.com/doiezptnn/image/upload/v1763193815/Rectangle_13_odczru.png' },
     { id: 'trees', name: 'Trees', image: bg3 },
     { id: 'pool', name: 'Pool', image: bg4 },
   ];
@@ -365,7 +366,7 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
       const removeBgResponse = await fetch('https://api.remove.bg/v1.0/removebg', {
         method: 'POST',
         headers: {
-          'X-Api-Key': '6pYMsUxaUnTtv2kQ5cvCuLTz',
+          'X-Api-Key': 'SoojwSnfXbbNdgdQ9cf27kGt',
         },
         body: formData,
       });
@@ -677,12 +678,12 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="fixed inset-0  z-50 bg-gradient-to-br from-gray-50 to-gray-100">
       {/* STAGE: centered preview area - FIXED: Added padding bottom for mobile */}
       <div className="absolute inset-0 w-full h-full flex items-center justify-center pb-[60vh] lg:pb-0">
 
         {isProcessing ? (
-          <div className="w-full h-full flex flex-col items-center justify-center text-gray-700">
+          <div className="w-full h-full flex  flex-col items-center justify-center text-gray-700">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-900 border-t-transparent mb-4"></div>
             <p className="font-semibold text-lg">Processing try-on...</p>
             <p className="text-sm text-gray-500 mt-2">This may take a few moments</p>
@@ -716,7 +717,7 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
                   />
                 </div>
                 <p className="text-sm text-gray-600">{videoProgress}% Complete</p>
-                <p className="text-xs text-gray-500 mt-2">This usually takes 2-5 minutes</p>
+                <p className="text-xl font-semibold text-primary  mt-2">This usually takes 2-5 minutes</p>
               </div>
             ) : videoError ? (
               <div className="text-center max-w-md">
@@ -751,19 +752,19 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
         ) : getCurrentDisplayImage() ? (
           /* 2D IMAGE VIEW */
           <div
-            className="relative flex items-center h-full justify-center shadow-2xl overflow-hidden"
+            className="relative flex items-center  h-full justify-center shadow-2xl overflow-hidden"
             style={{
               background: selectedBackground && viewMode === '2D'
                 ? `url(${backgroundOptions.find(bg => bg.id === selectedBackground)?.image})`
                 : 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-              backgroundSize: 'cover',
+              backgroundSize: 'contain',
               backgroundPosition: 'center',
             }}
           >
             <img
               src={getCurrentDisplayImage()}
               alt="Try-on result"
-              className="w-[500px] h-full object-cover"
+              className="w-[500px] h-[656px] mt-44 object-contain"
               draggable={false}
             />
 
@@ -894,7 +895,7 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
       </div>
 
       {/* RIGHT SIDEBAR - Scenes & Actions (Desktop) */}
-      <div className="absolute top-32 right-52 z-20 hidden lg:block w-[290px] scrollbar-none bg-white  shadow-lg p-5 max-h-[calc(100vh-120px)] overflow-y-auto">
+      <div className="absolute top-32 right-52 z-20 hidden  lg:block w-[290px] scrollbar-none bg-white  shadow-lg p-5 max-h-[calc(100vh-120px)] overflow-y-auto">
         {/* Scenes Section */}
         {viewMode === '2D' && (
           <div className="mb-5">
@@ -964,10 +965,10 @@ const TryOnPreviewModal = ({ isOpen, onClose, tryOnData }) => {
               onClick={() => toast.info('Share feature coming soon!')}
               className="w-full bg-white  text-primary  py-2.5  transition-all font-medium flex items-center pl-3 gap-2 text-sm"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
+              <img src={share_ic} alt="" />
+             <span className='pl-3'>   
               Share my look
+              </span> 
             </button>
           </div>
         </div>

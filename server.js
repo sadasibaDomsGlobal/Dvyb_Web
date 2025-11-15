@@ -103,7 +103,7 @@ const uploadToCloudinary = (buffer, folder) =>
                 folder: folder,
                 resource_type: 'image',
                 transformation: [
-                    { quality: 'auto', fetch_format: 'auto' }
+                    { quality: 'tops' && 'bottoms', fetch_format: 'tops' && 'bottoms' }
                 ]
             },
             (error, result) => {
@@ -193,7 +193,7 @@ app.post("/api/tryon", async (req, res) => {
         }
 
         console.log("✅ [2D Try-On] Request received");
-        const garmentCategory = category || "auto";
+        const garmentCategory = category || 'tops' && 'bottoms';
 
         // Step 1: Call Fashn API
         const runResponse = await fetch(`${FASHN_API_URL}/run`, {

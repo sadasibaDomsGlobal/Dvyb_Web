@@ -276,6 +276,7 @@ const IndividualProductDetailsPage = () => {
             garmentImage={tryOnData.garmentImage}
             garmentName={tryOnData.garmentName}
             tryOnData={tryOnData}
+             isSaree={product?.dressType?.toLowerCase() === "saree"}  
           />
         )}
         {showTryOnPreviewModal && (

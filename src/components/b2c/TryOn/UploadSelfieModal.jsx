@@ -72,11 +72,29 @@ const UploadSelfieModal = ({ isOpen, onClose, onNext, garmentImage, garmentName,
 const [selectedModel, setSelectedModel] = useState(null);
 const [showModelPreview, setShowModelPreview] = useState(false); 
 const navigate = useNavigate();
+// ⭐ Conditional based on garment type
 
 
+const sareeModels = [
+  {
+    modelName: "Model 1",
+    modelimg: "https://res.cloudinary.com/doiezptnn/image/upload/v1763213100/modeltryon_wsilt2.jpg"
+  },
+  {
+    modelName: "Model 2",
+    modelimg: "https://res.cloudinary.com/doiezptnn/image/upload/v1763213100/Gemini_Generated_Image_5maj435maj435maj_zsikdk.png"
+  },
+  {
+    modelName: "Model 3",
+    modelimg: "https://res.cloudinary.com/doiezptnn/image/upload/v1763213100/Gemini_Generated_Image_784di8784di8784d_ra30uh.png"
+  },
+  {
+    modelName: "Model 4",
+    modelimg: "https://res.cloudinary.com/doiezptnn/image/upload/v1763213101/Gemini_Generated_Image_1vnwft1vnwft1vnw_gvxeta.png"
+  }
+];
 
-
-const models = [
+const universalModels = [
   {
     modelName : 'Fair & Slim',
     modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188140/ChatGPT_Image_Nov_15_2025_11_58_37_AM_cnzfyj.png'
@@ -84,18 +102,20 @@ const models = [
   {
     modelName : 'Dusky & Curvy',
     modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188482/ChatGPT_Image_Nov_15_2025_12_04_25_PM_cyygt0.png'
-  }
-  ,
+  },
   {
     modelName : 'Wheatist & Athletic',
     modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188139/lehenga3_yksavv.jpg'
-  }
-  ,
+  },
   {
-    modelName : ' Medium',
+    modelName : 'Medium',
     modelimg : 'https://res.cloudinary.com/doiezptnn/image/upload/v1763188139/lehenga2_sat3wm.jpg'
   }
-]
+];
+
+const models = isSaree ? sareeModels : universalModels;
+
+
 
   useEffect(() => {
     if (isOpen) {
@@ -405,7 +425,7 @@ const models = [
         {/* Step 4: Success */}
         {step === 4 && (
           <div className="p-8 flex flex-col items-center bg-white justify-center text-center">
-            <img src={selectedImage} alt="Success" className="w-full max-w-sm h-64 object-cover  shadow-md mb-4" />
+            <img src={selectedImage} alt="Success" className="w-full max-w-sm h-64 object-contain  shadow-md mb-4" />
             <div className="flex items-center gap-2  px-4 py-3 rounded-lg mb-5">
               {/* <CheckCircle className="text-green-600" size={22} /> */}
               <p className="text-green-700 font-normal -ml-48  text-start text-sm">Image uploaded successfully</p>
