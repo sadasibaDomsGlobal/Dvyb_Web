@@ -5,7 +5,7 @@ import { LuHeart } from "react-icons/lu";
 // components/navbar/NavIcons.jsx
 export default function NavIcons({ wishlistCount, cartCount, onSearch, onWishlist, onCart, onProfile }) {
   return (
-    <div className=" md:flex items-center gap-6">
+    <div className=" md:flex items-center gap-6 sm:pr-0 md:pr-10">
       <button onClick={onSearch} className="hidden md:block text-gray-700 hover:text-black transition">
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -26,7 +26,7 @@ export default function NavIcons({ wishlistCount, cartCount, onSearch, onWishlis
 
 
 
-      <button onClick={onProfile} className="sm:mr-4 lg:mr-0">
+      <button onClick={onProfile} className="px-2 sm:px-0">
         {/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg> */}

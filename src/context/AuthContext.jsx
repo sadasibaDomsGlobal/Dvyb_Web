@@ -55,10 +55,10 @@ export const AuthProvider = ({ children }) => {
     const unsubToken = onIdTokenChanged(auth, async (u) => {
       if (u) {
         try {
-          // get a fresh token (no force unless you need to)
+        
           const fresh = await u.getIdToken();
           setToken(fresh);
-          sessionStorage.setItem("authToken", fresh); // session-only; isolated per tab
+          sessionStorage.setItem("authToken", fresh); 
         } catch (e) {
           console.error("Failed to get ID token:", e);
           setToken(null);

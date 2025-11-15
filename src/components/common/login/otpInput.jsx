@@ -78,7 +78,7 @@ const OtpInput = ({
   }, [handlePaste]);
 
   return (
-    <div className="flex justify-center gap-3 my-4 px-6">
+    <div className="flex justify-center gap-3 px-6">
       {Array.from({ length }, (_, i) => (
         <input
           key={i}

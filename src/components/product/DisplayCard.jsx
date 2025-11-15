@@ -25,10 +25,10 @@ export default function DisplayCard({ product, className }) {
 
         {/* Text Overlay */}
         <div className="absolute bottom-10 w-full text-center text-white px-4">
-          <p className="text-sm sm:text-base md:text-base text-white font-semibold uppercase ">
+          <p className="text-sm sm:text-xs md:text-base text-white font-semibold uppercase ">
             {product.title}
           </p>
-          <button className="mt-3 px-6  text-white text-sm sm:text-base font-medium transition">
+          <button className="mt-3 px-6  text-white text-sm sm:text-xs font-medium transition">
             SHOP NOW
           </button>
         </div>
