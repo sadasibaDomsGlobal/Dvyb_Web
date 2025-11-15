@@ -10,7 +10,7 @@ import { WishlistPage } from "../WishlistPage/WishlistPage";
 import TryOnGallery from "../../../components/b2c/ProfilePage/TryOnGallery";
 
 const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState("menu"); // Start with menu on mobile
+  const [activeTab, setActiveTab] = useState("menu");
   const userId = "USER_ID_HERE";
   const location = useLocation();
   const [searchParams] = useSearchParams();
