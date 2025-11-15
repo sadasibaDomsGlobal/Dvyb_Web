@@ -4,7 +4,7 @@ import OrderDetails from './OrderDetails';
 // import InvoiceView from './InvoiceView.JSX'; 
 import { SlidersHorizontal, ShoppingBag, X } from 'lucide-react'; 
 import empty_ordersIc from '../../../assets/ProfileImages/empty_ordersIc.svg'
-import orderService from '../../../services/OrderService';
+import orderService from '../../../services/orderService';
 import InvoiceView from './InvoiceView';
 
 
