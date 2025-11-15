@@ -134,12 +134,12 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
                     : "#808080",
                   background: available
                     ? selectedSize === size
-                      ? "#400000" // ← changed from "#000000"
+                      ? "#573131ff" // ← changed from "#000000"
                       : "#FFFFFF"
                     : "#F4F4F4",
                   border: available
                     ? selectedSize === size
-                      ? "1px solid #400000" // match the new selected background
+                      ? "1px solid #573131ff" // match the new selected background
                       : "0.89px solid #D8D8D8"
                     : "0.89px solid #D8D8D8",
                   cursor: available ? "pointer" : "not-allowed",

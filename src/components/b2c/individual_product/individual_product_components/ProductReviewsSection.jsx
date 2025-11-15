@@ -3,7 +3,6 @@ import { Star } from "lucide-react";
 import ProductReviewCard from "./ProductReviewCard";
 
 const ProductReviewsSection = ({ reviews = [] }) => {
-  // ✅ Static fallback reviews (if backend data missing)
   const staticReviews = [
     {
       name: "Courtney Henry",
@@ -11,8 +10,7 @@ const ProductReviewsSection = ({ reviews = [] }) => {
       comment:
         "I'm obsessed with this blouse! The embroidery is stunning, and the fit is so flattering. Definitely worth the investment!",
       date: "2 mins ago",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
+      image: "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
     },
     {
       name: "Cameron Williamson",
@@ -20,8 +18,7 @@ const ProductReviewsSection = ({ reviews = [] }) => {
       comment:
         "I recently purchased this blouse and I'm in love! The fabric feels soft and luxurious. Highly recommend it!",
       date: "2 mins ago",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
+      image: "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
     },
     {
       name: "Jane Cooper",
@@ -29,8 +26,7 @@ const ProductReviewsSection = ({ reviews = [] }) => {
       comment:
         "The design is unique, and the fabric is comfortable. Great for special occasions!",
       date: "2 mins ago",
-      image:
-        "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
+      image: "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
     },
   ];
 
@@ -45,7 +41,7 @@ const ProductReviewsSection = ({ reviews = [] }) => {
       : 0;
 
   return (
-    <div className="border-t pt-6 pb-8">
+    <div className=" pt-6 pb-8">
       <h3 className="text-base font-semibold text-gray-900 mb-5">
         Customer Reviews
       </h3>
@@ -74,48 +70,21 @@ const ProductReviewsSection = ({ reviews = [] }) => {
             {displayReviews.length} Reviews
           </p>
         </div>
-
-        {/* Rating Distribution Bars */}
-        <div className="flex flex-col gap-2 w-full max-w-sm">
-          {[5, 4, 3, 2, 1].map((star) => {
-            const count = displayReviews.filter(
-              (r) => Math.round(r.rating) === star
-            ).length;
-            const percentage = (count / displayReviews.length) * 100;
-
-            return (
-              <div key={star} className="flex items-center gap-2">
-                <span className="text-sm text-gray-700 w-3">{star}</span>
-                <Star
-                  size={14}
-                  className="text-yellow-500 fill-yellow-500"
-                />
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-red-800 h-2 rounded-full"
-                    style={{ width: `${percentage}%` }}
-                  ></div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
-      
-      {/* --- Write Review Button --- */}
+
+      {/* --- Write Review Button (full width, sharp edges) --- */}
       <div className="flex justify-center mt-6">
-        <button className="px-6 py-2 border border-red-800 text-red-800 rounded-sm text-sm font-medium hover:bg-red-800 hover:text-white transition">
+        <button className="w-full max-w-full px-6 py-2 border border-red-800 text-red-800 text-sm font-medium hover:bg-red-800 hover:text-white transition-none">
           WRITE A REVIEW
         </button>
       </div>
 
       {/* --- Reviews List --- */}
-      <div className="space-y-4">
+      <div className="space-y-4 mt-6">
         {displayReviews.map((review, index) => (
           <ProductReviewCard key={index} review={review} />
         ))}
       </div>
-
     </div>
   );
 };
