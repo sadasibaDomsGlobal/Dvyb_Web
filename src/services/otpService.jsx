@@ -21,27 +21,37 @@ export const setupRecaptcha = (containerId = "recaptcha-container") => {
     recaptchaVerifier = null;
   }
 
-  // Correct parameter order: (auth, containerIdOrElement, parameters)
-  recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
-    size: "invisible",
-    callback: (response) => {
-      console.log("reCAPTCHA solved", response);
-    },
-    "expired-callback": () => {
-      console.warn("reCAPTCHA expired");
-      if (recaptchaVerifier) {
-        try {
-          recaptchaVerifier.render().then((widgetId) => {
-            window.grecaptcha.reset(widgetId);
-          });
-        } catch (e) {
-          console.error("Error resetting reCAPTCHA:", e);
-        }
-      }
-    },
-  });
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error(`Container with id '${containerId}' not found`);
+    throw new Error(`reCAPTCHA container '${containerId}' not found in DOM`);
+  }
 
-  return recaptchaVerifier;
+  try {
+    recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
+      size: "invisible",
+      callback: (response) => {
+        console.log("reCAPTCHA solved", response);
+      },
+      "expired-callback": () => {
+        console.warn("reCAPTCHA expired");
+        if (recaptchaVerifier) {
+          try {
+            recaptchaVerifier.render().then((widgetId) => {
+              window.grecaptcha.reset(widgetId);
+            });
+          } catch (e) {
+            console.error("Error resetting reCAPTCHA:", e);
+          }
+        }
+      },
+    });
+
+    return recaptchaVerifier;
+  } catch (error) {
+    console.error("Error setting up reCAPTCHA:", error);
+    throw error;
+  }
 };
 
 export const sendOtp = async (phoneNumber) => {
@@ -74,7 +84,12 @@ export const sendOtp = async (phoneNumber) => {
 };
 
 export const verifyOtp = async (confirmationResult, otp) => {
+  if (!confirmationResult) {
+    throw new Error("No confirmation result provided");
+  }
+
   try {
+    console.log("Verifying OTP...");
     const result = await confirmationResult.confirm(otp);
     
     // Clean up
@@ -91,5 +106,22 @@ export const verifyOtp = async (confirmationResult, otp) => {
   } catch (error) {
     console.error("OTP verification failed:", error);
     throw error;
+  }
+};
+
+// Cleanup function for unmounting
+export const cleanupRecaptcha = () => {
+  if (recaptchaVerifier) {
+    try {
+      recaptchaVerifier.clear();
+    } catch (e) {
+      console.warn("Error during cleanup:", e);
+    }
+    recaptchaVerifier = null;
+  }
+
+    const container = document.getElementById("recaptcha-container");
+  if (container) {
+    container.innerHTML = '';
   }
 };
