@@ -2,15 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import Sidebar from '../../../components/B2C/ProfilePage/Sidebar';
-import MyInfo from "../../../components/B2C/ProfilePage/MyInfo";
-import ProfileImage from "../../../components/B2C/ProfilePage/PhotoManager";
-import MyOrders from "../../../components/B2C/ProfilePage/Orders";
+import Sidebar from '../../../components/b2c/ProfilePage/Sidebar';
+// import Sidebar from '../../../components/B2C/ProfilePage/Sidebar';
+import MyInfo from "../../../components/b2c/ProfilePage/MyInfo";
+import MyOrders from "../../../components/b2c/ProfilePage/Orders";
 import { WishlistPage } from "../WishlistPage/WishlistPage";
-import TryOnGallery from "../../../components/B2C/ProfilePage/TryOnGallery";
+import TryOnGallery from "../../../components/b2c/ProfilePage/TryOnGallery";
 
 const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState("menu"); // Start with menu on mobile
+  const [activeTab, setActiveTab] = useState("menu");
   const userId = "USER_ID_HERE";
   const location = useLocation();
   const [searchParams] = useSearchParams();

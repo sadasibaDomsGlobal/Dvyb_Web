@@ -70,9 +70,9 @@ const OtpVerification = ({ confirmation, mobile, onSuccess, onError, onResend })
   };
 
   return (
-    <div className="bg-white mb-12 py-6 w-full max-w-md mx-auto font-outfit">
-      <img src={otpBanner} alt="otp-banner" className="mb-12 w-full object-cover h-62" />
-      <div className="text-center m-4 p-12">
+    <div className="bg-white py-2 sm:py-2 md:py-6 w-full max-w-md mx-auto font-outfit">
+      <img src={otpBanner} alt="otp-banner" className="w-full object-cover h-52" />
+      <div className="text-center m-4 p-4 sm:p-6 md:p-10 sm:m-2">
         <span className="text-2xl font-bold text-textLight">OTP Verification</span>
         <p className="text-base">
           Enter the OTP sent to <b className="text-textDark font-bold" >+91 {mobile}</b>

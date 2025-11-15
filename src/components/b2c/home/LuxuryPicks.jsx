@@ -4,10 +4,14 @@ import { scrollLeft, scrollRight } from "../../utils/scroll";
 import { luxIcon } from "../../../assets";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../hooks/useProducts";
+import { useRef } from "react";
+
 
 export default function LuxuryPicks() {
     const {products, loading, error} = useProducts();
     const navigate = useNavigate()
+    const scrollContainerRef = useRef(null);
+
   return (
     <section className="bg-lighted-bg mx-auto py-12 md:py-16 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -45,20 +49,20 @@ export default function LuxuryPicks() {
             <IoIosArrowBack size={20} className="text-gray-700" />
           </button>
 
-          {/* SCROLLABLE GRID */}
-          <div
-            id="luxuryScroll"
-            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
-          >
-            {products.map((product, index) => (
-              <div 
-                key={index} 
-                className="cursor-pointer"
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+                    {/* SCROLLABLE GRID */}
+                    <div
+                        ref={scrollContainerRef}
+                        className="flex gap-2 md:gap-4 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
+                    >
+                        {products.map((product, index) => (
+                            <div 
+                                key={index} 
+                                className="cursor-pointer"
+                            >
+                                <ProductCard product={product} />
+                            </div>
+                        ))}
+                    </div>
 
           {/* RIGHT ARROW */}
           <button

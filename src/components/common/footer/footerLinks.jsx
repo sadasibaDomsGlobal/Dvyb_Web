@@ -2,15 +2,15 @@
 export default function FooterLinks({ title, links }) {
   return (
     <div>
-      <h5 className="font-semibold uppercase text-xs tracking-wider text-gray-900 mb-4">
+      <h5 className="font-semibold uppercase text-sm tracking-wider text-gray-900 mb-4">
         {title}
       </h5>
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {links.map((link) => (
           <li key={link.to}>
             <a
               href={link.to}
-              className="text-sm text-gray-600 hover:text-gray-900 transition"
+              className="text-sm text-gray-600 hover:text-gray-900 transition uppercase"
             >
               {link.label}
             </a>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import OrderDetails from './OrderDetails';
-import orderService from '../../../services/OrderService'; 
+// import orderService from '../../../services/OrderService'; 
 // import InvoiceView from './InvoiceView.JSX'; 
 import { SlidersHorizontal, ShoppingBag, X } from 'lucide-react'; 
 import empty_ordersIc from '../../../assets/ProfileImages/empty_ordersIc.svg'
-import orderService from '../../../services/OrderService';
+import orderService from '../../../services/orderService';
 import InvoiceView from './InvoiceView';
 
 
@@ -56,6 +56,9 @@ const MyOrders = () => {
   const [selectedFilter, setSelectedFilter] = useState('Last Week');
   const [showInvoice, setShowInvoice] = useState(false);
   
+
+
+
   const tabs = ['Active', 'Delivered', 'Cancelled', 'Returned'];
   const filterOptions = [
     'Last Week',
@@ -496,33 +499,7 @@ const OrderCard = ({ order }) =>
             </div>
 
             {/* Tabs */}
-            <div className="border-b border-gray-200 mb-6">
-              <nav className="flex space-x-8 overflow-x-auto">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => handleTabChange(tab)}
-                    className={`py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${getTabColor(tab, activeTab === tab)}`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </nav>
-            </div>
-
-            {/* Orders */}
-            <div>
-              {displayOrders.length > 0 ? (
-                displayOrders.map((order) => (
-                  <OrderCard key={order.id} order={order} />
-                ))
-              ) : (
-                <div className="text-center py-12 bg-white rounded-lg">
-                  <p className="text-gray-500 text-lg">No {activeTab.toLowerCase()} orders found.</p>
-                  <p className="text-gray-400 text-sm mt-2">Orders will appear here once you make a purchase.</p>
-                </div>
-              )}
-            </div>
+        
           </div>
         </div>
       </div>
