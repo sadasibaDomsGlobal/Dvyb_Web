@@ -20,6 +20,7 @@ import DisclaimerSection from "./individual_product_components/DisclaimerSection
 import HelpAndTryonSection from "./individual_product_components/HelpAndTryonSection";
 import ProductReviewsSection from "./individual_product_components/ProductReviewsSection";
 import ProductStockAndShipping from "./individual_product_components/ProductStockAndShipping";
+import ProductStarRatingSection from "./individual_product_components/ProductStarRatingSection";
 
 const UploadSelfieModal = React.lazy(() => import("../TryOn/UploadSelfieModal"));
 const TryOnPreviewModal = React.lazy(() => import("../TryOn/TryOnPreviewModal"));
@@ -198,7 +199,14 @@ const IndividualProductDetailsPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-22">
+    <div
+      className="mx-auto flex flex-col mt-30"
+      style={{
+        width: "1166px",
+        gap: "16px",
+        height: "auto",
+      }}
+    >
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Left: Product Image Gallery */}
         <div className="lg:w-1/2 sticky top-0 self-start">
@@ -207,13 +215,42 @@ const IndividualProductDetailsPage = () => {
 
         {/* Right: Product Info Section */}
         <div
-          className="lg:w-1/2 space-y-6 overflow-y-scroll scrollbar-hide"
-          style={{ maxHeight: "calc(100vh - 4rem)" }}
+          className="space-y-6 overflow-y-scroll"
+          style={{
+            width: "663px",          // FIXED WIDTH
+            height: "auto",          // HUG HEIGHT
+            maxHeight: "calc(100vh - 4rem)",  // keep sticky scrolling
+            gap: "24px",             // GAP BETWEEN SECTIONS
+            paddingRight: "8px",     // prevent content shifting when scroll hidden
+            scrollbarWidth: "none",  // Firefox hide
+            msOverflowStyle: "none", // IE/Edge hide
+          }}
         >
+          <style>
+            {`
+      /* Hide scrollbar for Chrome, Safari, Edge */
+      div::-webkit-scrollbar {
+        display: none;
+      }
+    `}
+          </style>
+
           <ProductTitleSection product={product} />
+          <ProductStarRatingSection rating={product?.rating} />
           <ProductPriceSection product={product} />
           <ProductColorSelector colors={product?.selectedColors} />
-          <ProductSizeSelector selectedSizes={product?.selectedSizes} units={product?.units} />
+
+          {/* Hide Size Selector for Saree */}
+          {/* <ProductSizeSelector selectedSizes={product?.selectedSizes} units={product?.units} /> */}
+
+          {product?.dressType?.toLowerCase() !== "saree" && (
+            <ProductSizeSelector
+              selectedSizes={product?.selectedSizes}
+              units={product?.units}
+            />
+          )}
+
+
           <ProductStockAndShipping />
           <ProductActionButtons
             onAddToBag={handleAddToBag}
@@ -238,7 +275,7 @@ const IndividualProductDetailsPage = () => {
             onNext={handleUploadSelfieNext}
             garmentImage={tryOnData.garmentImage}
             garmentName={tryOnData.garmentName}
-             tryOnData={tryOnData}
+            tryOnData={tryOnData}
           />
         )}
         {showTryOnPreviewModal && (

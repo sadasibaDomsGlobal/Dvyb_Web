@@ -1,50 +1,82 @@
 import React, { useState } from "react";
 
 const ProductColorSelector = ({ colors = [] }) => {
-  console.log("🎨 ProductColorSelector colors:", colors);
-
   // Static fallback colors
-  const staticColors = ["#000000", "#C62828", "#1565C0", "#F9A825", "#6A1B9A"];
+  const staticColors = ["#424647", "#E9D252", "#EC8CB7", "#A32033"];
 
-  // Extract hex codes from backend format: "pink_#DB7093" → "#DB7093"
+  // Extract hex values from backend like "pink_#DB7093"
   const backendColors = colors
-    .map((c) => {
-      if (typeof c === "string" && c.includes("_")) {
-        const parts = c.split("_");
-        return parts[1]; // return hex
-      }
-      return c; // already hex
-    })
+    .map((c) => (typeof c === "string" && c.includes("_") ? c.split("_")[1] : c))
     .filter(Boolean);
 
-  // Final colors to display — backend if available, else static
-  const displayColors = backendColors.length > 0 ? backendColors : staticColors;
+  const displayColors = backendColors.length ? backendColors : staticColors;
 
-  // Default selected color
   const [selectedColor, setSelectedColor] = useState(displayColors[0]);
 
-  const handleColorSelect = (hex) => {
-    setSelectedColor(hex);
-  };
-
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className="flex flex-col"
+      style={{
+        gap: "25px",
+        width: "159px",
+      }}
+    >
       {/* Title */}
-      <p className="text-md font-medium text-gray-800">Available Colors</p>
+      <p
+        style={{
+          width: "125px",
+          height: "22px",
+          fontFamily: "Outfit, sans-serif",
+          fontWeight: 600,
+          fontSize: "16px",
+          lineHeight: "21.33px",
+          letterSpacing: "0px",
+          textTransform: "uppercase",
+          color: "#000000",
+          whiteSpace: "nowrap",
+        }}
+      >
+        AVAILABLE COLORS
+      </p>
 
-      {/* Color buttons */}
-      <div className="flex flex-wrap gap-3">
-        {displayColors.map((hex, index) => (
-          <button
-            key={index}
-            onClick={() => handleColorSelect(hex)}
-            className={`relative w-8 h-8 rounded-md border-2 transition-transform duration-200
-              ${selectedColor === hex ? "border-gray-900 scale-110" : "border-gray-300"}
-            `}
-            style={{ backgroundColor: hex }}
-            title={hex}
-          />
-        ))}
+
+      {/* Color Row */}
+      <div
+        className="flex items-center"
+        style={{
+          gap: "19px",
+          width: "159px",
+          height: "30px",
+        }}
+      >
+        {displayColors.map((hex, index) => {
+          const isSelected = selectedColor === hex;
+
+          return (
+            <button
+              key={index}
+              onClick={() => setSelectedColor(hex)}
+              style={{
+                width: "30px",
+                height: "30px",
+                border: isSelected ? `2px solid ${hex}` : `1px solid ${hex}`,
+                padding: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "transparent",
+              }}
+            >
+              <div
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  backgroundColor: hex,
+                }}
+              />
+            </button>
+          );
+        })}
       </div>
     </div>
   );

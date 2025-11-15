@@ -3,17 +3,17 @@ import ProductGrid from "../components/b2c/products/ProductGrid";
 
 export default function WomenwearRoute({ products }) {
   console.log(products)
-   const location = useLocation();
-     const queryParams = new URLSearchParams(location.search);
-     const category = queryParams.get("category");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get("category");
 
-     const filteredProducts = products.filter((p) => {
-  const match = p.dressType?.toLowerCase() == category?.toLowerCase();
-  console.log(match);
-  console.log(p.dressType?.toLowerCase());
-  console.log(category?.toLowerCase());
-  return match; // ✅ must return the condition
-});
+  const filteredProducts = products.filter((p) => {
+    const match = p.dressType?.toLowerCase() == category?.toLowerCase();
+    console.log(match);
+    console.log(p.dressType?.toLowerCase());
+    console.log(category?.toLowerCase());
+    return match; 
+  });
 
 
   console.log(filteredProducts)

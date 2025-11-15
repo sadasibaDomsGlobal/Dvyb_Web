@@ -196,20 +196,6 @@ const FilterSection = ({
                         ))}
                     </div>
 
-                    {/* Back to main categories button when in subcategory view */}
-                    {/* {getCurrentCategory() && (
-                        <button
-                            onClick={() => {
-                                updateFilter('categories', ''); // Clear category filter
-                                updateFilter('subcategories', []); // Clear subcategory filters
-                                navigate('/womenwear'); // Go back to main categories
-                            }}
-                            className="w-full mt-2 text-xs text-blue-600 hover:text-blue-800 text-center py-1 border border-blue-200 rounded hover:bg-blue-50"
-                        >
-                            ← Back to all categories
-                        </button>
-                    )} */}
-
                 </div>
             )}
         </div>

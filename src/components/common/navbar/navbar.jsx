@@ -129,7 +129,7 @@ export default function Navbar() {
               cartCount={cartCount}
               onSearch={() => setSearchOpen(true)}
               onWishlist={() => navigate("/wishlist")}
-              onCart={() => guard("/cart")}
+              onCart={() => navigate("/cart")}
               onProfile={() => guard("/profile")}
             />
 
