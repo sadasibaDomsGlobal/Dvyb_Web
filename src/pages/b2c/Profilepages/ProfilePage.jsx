@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 import Sidebar from '../../../components/b2c/ProfilePage/Sidebar';
 // import Sidebar from '../../../components/B2C/ProfilePage/Sidebar';
 import MyInfo from "../../../components/b2c/ProfilePage/MyInfo";
-import ProfileImage from "../../../components/B2C/ProfilePage/PhotoManager";
 import MyOrders from "../../../components/b2c/ProfilePage/Orders";
 import { WishlistPage } from "../WishlistPage/WishlistPage";
 import TryOnGallery from "../../../components/b2c/ProfilePage/TryOnGallery";
