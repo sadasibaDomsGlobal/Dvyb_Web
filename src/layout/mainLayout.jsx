@@ -13,10 +13,7 @@ export default function MainLayout({ children }) {
 
       {/* Scrollable Content */}
       <main
-        className="flex-grow overflow-y-auto"
-        style={{
-          paddingTop: "40px", // Adjust this height based on actual header height
-        }}
+        className="flex-grow overflow-y-auto mt-26 sm:mt-24 md:mt-44"
       >
         {children}
       </main>

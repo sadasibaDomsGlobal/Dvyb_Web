@@ -86,7 +86,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white mb-20">
+    <header className="sticky top-0 z-50 bg-white">
       {searchOpen ? (
         <SearchDropdown
           searchQuery={searchQuery}
@@ -97,7 +97,7 @@ export default function Navbar() {
         />
       ) : (
         <>
-          <div className="flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins">
+          <div className="flex hidden md:flex items-center bg-[#e6e6e6] h-10 px-5 gap-10 font-poppins pl-12">
             <span
             onClick={()=>navigate("/womenwear")}
             className="text-[12px] font-medium tracking-wider cursor-pointer hover:underline">
@@ -109,10 +109,10 @@ export default function Navbar() {
           </div>
 
           {/* Top Bar */}
-          <div className="flex items-center justify-between px-4 py-2">
+          <div className="flex items-center justify-between px-2 md:px-3 py-2">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden flex items-center gap-1 font-medium text-gray-800"
+              className="lg:hidden flex items-center gap-1 font-medium text-sm text-gray-800"
             >
               WOMEN <MdOutlineArrowDropDown className="text-xl" />
             </button>
@@ -121,7 +121,7 @@ export default function Navbar() {
               <img
                 src={mainlogo}
                 alt="Logo"
-                className="h-14 sm:ml-1 md:ml-34 md:h-18 lg:h-20 transition-all duration-200"
+                className="h-14 sm:ml-1 lg:ml-34 md:h-18 lg:h-20 transition-all duration-200"
               />
             </div>
 
@@ -150,7 +150,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="flex text-[8px] sm:text-sm md:text-[10px] gap-2 sm:gap-5 md:gap-10 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center pb-2 font-medium whitespace-nowrap">
+          <nav className="flex text-[10px] sm:text-sm md:text-[11px] gap-4 sm:gap-7 md:gap-12 px-4 sm:px-8 md:px-12 overflow-x-auto scrollbar-none hide-scrollbar justify-start sm:justify-center pb-2 font-medium whitespace-nowrap">
             {navItems.map((item) => (
               <button
                 key={item.label}

@@ -33,25 +33,24 @@ const ProductCard = ({ path,image, title, size = 'normal' }) => {
 }
 const BestProducts = ({products, columns }) => {
 
-console.log(products, "bestselling")
   return (
-    <section className="bg-white sm:px-2 md:px-6 lg:px-14">
-      <div className="container mx-auto sm:px-2 md:px-6 lg:px-8">
+    <section className="bg-white mt-4">
+      <div className="container mx-auto px-3 sm:px-3 md:px-6 lg:px-10">
 
         {/* Desktop/Tablet Layout */}
-        <div className="hidden md:grid md:grid-cols-2 gap-3 lg:gap-6">
+        <div className="hidden md:grid md:grid-cols-3 gap-2 md:gap-4">
           {/* Large left image */}
-          <div className={`md:col-span-${columns===2?8:6}`}>
-            <ProductCard
-              path = {products[0].path}
-              image={columns===2?products[0].images:products[3].images}
-              title={products[0].title}
-              size="large"
-            />
-          </div>
+            <div className={`md:col-span-${columns===2?2:4}`}>
+    <ProductCard
+      path={products[0].path}
+      image={columns===2?products[0].images:products[3].images}
+      title={products[0].title}
+      size="large"
+    />
+  </div>
 
           {/* Right column with 2x2 grid */}
-          <div className= {`md:col-span-${columns===2?4:6} grid grid-cols-${columns===2?1:2} gap-3 lg:gap-6` }>
+          <div className= {`md:col-span-${columns===2?4:2} grid grid-cols-${columns===2?1:2} gap-4` }>
   {products.slice(columns === 2 ? 1 : 4,columns === 2 ? 2 : 6).map((product) => (
     <ProductCard
      path = {product.path}
@@ -65,7 +64,7 @@ console.log(products, "bestselling")
         </div>
 
         {/* Mobile Layout - Responsive 1 or 2 column grid */}
-        <div className="grid grid-cols-2 xs:grid-cols-2 gap-2 md:hidden">
+        <div className="grid grid-cols-2 xs:grid-cols-2 md:hidden">
           {products.slice(0,2).map((product) => (
             <ProductCard
               key={product.id}

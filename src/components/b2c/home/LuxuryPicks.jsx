@@ -45,20 +45,20 @@ export default function LuxuryPicks() {
             <IoIosArrowBack size={20} className="text-gray-700" />
           </button>
 
-          {/* SCROLLABLE GRID */}
-          <div
-            id="luxuryScroll"
-            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
-          >
-            {products.map((product, index) => (
-              <div 
-                key={index} 
-                className="cursor-pointer"
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+                    {/* SCROLLABLE GRID */}
+                    <div
+                        ref={scrollContainerRef}
+                        className="flex gap-2 md:gap-4 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
+                    >
+                        {products.map((product, index) => (
+                            <div 
+                                key={index} 
+                                className="cursor-pointer"
+                            >
+                                <ProductCard product={product} />
+                            </div>
+                        ))}
+                    </div>
 
           {/* RIGHT ARROW */}
           <button
