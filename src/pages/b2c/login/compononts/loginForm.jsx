@@ -53,7 +53,7 @@ const LoginForm = ({ onOtpSent, onGuest }) => {
   };
 
   return (
-    <div className="bg-white py-6 w-full max-w-md mx-auto font-outfit mb-12">
+    <div className="bg-white py-2 sm:py-4 md:py-6  w-full max-w-md mx-auto font-outfit mb-12">
       <img
         src={loginBanner}
         alt="login-banner"

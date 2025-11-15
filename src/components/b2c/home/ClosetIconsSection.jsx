@@ -10,23 +10,23 @@ export default function ClosetIconsSection() {
   const {products, loading, error} = useProducts();
 
   return (
-    <section className="container mx-auto sm:px-2 md:px-2 lg:px-16">
+    <section className="container mx-auto px-2 sm:px-2 md:px-2 lg:px-16">
   
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         {/* LEFT ARROW */}
         <button
           onClick={() => scrollLeft("closetScroll")}
-          className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-yellowprimary shadow-lg transition-all duration-300"
+          className="hidden md:flex items-center justify-center w-10 h-9 p-2 rounded-full bg-yellowprimary shadow-lg transition-all duration-300"
           aria-label="Scroll left"
         >
           {/* <IoIosArrowBack size={22} /> */}
-          <FaArrowLeft size={15}  />
+          <FaArrowLeft size={18}  />
         </button>
 
         {/* SCROLLABLE CONTAINER */}
         <div
           id="closetScroll"
-          className="flex gap-2 md:gap-4 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
+          className="flex gap-2 md:gap-2 lg:gap-4 overflow-x-auto scrollbar-none hide-scrollbar scroll-smooth py-4 whitespace-nowrap"
         >
           {products.map((product) => (
             <div
@@ -41,7 +41,7 @@ export default function ClosetIconsSection() {
         {/* RIGHT ARROW */}
         <button
           onClick={() => scrollRight("closetScroll")}
-          className="hidden md:flex items-center justify-center w-15 h-10 rounded-full bg-yellowprimary shadow-lg transition-all duration-300"
+          className="hidden md:flex items-center justify-center w-15 h-10 p-2 rounded-full bg-yellowprimary shadow-lg transition-all duration-300"
           aria-label="Scroll right"
 
         >

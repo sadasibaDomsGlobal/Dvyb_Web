@@ -5,7 +5,7 @@ const ProductReviewCard = ({ review }) => {
   const { name, rating, comment, date, image } = review;
 
   return (
-    <div className="flex gap-3 border-b pb-3">
+    <div className="flex gap-3 pb-3">
       <img
         src={image}
         alt={name}

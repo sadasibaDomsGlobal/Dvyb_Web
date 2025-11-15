@@ -21,7 +21,7 @@ const HelpAndTryonSection = () => {
   ];
 
   return (
-    <div className="border-t pt-6 mt-6 pb-8">
+    <div className="items-startborder-t pt-6 mt-6 pb-8 bg-grey-200">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
         {helpItems.map((item, index) => (
           <div key={index} className="flex flex-col items-start gap-1">
@@ -37,7 +37,7 @@ const HelpAndTryonSection = () => {
           Do you need help with customisation or shipping of this product?
         </p>
 
-        <button className="flex items-center justify-center gap-2 border border-green-700 text-green-700 font-medium text-xs px-4 py-2 rounded-md hover:bg-green-700 hover:text-white transition mx-auto">
+        <button className="flex items-start gap-2 border border-green-700 text-green-700 font-medium text-xs px-4 py-2 hover:bg-green-700 hover:text-white transition mx-auto">
           <MessageCircle size={16} />
           Chat With Us
         </button>

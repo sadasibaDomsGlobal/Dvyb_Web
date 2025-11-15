@@ -1,4 +1,3 @@
-// src/hooks/useProductFilter.js
 import { useMemo } from 'react';
 import { useFilter } from '../context/FilterContext';
 
@@ -8,17 +7,27 @@ export const useProductFilter = (products = []) => {
   const filteredProducts = useMemo(() => {
     if (!Array.isArray(products) || products.length === 0) return [];
 
+    // Check if any filter is applied
+    const hasFilters =
+      (selectedFilters.categories?.length > 0) ||
+      (selectedFilters.sizes?.length > 0) ||
+      (selectedFilters.colors?.length > 0) ||
+      selectedFilters.priceMin != null ||
+      selectedFilters.priceMax != null ||
+      (selectedFilters.discounts?.length > 0);
+
+    if (!hasFilters) return products; // <-- If no filters, return all products
+
+    // Otherwise, filter products
     return products.filter(product => {
-      // === CATEGORY FILTER: EXACT MATCH ===
+      // === CATEGORY FILTER ===
       if (selectedFilters.categories?.length > 0) {
         const selectedCat = selectedFilters.categories[0];
         const productCat = product.category?.trim();
         const productDress = product.dressType?.trim();
-
         const matchesCategory =
           (productCat && productCat.toUpperCase() === selectedCat.toUpperCase()) ||
           (productDress && productDress.toUpperCase() === selectedCat.toUpperCase());
-
         if (!matchesCategory) return false;
       }
 

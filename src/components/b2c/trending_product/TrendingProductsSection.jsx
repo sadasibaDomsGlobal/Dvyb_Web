@@ -26,7 +26,7 @@ const TrendingProductsSection = () => {
 
   return (
     <div
-      className="border-t mt-8 pt-6 flex flex-col"
+      className="mt-8 pt-6 flex flex-col"
       style={{
         gap: "24px",
         width: "100%",

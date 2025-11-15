@@ -1,5 +1,6 @@
 import React from "react";
-import { Clock, Truck } from "lucide-react";
+import { Clock } from "lucide-react";
+import truck from "../../../../assets/ProductsPage/Vector.svg";
 
 const ProductStockAndShipping = ({ stock = 1, shippingDate = "18th of November" }) => {
   const isLowStock = stock <= 3; // customize threshold
@@ -15,7 +16,7 @@ const ProductStockAndShipping = ({ stock = 1, shippingDate = "18th of November" 
         </span>
 
         {isLowStock && (
-          <span className="ml-2 bg-red-600 text-white text-[10px] font-semibold px-2 py-[2px] rounded-sm uppercase tracking-wide">
+          <span className="ml-2 bg-red-600 text-white text-[10px] font-semibold px-2 py-[2px] uppercase tracking-wide">
             Hurry
           </span>
         )}
@@ -23,7 +24,16 @@ const ProductStockAndShipping = ({ stock = 1, shippingDate = "18th of November" 
 
       {/* Shipping Info */}
       <div className="flex items-start gap-2 text-gray-700 text-sm leading-relaxed">
-        <Truck size={16} className="text-gray-600 mt-[2px]" />
+        <img 
+          src={truck} 
+          alt="Shipping"
+          style={{
+            width: "18.33px",
+            height: "12.55px",
+            marginTop: "4.44px",
+            marginLeft: "1.51px"
+          }}
+        />
         <p>
           <span className="font-semibold text-gray-900">Standard Shipping : </span>
           The estimated shipping date for this product is by{" "}

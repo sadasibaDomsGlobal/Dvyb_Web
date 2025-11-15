@@ -35,11 +35,11 @@ export default function Home() {
 
 
   return (
-    <div className="mt-44">
+    <div>
 
 
       <section
-        className="w-full max-w-[95vw] md:h-[90vh] aspect-3/2 sm:aspect-16/7 md:aspect-16/7 lg:aspect-16/5 m-2 md:m-4 lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
+        className="w-full max-w-[95vw] md:h-[90vh] lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
       >
         <img
           onClick={()=>navigate("/womenwear")}
@@ -50,35 +50,34 @@ export default function Home() {
       </section>
 
       {/* 2. WEDDING TALES */}
-      <section className="container mx-auto py-12 px-0">
+      <section className="container mx-auto py-12 px-3">
         <SectionTitle viewAll>Wedding Tales</SectionTitle>
-        <ProductGrid products={wedding} columns={3} />
+        <ProductGrid products={wedding} columns={3} scroll={true} />
       </section>
 
       {/* 3. SHOP BY CATEGORY */}
-      <section className="py-4">
+      <section className="px-3">
         <div className="container mx-auto">
           <SectionTitle viewAll>Shop by Category</SectionTitle>
-          <CategoryCarousel />
+          <CategoryCarousel/>
         </div>
       </section>
 
       {/* 4. DISCOUNT COLLECTION */}
-      <section className="container mx-auto py-12 ">
+      <section className="container mx-auto px-3 pt-12">
         <SectionTitle viewAll>Discount Collection</SectionTitle>
         <ProductGrid products={discount} columns={4} />
       </section>
 
       {/* Luxurious Picks of the Day (from image) */}
-      <section className="container mx-auto py-12">
-        <SectionTitle>Luxurious Picks of the Day</SectionTitle>
+      <section className="container mx-auto pt-12">
         {/* <ProductGrid products={luxuryPicks} columns={4} /> */}
         <LuxuryPicks products={luxuryPicks} columns={4} />
       </section>
 
       {/* 5. SPOTLIGHT OF THE DAY */}
       {spotlight && (
-        <section className="container mx-auto py-12">
+        <section className="container mx-auto pt-12">
           {/* <SectionTitle>Spotlight of the Day</SectionTitle> */}
 
           <SpotlightCollections />
@@ -86,7 +85,7 @@ export default function Home() {
       )}
 
       {/* 6. BESTSELLING */}
-      <section className="container mx-auto py-12 ">
+      <section className="container mx-auto pt-12 px-3">
         <SectionTitle viewAll>Bestselling</SectionTitle>
         <BestProducts products={bestsellers} columns={2} />
         <ProductGrid products={wedding} columns={3} />
