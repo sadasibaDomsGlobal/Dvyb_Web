@@ -1,21 +1,36 @@
-// src/components/b2c/filters/FilterSection.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { useFilter } from '../../../context/FilterContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+// Import subcategories
+import subCategories from '../../../static/navbar/subCategories';
 
 // Define mapping directly in the file
 const categoryPathMap = {
-  'LEHENGA': '/womenwear?category=lehenga',
-  'SAREE': '/womenwear?category=saree',
-  'KURTA SETS': '/womenwear?category=kurta-sets',
-  'ANARKALIS': '/womenwear?category=anarkalis',
-  'SHARARAS': '/womenwear?category=shararas',
-  'PRÊT': '/womenwear?category=pret',
-  'FUSION': '/womenwear?category=fusion',
-  'WEDDING': '/womenwear?category=wedding',
-  'SALE': '/womenwear?category=sale',
-  'VIRTUAL TRYON': '/virtual-tryon',
+    'LEHENGA': '/womenwear?category=lehenga',
+    'SAREE': '/womenwear?category=saree',
+    'KURTA SETS': '/womenwear?category=kurta-sets',
+    'ANARKALIS': '/womenwear?category=anarkalis',
+    'SHARARAS': '/womenwear?category=shararas',
+    'PRÊT': '/womenwear?category=pret',
+    'FUSION': '/womenwear?category=fusion',
+    'WEDDING': '/womenwear?category=wedding',
+    'SALE': '/womenwear?category=sale',
+    'VIRTUAL TRYON': '/virtual-tryon',
+};
+
+// Map URL category params to subcategory keys
+const urlToSubcategoryKey = {
+    'lehenga': 'lehenga',
+    'saree': 'saree',
+    'kurta-sets': 'kurta-sets',
+    'anarkalis': 'anarkali',
+    'shararas': 'shararas',
+    'pret': 'pret',
+    'fusion': 'fusion',
+    'wedding': 'wedding',
+    'sale': 'sale'
 };
 
 const FilterSection = ({
@@ -27,41 +42,94 @@ const FilterSection = ({
 }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(defaultOpen);
+    const [displayItems, setDisplayItems] = useState(items);
     const { selectedFilters, updateFilter } = useFilter();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleCheckboxChange = (itemName) => {
-        // Only handle navigation for categories
-        if (filterType === 'categories') {
-            const normalizedName = itemName.toUpperCase().trim();
-
-            // Check if deselecting current category
-            const isCurrentlySelected = selectedFilters.categories[0] === itemName;
-            if (isCurrentlySelected) {
-                updateFilter(filterType, itemName); // clears category
-                navigate('/womenwear'); // go to base URL
-                return;
-            }
-
-            // Navigate to mapped path
-            const path = categoryPathMap[normalizedName];
-            if (path) {
-                updateFilter(filterType, itemName);
-                navigate(path);
-                return;
-            }
-        }
-
-        // For size, color, discount — just update filter
-        updateFilter(filterType, itemName);
+    // Get current category from URL
+    const getCurrentCategory = () => {
+        const params = new URLSearchParams(location.search);
+        const categoryParam = params.get('category');
+        return urlToSubcategoryKey[categoryParam] || null;
     };
 
-    const filtered = items
+    // Effect to switch between main categories and subcategories
+    useEffect(() => {
+        const currentCategory = getCurrentCategory();
+
+        if (filterType === 'categories' && currentCategory) {
+            // Show subcategories for the current main category
+            const subCategoryList = subCategories[currentCategory] || [];
+            const subCategoryItems = subCategoryList.map(subCat => ({
+                name: subCat,
+                count: 0 // You can calculate actual counts if available
+            }));
+            setDisplayItems(subCategoryItems);
+        } else {
+            // Show main categories
+            setDisplayItems(items);
+        }
+    }, [location.search, items, filterType]);
+
+    const handleMainCategoryClick = (categoryName) => {
+        const normalizedName = categoryName.toUpperCase().trim();
+
+        // Check if deselecting current category
+        const isCurrentlySelected = selectedFilters.categories[0] === categoryName;
+        if (isCurrentlySelected) {
+            updateFilter('categories', categoryName); // clears category
+            navigate('/womenwear'); // go to base URL
+            return;
+        }
+
+        // Navigate to mapped path for main category
+        const path = categoryPathMap[normalizedName];
+        if (path) {
+            updateFilter('categories', categoryName);
+            navigate(path);
+        }
+    };
+
+    const handleSubCategoryClick = (subCategoryName) => {
+        // For subcategories, use the 'categories' filter type but with subcategory values
+        updateFilter('categories', subCategoryName);
+    };
+
+    const filtered = displayItems
         .filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort((a, b) => b.count - a.count);
 
     const isChecked = (itemName) => {
-        return selectedFilters[filterType].includes(itemName);
+        const currentCategory = getCurrentCategory();
+
+        if (currentCategory) {
+            // We're in subcategory mode - check if this subcategory is selected
+            return selectedFilters.categories.includes(itemName);
+        } else {
+            // We're in main category mode - check if this main category is selected
+            return selectedFilters.categories.includes(itemName);
+        }
+    };
+
+    const getCurrentCategoryDisplayName = () => {
+        const currentCategory = getCurrentCategory();
+        if (!currentCategory) return null;
+
+        // Convert URL param to display name
+        const displayMap = {
+            'lehenga': 'LEHENGA',
+            'saree': 'SAREE',
+            'kurta-sets': 'KURTA SETS',
+            'anarkali': 'ANARKALIS',
+            'shararas': 'SHARARAS',
+            'pret': 'PRÊT',
+            'fusion': 'FUSION',
+            'wedding': 'WEDDING',
+            'sale': 'SALE'
+        };
+
+        return displayMap[currentCategory] || currentCategory;
     };
 
     return (
@@ -71,7 +139,14 @@ const FilterSection = ({
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full text-left mb-2"
             >
-                <h3 className="font-medium text-gray-900 text-sm">{title}</h3>
+                <div className="flex items-center gap-2">
+                    <h3 className="font-medium text-gray-900 text-sm">{title}</h3>
+                    {getCurrentCategory() && (
+                        <span className="text-xs text-gray-500">
+                            ({getCurrentCategoryDisplayName()})
+                        </span>
+                    )}
+                </div>
                 {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
 
@@ -93,20 +168,34 @@ const FilterSection = ({
 
                     <div className="space-y-1 max-h-40 overflow-y-auto hide-scrollbar text-xs">
                         {filtered.map((item, i) => (
-                            <label key={i} className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50">
+                            <label
+                                key={i}
+                                className="flex items-center justify-between cursor-pointer p-1 rounded hover:bg-gray-50"
+                            >
                                 <div className="flex items-center gap-2">
                                     <input
                                         type="checkbox"
                                         checked={isChecked(item.name)}
-                                        onChange={() => handleCheckboxChange(item.name)}
+                                        onChange={() => {
+                                            if (getCurrentCategory()) {
+                                                // We're in subcategory mode
+                                                handleSubCategoryClick(item.name);
+                                            } else {
+                                                // We're in main category mode  
+                                                handleMainCategoryClick(item.name);
+                                            }
+                                        }}
                                         className="rounded border-gray-300 text-gray-900 focus:ring-gray-500 w-3 h-3"
                                     />
-                                    <span className="text-gray-800">{item.name}</span>
+                                    <span className="text-black">{item.name}</span>
                                 </div>
-                                <span className="text-gray-500">({item.count})</span>
+                                {item.count > 0 && (
+                                    <span className="text-gray-500">({item.count})</span>
+                                )}
                             </label>
                         ))}
                     </div>
+
                 </div>
             )}
         </div>

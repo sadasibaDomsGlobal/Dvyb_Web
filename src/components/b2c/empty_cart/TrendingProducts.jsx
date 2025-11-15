@@ -1,20 +1,28 @@
-import ProductCard from "./ProductCard";
-import { trendingProducts } from "../../../static";
+import TrendingProductsSection from "../trending_product/TrendingProductsSection";
 
 const EmptyCartTrendingProducts = () => {
   return (
-    <div className="border-t border-gray-200 pt-12">
-      {/* Section Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-medium text-gray-900 mb-4">TRENDING PRODUCTS</h2>
-        <div className="w-24 h-1 bg-gray-300 mx-auto"></div>
-      </div>
+    <div className="w-full flex justify-center mt-[80px]">
+      <div
+        className="flex flex-col"
+        style={{
+          width: "100%",
+          maxWidth: "1080px",  
+          gap: "12px",          
+          paddingLeft: "16px",
+          paddingRight: "16px",
+        }}
+      >
+        {/* Section Header */}
+        <div className="text-center mb-4">
+          <h2 className="text-[24px] md:text-[32px] font-medium text-gray-900">
+            TRENDING PRODUCTS
+          </h2>
+          <div className="w-24 h-1 bg-gray-300 mx-auto mt-2"></div>
+        </div>
 
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {trendingProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {/* Trending Products Component */}
+        <TrendingProductsSection />
       </div>
     </div>
   );

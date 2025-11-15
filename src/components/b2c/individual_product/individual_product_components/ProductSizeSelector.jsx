@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
   const [selectedSize, setSelectedSize] = useState(null);
 
-  // Debug logs
+  // Debug
   useEffect(() => {
     console.group("🧩 ProductSizeSelector Data");
     console.log("Selected Sizes:", selectedSizes);
@@ -11,15 +11,15 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
     console.groupEnd();
   }, [selectedSizes, units]);
 
-  // Extract valid size keys (ignore colors like "pink_#DB7093")
+  // Extract valid size keys (ignore colors)
   const unitSizeKeys = Object.keys(units).filter(
     (key) => !key.includes("#") && !key.includes("_")
   );
 
-  // Combine unique display sizes
+  // Final size list
   const displaySizes = Array.from(new Set([...selectedSizes, ...unitSizeKeys]));
 
-  // Get stock for a size
+  // Get stock
   const getStockForSize = (size) => {
     const stock = units[size];
     return typeof stock === "number"
@@ -29,7 +29,7 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
       : 0;
   };
 
-  // Determine if size is available
+  // Check availability
   const isAvailable = (size) => getStockForSize(size) > 0;
 
   const handleSizeSelect = (size) => {
@@ -38,17 +38,80 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
   };
 
   return (
-    <div className="flex flex-col gap-3 relative">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <p className="text-md font-medium text-gray-800">Select Size</p>
-        <button className="text-sm text-gray-600 underline hover:text-gray-900 transition">
+    <div
+      className="flex flex-col"
+      style={{
+        width: "539.22px",
+        gap: "16px", // Figma GAP
+      }}
+    >
+      {/* ---------------------------------- */}
+      {/* HEADER SECTION (ONE LINE ALWAYS) */}
+      {/* ---------------------------------- */}
+      <div
+        className="flex items-center"
+        style={{
+          gap: "10px",
+          whiteSpace: "nowrap", // Prevent 2nd line
+        }}
+      >
+        {/* Title */}
+        <p
+          style={{
+            width: "auto",
+            height: "22px",
+            fontFamily: "Outfit, sans-serif",
+            fontWeight: 600,
+            fontSize: "16px",
+            lineHeight: "21.33px",
+            letterSpacing: "0.18px",
+            color: "#000000",
+            margin: 1,
+          }}
+        >
+          Select your size
+        </p>
+
+        {/* Size Guide */}
+        <button
+          style={{
+            fontFamily: "Outfit, sans-serif",
+            fontSize: "13px",
+            lineHeight: "21.33px",
+            letterSpacing: "0.18px",
+            color: "#E53935",
+            cursor: "pointer",
+            margin: 0,
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            transition: "0.2s",
+            whiteSpace: "nowrap",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.textDecoration = "underline";
+            e.target.style.color = "#B71C1C"; 
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.textDecoration = "none";
+            e.target.style.color = "#E53935"; 
+          }}
+        >
           Size Guide
         </button>
       </div>
 
-      {/* Size Buttons */}
-      <div className="flex flex-wrap gap-3 relative">
+      {/* ------------------------------- */}
+      {/* SIZE BOX ROW */}
+      {/* ------------------------------- */}
+      <div
+        className="flex flex-wrap"
+        style={{
+          width: "539.22px",
+          height: "51.56px",
+          gap: "16px",
+        }}
+      >
         {displaySizes.map((size, index) => {
           const available = isAvailable(size);
           const stock = getStockForSize(size);
@@ -58,28 +121,49 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
               <button
                 onClick={() => handleSizeSelect(size)}
                 disabled={!available}
-                className={`relative w-12 h-12 flex items-center justify-center rounded-md border text-sm font-medium transition 
-                  ${
-                    !available
-                      ? "border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed"
-                      : selectedSize === size
-                      ? "border-gray-900 bg-gray-900 text-white"
-                      : "border-gray-300 hover:border-gray-900"
-                  }`}
+                style={{
+                  width: "46.22px",
+                  height: "42.67px",
+                  borderRadius: "2px",
+                  fontFamily: "Outfit, sans-serif",
+                  fontSize: "14px",
+                  color: available ? "#000" : "#808080",
+                  background: available
+                    ? selectedSize === size
+                      ? "#000000"
+                      : "#FFFFFF"
+                    : "#F4F4F4",
+                  border: available
+                    ? selectedSize === size
+                      ? "1px solid #000000"
+                      : "0.89px solid #D8D8D8"
+                    : "0.89px solid #D8D8D8",
+                  cursor: available ? "pointer" : "not-allowed",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "0.2s",
+                }}
               >
                 {size === "FREE SIZE" ? "FREE" : size}
 
-                {/* ✅ Stock Badge — same design as your old version */}
+                {/* Stock Badge */}
                 {stock > 0 && (
                   <span
-                    className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-semibold px-1.5 py-[1px] rounded-full border-2 border-white"
+                    className="absolute"
                     style={{
-                      lineHeight: "1",
-                      minWidth: "18px",
-                      textAlign: "center",
+                      top: "-10px",
+                      right: "-10px",
+                      background: "#B76E79", // Your sample badge color
+                      color: "#fff",
+                      fontSize: "9px",
+                      padding: "2px 4px",
+                      borderRadius: "3px",
+                      fontFamily: "Outfit, sans-serif",
+                      fontWeight: 600,
                     }}
                   >
-                    {stock}
+                    {stock} LEFT
                   </span>
                 )}
               </button>
@@ -87,15 +171,6 @@ const ProductSizeSelector = ({ selectedSizes = [], units = {} }) => {
           );
         })}
       </div>
-
-      {/* Stock Info */}
-      {selectedSize && (
-        <p className="text-sm text-gray-600">
-          {getStockForSize(selectedSize) <= 1
-            ? "Only 1 left in stock!"
-            : `${getStockForSize(selectedSize)} items available`}
-        </p>
-      )}
     </div>
   );
 };

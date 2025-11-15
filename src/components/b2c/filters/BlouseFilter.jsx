@@ -9,7 +9,7 @@ export const useFilter = () => {
     return context;
 };
 
-export const FilterProvider = ({ children }) => {
+export const BlouseProvider = ({ children }) => {
     // Define categoryPathMap inside the component
     const categoryPathMap = {
         'LEHENGA': '/womenwear?category=lehenga',

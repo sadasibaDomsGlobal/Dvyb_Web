@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CountryCodeDropdown from "../../../../components/common/login/countryCodeDropdown";
-import { setupRecaptcha, sendOtp } from "../../../../services/otpService";
+import { setupRecaptcha, sendOtp, cleanupRecaptcha } from "../../../../services/otpService";
 import loginBanner from "@/assets/common/login/loginBanner.svg";
 
 const LoginForm = ({ onOtpSent, onGuest }) => {
@@ -9,27 +9,44 @@ const LoginForm = ({ onOtpSent, onGuest }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-  // Only run once on mount
-  setupRecaptcha("recaptcha-container");
-  return () => {
+    // Initialize reCAPTCHA when component mounts
+    const initializeRecaptcha = () => {
+      try {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          setupRecaptcha("recaptcha-container");
+          console.log("reCAPTCHA initialized");
+        }, 100);
+      } catch (error) {
+        console.error("Failed to initialize reCAPTCHA:", error);
+      }
+    };
+
+    initializeRecaptcha();
+
     // Cleanup on unmount
-    if (window.recaptchaVerifier) {
-      window.recaptchaVerifier.clear();
-      window.recaptchaVerifier = null;
-    }
-  };
-}, []);
+    return () => {
+      cleanupRecaptcha();
+    };
+  }, []);
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
+    
+    if (!mobile) {
+      alert("Please enter mobile number");
+      return;
+    }
+
     setLoading(true);
     try {
       const phoneNumber = `${countryCode}${mobile}`;
+      console.log("Sending OTP to:", phoneNumber);
       const confirmation = await sendOtp(phoneNumber);
       onOtpSent(confirmation, mobile);
     } catch (error) {
       console.error("Failed to send OTP:", error);
-      alert("Failed to send OTP. Try again.");
+      alert(`Failed to send OTP: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -50,14 +67,16 @@ const LoginForm = ({ onOtpSent, onGuest }) => {
             placeholder="Enter Mobile Number"
             className="flex-1 border border-border p-3 "
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={(e) => setMobile(e.target.value.replace(/\D/g, ''))} // Only numbers
             required
+            minLength={10}
+            maxLength={10}
           />
         </div>
         <button
           type="submit"
-          disabled={loading}
-          className="bg-primary text-white p-3  hover:bg-primary"
+          disabled={loading || mobile.length < 10}
+          className="bg-primary text-white p-3 hover:bg-primary disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           {loading ? "Sending..." : "SIGNUP / LOGIN"}
         </button>
@@ -76,6 +95,7 @@ const LoginForm = ({ onOtpSent, onGuest }) => {
           <a href="#" className="text-primaryLight">Privacy Policy</a>
         </div>
       </form>
+      {/* reCAPTCHA container - make sure it's in the DOM */}
       <div id="recaptcha-container"></div>
     </div>
   );

@@ -1,95 +1,107 @@
 import { React, useState } from "react";
-import { Star, Heart, Share2 } from "lucide-react";
+import { Heart, Share2 } from "lucide-react";
 
 const ProductTitleSection = ({ product }) => {
-    // Use title if present, fallback to name
-    const { title, name, description, rating } = product || {};
+    const { title, name, description } = product || {};
     const [isExpanded, setIsExpanded] = useState(false);
+
     const displayTitle = title || name;
 
-    /**
-     * Fallback rating 
-     * use 4.2if not provided
-     */
-    const displayRating = rating ?? 4.2;
-
-    /**
-     * Description handling with "See more" / "See less" functionality
-     */
     const maxLength = 120;
-    const isLongDescription = description && description.length > maxLength;
+    const isLongDescription =
+        description && description.length > maxLength;
+
     const displayText = isExpanded
         ? description
         : description?.slice(0, maxLength) + (isLongDescription ? "..." : "");
 
     return (
-        <div className="space-y-2">
+        <div className="flex flex-col" style={{ gap: "3px" }}>
 
-            {/* Product Title + Icons Row */}
+            {/* Title + Icons */}
             <div className="flex items-start justify-between">
 
-                {/* Title */}
+                {/* Product Title */}
                 {displayTitle && (
-                    <h1 className="text-2xl font-semibold text-gray-900">
+                    <h1
+                        style={{
+                            width: "384.12px",
+                            height: "22px",
+                            fontFamily: "Outfit, sans-serif",
+                            fontWeight: 500,
+                            fontSize: "24px",
+                            lineHeight: "21.33px",
+                            letterSpacing: "0.72px",
+                            color: "#000000",
+                            margin: 0,
+                            padding: 0,
+
+                            /* ⭐ FIX: Keep the title in one line */
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                        }}
+                    >
                         {displayTitle}
                     </h1>
+
                 )}
 
                 {/* Icons */}
-                <div className="flex items-center gap-3">
-                    {/* Share Icon */}
+                <div className="flex items-center" style={{ gap: "12px" }}>
                     <button
                         title="Share Product"
                         className="p-2 rounded-full hover:bg-gray-100 transition"
-                        onClick={() => console.log("Share product")}
                     >
                         <Share2 size={20} className="text-gray-700" />
                     </button>
 
-                    {/* Wishlist (Heart) Icon */}
                     <button
                         title="Add to Wishlist"
                         className="p-2 rounded-full hover:bg-gray-100 transition"
-                        onClick={() => console.log("Added to wishlist")}
                     >
                         <Heart size={20} className="text-gray-700 hover:text-red-500" />
                     </button>
                 </div>
             </div>
 
-            {/* Description with See More / See Less */}
+            {/* Description */}
             {description && (
-                <p className="text-gray-700 text-sm md:text-base space-y-1">
+                <div
+                    style={{
+                        width: "384.12px",
+                        fontFamily: "Outfit, sans-serif",
+                        fontWeight: 400,
+                        fontSize: "14px",
+                        lineHeight: "21.33px",
+                        letterSpacing: "0.42px", // 3% of 14px
+                        color: "#808080",
+                    }}
+                >
                     {displayText}
+
                     {isLongDescription && (
                         <button
-                            className="ml-1 text-blue-600 hover:underline font-medium space-y-2"
                             onClick={() => setIsExpanded(!isExpanded)}
+                            className="ml-1 hover:underline font-medium"
+                            style={{
+                                fontFamily: "Outfit, sans-serif",
+                                fontWeight: 400,
+                                fontSize: "14px",
+                                lineHeight: "21.33px",
+                                letterSpacing: "0.42px",
+                                color: "#808080",
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer",
+                                padding: 0,
+                            }}
                         >
                             {isExpanded ? "See less" : "See more"}
                         </button>
                     )}
-                </p>
+                </div>
             )}
-
-            
-
-            {/* Rating (always visible — defaults to 4.2) */}
-            <div className="flex items-center gap-1 mt-2 space-y-4">
-                {[...Array(5)].map((_, i) => (
-                    <Star
-                        key={i}
-                        size={18}
-                        className={`${i < Math.round(displayRating)
-                                ? "text-yellow-500 fill-yellow-500"
-                                : "text-gray-300"
-                            }`}
-                    />
-                ))}
-                <span className="ml-2 text-sm text-gray-600">
-                    {displayRating.toFixed(1)}
-                </span>
-            </div>
         </div>
     );
 };

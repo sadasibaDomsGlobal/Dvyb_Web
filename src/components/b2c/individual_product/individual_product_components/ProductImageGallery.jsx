@@ -52,9 +52,8 @@ const ProductImageGallery = ({ images = [] }) => {
           {images.map((_, i) => (
             <div
               key={i}
-              className={`w-2 h-2 rounded-full border ${
-                i === currentIndex ? "bg-gray-800" : "bg-gray-400"
-              }`}
+              className={`w-2 h-2 rounded-full border ${i === currentIndex ? "bg-gray-800" : "bg-gray-400"
+                }`}
             />
           ))}
         </div>
@@ -63,46 +62,93 @@ const ProductImageGallery = ({ images = [] }) => {
   };
 
   // ✅ Main desktop layout (original)
+  // ✅ Main desktop layout (updated)
   const DesktopGallery = () => (
     <div
-      className="hidden md:flex items-start justify-start gap-1"
-      style={{ width: "440px", height: "510px" }}
+      className="hidden md:flex relative"
+      style={{ width: "438px", height: "505px" }}
     >
-      {/* Thumbnails */}
-      <div className="flex flex-col gap-2 overflow-y-auto h-full w-[80px]">
-        {images.map((img, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedImage(img)}
-            className={`w-[70px] h-[90px] bg-gray-200 rounded-md overflow-hidden border ${
-              selectedImage === img ? "border-gray-50" : "border-transparent"
-            }`}
-          >
-            <img
-              src={img}
-              alt={`Thumbnail ${index}`}
-              className="w-full h-full object-cover"
-              onError={handleImageError}
-            />
-          </button>
-        ))}
+      {/* Thumbnail Column */}
+      <div className="flex flex-col absolute left-0" style={{ width: "128px" }}>
+
+        {/* Thumbnail 1 */}
+        <button
+          onClick={() => setSelectedImage(images[0])}
+          className="overflow-hidden"
+          style={{
+            width: "128px",
+            height: "148px",
+            marginBottom: "11px",
+          }}
+        >
+          <img
+            src={images[0]}
+            alt="Thumbnail 1"
+            className="w-full h-full object-cover"
+            onError={handleImageError}
+          />
+        </button>
+
+        {/* Thumbnail 2 */}
+        <button
+          onClick={() => setSelectedImage(images[1])}
+          className="overflow-hidden"
+          style={{
+            width: "128px",
+            height: "147px",
+            marginBottom: "11px",
+          }}
+        >
+          <img
+            src={images[1]}
+            alt="Thumbnail 2"
+            className="w-full h-full object-cover"
+            onError={handleImageError}
+          />
+        </button>
+
+        {/* Thumbnail 3 */}
+        <button
+          onClick={() => setSelectedImage(images[2])}
+          className="overflow-hidden"
+          style={{
+            width: "128px",
+            height: "191px",
+          }}
+        >
+          <img
+            src={images[2]}
+            alt="Thumbnail 3"
+            className="w-full h-full object-cover"
+            onError={handleImageError}
+          />
+        </button>
       </div>
 
       {/* Main Image */}
-      <div className="flex items-center justify-center w-[350px] h-full rounded-md bg-gray-200 overflow-hidden">
+      <div
+        className="absolute"
+        style={{
+          left: "138px",   // space from left
+          top: "1px",      // as required
+          width: "301px",
+          height: "463px",
+        }}
+      >
         {imageError ? (
           <div className="text-gray-400 text-sm">Image not available</div>
         ) : (
           <img
             src={selectedImage}
             alt="Product"
-            className="w-full h-full border border-gray-100 object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full h-full object-cover"
             onError={handleImageError}
           />
         )}
       </div>
     </div>
   );
+
 
   return (
     <>

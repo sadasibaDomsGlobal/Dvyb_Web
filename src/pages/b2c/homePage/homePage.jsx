@@ -1,7 +1,7 @@
 import CategoryCarousel from "../../../components/utils/CategoryCarousel";
 import ProductGrid from "../../../components/product/productGrid";
-import SectionTitle from "../../../components/utils/sectionTitle";
-import homeBanner from "../../../assets/B2C/landing/banner01.svg";
+import SectionTitle from "../../../components/utils/SectionTitle";
+import homeBanner from "../../../assets/b2c/landing/banner01.svg";
 import ClosetIconsSection from "../../../components/b2c/home/ClosetIconsSection";
 import { useProducts } from "../../../hooks/useProducts";
 import { useStaticProducts } from "../../../hooks/useStaticProducts";
@@ -9,7 +9,6 @@ import LuxuryPicks from "../../../components/b2c/home/LuxuryPicks";
 import SpotlightCollections from "../../../components/b2c/home/SpotlightCollections";
 import BestProducts from "../../../components/b2c/home/BestProducts";
 import { useNavigate } from "react-router-dom";
-
 
 
 export default function Home() {
@@ -80,7 +79,7 @@ export default function Home() {
       {/* 5. SPOTLIGHT OF THE DAY */}
       {spotlight && (
         <section className="container mx-auto py-12">
-          <SectionTitle>Spotlight of the Day</SectionTitle>
+          {/* <SectionTitle>Spotlight of the Day</SectionTitle> */}
 
           <SpotlightCollections />
         </section>
