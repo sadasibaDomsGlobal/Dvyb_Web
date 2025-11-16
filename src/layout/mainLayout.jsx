@@ -13,7 +13,7 @@ export default function MainLayout({ children }) {
 
       {/* Scrollable Content */}
       <main
-        className="flex-grow overflow-y-auto mt-26 sm:mt-24 md:mt-44"
+        className="flex-grow overflow-y-auto mt-26 sm:mt-24 md:mt-10"
       >
         {children}
       </main>

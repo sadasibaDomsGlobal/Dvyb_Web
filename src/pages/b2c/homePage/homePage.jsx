@@ -39,7 +39,7 @@ export default function Home() {
 
 
       <section
-        className="w-full max-w-[95vw] md:h-[90vh] lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
+        className="mt-22 w-full max-w-[95vw] md:h-[90vh] lg:mx-7 mx-auto overflow-hidden flex justify-center items-center "
       >
         <img
           onClick={()=>navigate("/womenwear")}
